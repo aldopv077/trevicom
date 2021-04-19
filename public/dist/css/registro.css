@@ -1,0 +1,82 @@
+html{
+ 
+}
+
+body{
+    background-color: transparent;
+}
+#advanced-search-form-1{
+   background-color: #fff;
+    max-width: 00px;
+    margin: 8px auto 0;
+    height: auto;
+
+    position: relative;
+    max-width: 750px;
+    padding: 10px;
+   
+}
+
+#advanced-search-form{
+   background-color: #fff;
+    max-width: 700px;
+    margin: 10px auto 0;
+    height: auto;
+
+    position: relative;
+    max-width: 880px;
+    padding: 30px;
+    background: rgba(255,255,255,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    color: black;
+}
+
+#advanced-search-form .form-control{
+    padding: 12px 20px;
+    height: auto;
+    border-radius: 2px;
+}
+
+#advanced-search-form .radio-inline{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#advanced-search-form .gender{
+    width: 30%;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#advanced-search-form .btn{
+    width: 30%;
+    margin: 0px auto 0;
+    display: block;
+    outline: none;
+}
+
+@media screen and (max-width: 800px){
+    #advanced-search-form .form-group{
+        width: 45%;
+    }
+
+    #advanced-search-form{
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 560px){
+    #advanced-search-form .form-group{
+        width: 100%;
+        margin-left: 0;
+    }  
+
+    #advanced-search-form h2{
+        padding-bottom: 20px;
+    margin: 10px 20px;
+    font-size: 24px;
+    color: #fff;
+    }
+}
