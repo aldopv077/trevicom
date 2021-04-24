@@ -1,46 +1,48 @@
-  <div class="container box" id="advanced-search-form-1">
-    <div class="btn-group" role="group" aria-label="Third group">
-    <a href="<?php echo base_url('Ordenes/index')?>" class="btn btn-outline-success float-right">Registrar</a>
-  </div>
-    <div class="btn-group" role="group" aria-label="Third group">
-      <a href="<?php echo base_url('Ordenes/consultar')?>" class="btn btn-outline-primary float-light">Consultar</a>
-    </div>
-    <div class="btn-group" role="group" aria-label="Third group">
-      <a href="<?php echo base_url('Ordenes/reasignar')?>" class="btn btn-outline-primary float-light">Reasignar</a>
-    </div>
-  </div>
+<?php
+    $perfil = $perfil2;
+?>
+<div class="container box" id="advanced-search-form">
 
-
- <div class="container box" id="advanced-search-form">
-
-        <h1 align="center">Reasignacion</h1>
+        <h1 align="center">Reportes</h1>
         <div class="table-responsive">          
           <div class="form-row">
-            <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
-            <div class="form-group col-md-4">
-              <label for="inputNo.Serie">No.Serie</label>
-              <input type="text" class="form-control" id="No.Serie" name="No.Serie" placeholder="No.Serie">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="exampleFormControlSelect1">Reasignar A:</label>
+            <input type="hidden" class="form-control" id="Usuario" name="Usuario" value=""> 
+            <div class="container"></div>           
+            <?php 
+                if($perfil == "Administrador"){
+            ?>
+            <div class="form-group col-md-6">
+              <label for="exampleFormControlSelect1">Nombre de tecnico:</label>
               <select class="form-control" id="exampleFormControlSelect1">
+                <option></option>
                 <option>Antonio</option>
-                <option>Ana</option>
                 <option>Aldo</option>
                 <option>Gabi</option>
                 <option>Pablo</option>
               </select>
             </div>
+            <?php }?>
+            <div class="form-group col-md-6">
+              <label for="exampleFormControlSelect1">Tipo de reporte:</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option></option>
+                <option>Sin revisar</option>
+                <option>Revisado</option>
+                <option>Terminado</option>
+                <option>En espera de piezas</option>
+                <option>Garantía</option>
+                <option>Terminado sin reparar</option>
+              </select>
+            </div>
+          <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-danger col-md-6">Generar Reporte</button>
           </div>
-          <table><nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-              <input class="form-control col-md-8" type="search" placeholder="" aria-label="Usuario">
-              <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
-            </form>
-          </nav></table>
+          <br>
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
               <tr>
+                <th>
+                  <center>No. de orden</center>
+                </th>
                 <th>
                   <center>Cliente</center>
                 </th>
@@ -51,10 +53,13 @@
                   <center>Marca</center>
                 </th>
                 <th>
-                  <center>No.serie</center>
+                  <center>Modelo</center>
                 </th>
                 <th>
                   <center>Falla</center>
+                </th>
+                <th>
+                  <center>Estatus</center>
                 </th>
               </tr>
             </thead>
@@ -64,6 +69,11 @@
           <tr>
             <td>
               <center>
+                228
+              </center>
+            </td>
+            <td>
+              <center>
                 Alberto
               </center>
             </td>
@@ -79,12 +89,17 @@
             </td>
             <td>
               <center>
-                2282515305
+                50a3s
               </center>
             </td>
             <td>
               <center>
                 no prende
+              </center>
+            </td>
+            <td>
+              <center>
+                Pendiente
               </center>
             </td>
           </tr>
@@ -92,6 +107,11 @@
           <tr>
             <td>
               <center>
+                228
+              </center>
+            </td>
+            <td>
+              <center>
                 Alberto
               </center>
             </td>
@@ -107,7 +127,7 @@
             </td>
             <td>
               <center>
-                2282515305
+                50a3s
               </center>
             </td>
             <td>
@@ -115,9 +135,12 @@
                 no prende
               </center>
             </td>
+            <td>
+              <center>
+                Pendiente
+              </center>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <br>
-    <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-success">Reasignar</button>

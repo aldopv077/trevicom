@@ -1,4 +1,5 @@
-  <div class="container box" id="advanced-search-form-1">
+
+<div class="container box" id="advanced-search-form-1">
     <div class="btn-group" role="group" aria-label="Third group">
     <a href="<?php echo base_url('Ordenes/index')?>" class="btn btn-outline-success float-right">Registrar</a>
   </div>
@@ -144,8 +145,6 @@
         </tbody>
         
       </table>
-      <a href="<?php echo base_url('Seguimiento/index')?>" name="Ingresar" Id="Ingresar" class="btn btn-danger">Agregar comentario</a>
-      <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-success">Entregar Equipo</button>
     </div>
 </body>
 </html>

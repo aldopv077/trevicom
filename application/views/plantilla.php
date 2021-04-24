@@ -121,23 +121,29 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="Orden/EditarOrden"
+                                        <a href="<?php echo base_url('Ordenes/reportes')?>"
                                             class="">
                                             <i class="far fa-file"></i>
                                             <p>Reportes</p>
                                         </a>
                                     </li>
                                      <li class="nav-item">
-                                        <a href="Orden/SeguimientoDeOrden"
+                                        <a href="<?php echo base_url('Seguimiento/index')?>"
                                             class="">
                                             <i class="fas fa-external-link-alt"></i>
                                             <p>Seguimiento De Orden</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="status">
-                                            <i class="nav-icon fas fa-address-book"></i>
-                                            <p>Status</p>
+                                        <a href="<?php echo base_url('Cotizaciones/index')?>">
+                                        <i class="fas fa-money-check-alt"></i>
+                                            <p>Cotizaciones</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url('Ordenes/inventario')?>">
+                                        <i class="fas fa-clipboard-check"></i>
+                                            <p>Inventario</p>
                                         </a>
                                     </li>
                                 </ul>
