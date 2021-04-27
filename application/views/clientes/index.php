@@ -21,103 +21,47 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead class="thead-light">
           <tr>
-            <th>
-              <center>Nombre</center>
-            </th>
-            <th>
-              <center>Telefono</center>
-            </th>
-            <th>
-              <center>Direccion</center>
-            </th>
-            <th>
-              <center>Correo</center>
-            </th>
-            <th>
-              <center></center>
-            </th>
-            <th>
-              <center></center>
-            </th>
+            <th><center>Nombre</center></th>
+            <th><center>Telefono</center></th>
+            <th><center>Celular</center></th>
+            <th><center>Direccion</center></th>
+            <th><center>Correo</center></th>
+            <th><center></center></th>
+            <th><center></center></th>
           </tr>
         </thead>
   
   
         <tbody>
-          <tr>
-            <td>
-              <center>
-                Alberto
-              </center>
-            </td>
-            <td>
-              <center>
-                2282515305
-              </center>
-            </td>
-            <td>
-              <center>
-                emiliano zapata
-              </center>
-            </td>
-            <td>
-              <center>
-                16610696@utgz.edu.mx
-              </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Clientes/editar')?>" class="btn btn-outline-primary">editar</a>
-                </div>
-              </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Clientes/')?>" class="btn btn-outline-danger">Eliminar</a>
-                </div>
-            </td>
-            </center>
-            </td>
-          </tr>
-  
-          <tr>
-            <td>
-              <center>
-                Alberto
-              </center>
-            </td>
-            <td>
-              <center>
-                2282515305
-              </center>
-            </td>
-            <td>
-              <center>
-                emiliano zapata
-              </center>
-            </td>
-             <td>
-            <center>
-              16610696@utgz.edu.mx
-            </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Clientes/editar')?>" class="btn btn-outline-primary">editar</a>
-                </div>
-              </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Clientes/')?>" class="btn btn-outline-danger">Eliminar</a>
-                </div>
-            </td>
-            </center>
-            </td>
+          <?php
+             foreach($clientes as $value){
+          ?>
+               <tr>
+                 <td><center><?php echo $value->Nombre.' '.$value->Paterno.' '.$value->Materno?></center></td>
+                 <td><center><?php echo $value->Direccion?></center></td>
+                 <td><center><?php echo $value->Telefono?></center></td>
+                 <td><center><?php echo $value->Celular?></center></td>
+                 <td><center><?php echo $value->Correo?></center></td>
+                 <td>
+                   <center>
+                       <div class="btn-group" role="group" aria-label="Third group">
+                          <a href="<?php echo base_url('Clientes/editar/').$value->IdCliente?>" class="btn btn-outline-primary">editar</a>
+                       </div>
+                   </center>
+                 </td>
+                 <td>
+                   <center>
+                      <div class="btn-group" role="group" aria-label="Third group">
+                        <a onclick="if(confirma() === false) return false" href="<?php echo base_url('Clientes/eliminar/').$value->IdCliente?>" class="btn btn-outline-danger">Eliminar</a>
+                      </div>
+                   </center>
+                 </td>
+               </tr>
+
+
+          <?php
+             }
+          ?>
           </tr>
   
         </tbody>

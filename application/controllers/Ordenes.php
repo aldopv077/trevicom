@@ -5,11 +5,14 @@ class Ordenes extends CI_Controller {
 
 	public function index()
 	{
-		$data['contenido'] = "ordenes/index";
-        $data['perfil'] = "Administrador";
-        $data['perfil2'] = "Técnico";
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$data['contenido'] = "ordenes/index";
+        	$data['perfil'] = $this->session->userdata('Perfil');
         
-		$this->load->view('plantilla',$data);
+			$this->load->view('plantilla',$data);
+		}
 	}
 
 	public function consultar(){

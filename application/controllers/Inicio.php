@@ -5,10 +5,14 @@ class Inicio extends CI_Controller {
 
 	public function index()
 	{
-		$data['contenido'] = "usuarios/index";
-		$data['perfil'] = "Administrador";
-		$data['perfil2'] = "Técnico";
-
-		$this->load->view('plantilla',$data);
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{	
+			$data['contenido'] = "usuarios/index";
+			$data['empleados'] = $this->ModUsuarios->listausuarios();
+        	$data['perfil'] = $this->session->userdata('Perfil');
+		
+			$this->load->view('plantilla',$data);
+		}
 	}
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title> Trevicom </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,6 +27,16 @@
   <link rel="stylesheet" href="<?php echo base_url('public/plugins/summernote/summernote-bs4.min.css')?>">
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('public/dist/css/registro.css')?>">
+
+  <script>
+            function confirma() {
+                if (confirm("¿Realmente desea eliminarlo?")) {
+                    alert("El registro ha sido eliminado");
+                } else {
+               return false;
+                }
+            }
+        </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php $perfil = $perfil?>
@@ -46,7 +56,7 @@
 
                     <li>
                         <div>
-                            <a class="dropdown-item" href="" onclick="">
+                            <a class="dropdown-item" href="<?php echo base_url('Login/cerrar_sesion')?>">
 
                                     <i class="nav-icon fas fa-power-off"></i>
                          </a>
@@ -72,6 +82,7 @@
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img src="<?php echo base_url('public/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
+                            <?php echo $this->session->userdata('Iniciales')?>
                         </div>
                         <div class="info">
                             <a href="auth.login" class="d-block">

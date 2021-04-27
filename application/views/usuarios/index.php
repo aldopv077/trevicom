@@ -46,82 +46,29 @@
             
 
         <tbody>
-          <tr>
-            <td>
-              <center>
-                Alberto
-              </center>
-            </td>
-            <td>
-              <center>
-                APV
-              </center>
-            </td>
-            <td>
-              <center>
-                16610696@utgz.edu.mx
-              </center>
-            </td>
-            <td>
-              <center>
-                2282515305
-              </center>
-            </td>
+            <?php foreach($empleados as $value){?>
+              <tr>
+            <td><center><?php echo $value->Nombre.' '. $value->Paterno?></center></td>
+            <td><center><?php echo $value->Iniciales?></center></td>
+            <td><center><?php echo $value->Correo?></center></td>
+            <td><center><?php echo $value->Telefono?></center></td>
             <td>
               <center>
                 <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Usuarios/editar')?>" type="button" class="btn btn-outline-primary">editar</a>
+                  <a href="<?php echo base_url('Usuarios/editar/').$value->IdEmpleado?> " type="button" class="btn btn-outline-primary">editar</a>
                 </div>
               </center>
             </td>
             <td>
               <center>
                 <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="#" type="button" class="btn btn-outline-danger">Eliminar</a>
-                </div>
-                </td>
-              </center>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <center>
-                Alberto
-              </center>
-            </td>
-            <td>
-              <center>
-                APV
-              </center>
-            </td>
-            <td>
-              <center>
-                16610696@utgz.edu.mx
-              </center>
-            </td>
-            <td>
-              <center>
-                2282515305
-              </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="<?php echo base_url('Usuarios/editar')?>" type="button" class="btn btn-outline-primary">editar</a>
-                </div>
-              </center>
-            </td>
-            <td>
-              <center>
-                <div class="btn-group" role="group" aria-label="Third group">
-                  <a href="#" type="button" class="btn btn-outline-danger">Eliminar</a>
+                  <a onclick="if(confirma() === false) return false" href="<?php echo base_url('Usuarios/Eliminar/').$value->IdEmpleado;?>" type="button" class="btn btn-outline-danger">Eliminar</a>
                 </div>
             </td>
             </center>
             </td>
           </tr>
-
+            <?php }?>
         </tbody>
       </table>
 

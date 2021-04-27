@@ -9,65 +9,62 @@
 
     <div class="container box col-md-12" id="advanced-search-form">
       <h1 align="center">Registro</h1>
-      <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
+      <form name="FrmRegistro" Id="FrmRegistro" method="post" action="<?php echo base_url('Clientes/agregar')?>">
         <div class="form-row">
-          <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
           <div class="form-group col-md-4">
-            <label for="inputNombre">Nombre</label>
-            <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
+            <label for="Nombre">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputParterno">Apellido Parterno</label>
-            <input type="text" class="form-control" id="Parterno" name="Parterno" placeholder="Apellido Parterno">
+            <label for="Paterno">Primer Apellido</label>
+            <input type="text" class="form-control" id="Parterno" name="Paterno" placeholder="Primer Apellido" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputMaterno">Apellido Materno</label>
-            <input type="Nombre" class="form-control" id="Materno" name="Materno" placeholder="Materno">
+            <label for="Materno">Segundo Apellido</label>
+            <input type="text" class="form-control" id="Materno" name="Materno" placeholder="Segundo Apellido">
           </div>
         </div>
 
         <div class="form-row">
-          <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
-
           <div class="form-group col-md-4">
-            <label for="inputDireccion">Direccion</label>
-            <input type="text" class="form-control" id="Direccion" name="Direccion" placeholder="Direccion completa">
+            <label for="Direccion">Dirección</label>
+            <input type="text" class="form-control" id="Direccion" name="Direccion" placeholder=" Nombre de Calle/Avenida/Callejón/privada" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputNo.Exterior">No.Exterior</label>
-            <input type="text" class="form-control" id="No.Exterior" name="No.Exterior" placeholder="No.Exterior">
+            <label for="No.Exterior">No.Exterior</label>
+            <input type="text" class="form-control" id="Exterior" name="Exterior" placeholder="No.Exterior" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputNo.Interior">No.Interior</label>
-            <input type="text" class="form-control" id="No.Interior" name="No.Interior" placeholder="No.Interior">
+            <label for="No.Interior">No.Interior</label>
+            <input type="text" class="form-control" id="Interior" name="Interior" placeholder="No.Interior">
           </div>
           <div class="form-group col-md-4">
-            <label for="inputColonia">Colonia</label>
-            <input type="text" class="form-control" id="Colonia" name="Colonia" placeholder="Colonia">
+            <label for="Colonia">Colonia</label>
+            <input type="text" class="form-control" id="Colonia" name="Colonia" placeholder="Colonia" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputCiudad">Ciudad</label>
-            <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Ciudad">
+            <label for="Ciudad">Ciudad</label>
+            <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Ciudad" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputCodigopostal">Codigo Postal</label>
-            <input type="text" class="form-control" id="Codigopostal" name="Codigopostal" placeholder="Codigo Postal">
+            <label for="Codigopostal">Codigo Postal</label>
+            <input type="text" class="form-control" id="CodigoPostal" name="CodigoPostal" placeholder="Codigo Postal" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputCorreo">Correo</label>
-            <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo">
+            <label for="Correo">Correo</label>
+            <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo">
           </div>
           <div class="form-group col-md-4">
-            <label for="inputTelefono">Telefono</label>
-            <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+            <label for="Telefono">Telefono</label>
+            <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputCelular">Celular</label>
-            <input type="text" class="form-control" id="Celular" name="Celular" placeholder="Celular">
+            <label for="Celular">Celular</label>
+            <input type="text" class="form-control" id="Celular" name="Celular" placeholder="Celular" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputClienteMacro">Cliente Macro</label>
-            <input type="text" class="form-control" id="ClienteMacro" name="ClienteMacro" placeholder="Cliente MACRO">
+            <label for="Macro">Cliente Macro</label>
+            <input type="text" class="form-control" id="Macro" name="Macro" placeholder="Cliente MACRO" required>
           </div>
         </div>
         <br>

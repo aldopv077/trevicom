@@ -5,10 +5,15 @@
   <div class="btn-group" role="group" aria-label="Third group">
       <a href="<?php echo base_url('Ordenes/consultar')?>" class="btn btn-outline-primary float-light">Consultar</a>
   </div>
-  <div class="btn-group" role="group" aria-label="Third group">
-      <a href="<?php echo base_url('Ordenes/reasignar')?>" class="btn btn-outline-primary float-light">Reasignar</a>
-    </div>
-  </div>
+  <?php 
+    $Perfil = $perfil;
+
+    if($Perfil == "Administrador"){
+  ?>
+        <div class="btn-group" role="group" aria-label="Third group">
+          <a href="<?php echo base_url('Ordenes/reasignar')?>" class="btn btn-outline-primary float-light">Reasignar</a>
+        </div>
+  <?php }?>
   
 
 
