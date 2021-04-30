@@ -82,7 +82,7 @@
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img src="<?php echo base_url('public/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
-                            <?php echo $this->session->userdata('Iniciales')?>
+                            <?php echo $this->session->userdata('Iniciales').'-'. $this->session->userdata('Nombre');?>
                         </div>
                         <div class="info">
                             <a href="auth.login" class="d-block">
@@ -100,12 +100,12 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item has-treeview">
+                            <!--<li class="nav-item has-treeview">
                                 <a href="<?php echo base_url('Inicio/index')?>" class="nav-link">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Inicio</p>
                                 </a>
-                            </li>
+                            </li>-->
                             <?php 
                                 if($perfil == "Administrador"){
                             ?>

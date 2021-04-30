@@ -17,15 +17,15 @@
                 <input type="hidden" id="Id" name="Id" value="<?php echo $value->IdEmpleado?>">
                 <div class="form-group col-md-4">
                   <label for="Nombre">Nombre</label>
-                  <input type="text" class="form-control" id="Nombre" name="Nombre" value="<?php echo $value->Nombre ?>" required>
+                  <input type="text" class="form-control" id="Nombre" name="Nombre" value="<?php echo $value->Nombre ?>"   required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Parterno">Apellido Parterno</label>
-                  <input type="text" class="form-control" id="Paterno" name="Paterno" value="<?php echo $value->Paterno ?>" required>
+                  <input type="text" class="form-control" id="Paterno" name="Paterno" value="<?php echo $value->Paterno ?>"  required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Materno">Apellido Materno</label>
-                  <input type="text" class="form-control" id="Materno" name="Materno" value="<?php echo $value->Materno ?>" required>
+                  <input type="text" class="form-control" id="Materno" name="Materno" value="<?php echo $value->Materno ?>"  required>
                 </div>
               </div>
 
@@ -44,11 +44,11 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Usuario">Iniciales</label>
-                  <input type="text" class="form-control" id="Usuario" name="Usuario" value="<?php echo $value->Iniciales ?>" required>
+                  <input type="text" class="form-control" id="Usuario" name="Usuario" value="<?php echo $value->Iniciales ?>"  required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Correo">Correo</label>
-                  <input type="text" class="form-control" id="Correo" name="Correo" value="<?php echo $value->Correo ?>" required>
+                  <input type="text" class="form-control" id="Correo" name="Correo" value="<?php echo $value->Correo ?>"  required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Password">Contraseña</label>

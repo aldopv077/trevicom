@@ -29,7 +29,7 @@
 
               <div class="form-row">               
                 <div class="form-group col-md-4">
-                  <label for="Telefono">Telefono</label>
+                  <label for="Telefono">Teléfono</label>
                   <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono" required>
                 </div>
                 <div class="form-group col-md-4">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Correo">Correo</label>
-                  <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo" required>
+                  <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo" required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Password">Contraseña</label>

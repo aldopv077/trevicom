@@ -22,130 +22,50 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead class="thead-light">
         <tr>
-          <th>
-            <center>Empresa</center>
-          </th>
-          <th>
-            <center>Direccion</center>
-          </th>
-          <th>
-            <center>Telefono</center>
-          </th>
-          <th>
-            <center>Contacto</center>
-          </th>
-          <th>
-            <center>Correo</center>
-          </th>
-          <th colspan="3">
-            <center>Acciones</center>
-          </th>
+          <th><center>Empresa</center></th>
+          <th><center>Dirección</center></th>
+          <th><center>Télefono</center></th>
+          <th><center>Contacto</center></th>
+          <th><center>Teléfono de Contacto</center></th>
+          <th><center>Correo de Contacto</center></th>
+          <th colspan="3"><center>Acciones</center></th>
         </tr>
       </thead>
 
 
       <tbody>
+        <?php foreach($empresas as $value){ ?>
         <tr>
-          <td>
-            <center>
-              Trevicon
-            </center>
-          </td>
-          <td>
-            <center>
-              16610696@utgz.edu.mx
-            </center>
-          </td>
-          <td>
-            <center>
-              2282515305
-            </center>
-          </td>
-          <td>
-            <center>
-              Contacto
-            </center>
-          </td>
-          <td>
-            <center>
-              Correo
-            </center>
-          </td>
-          
+          <td><center><?php echo $value->Nombre?></center></td>
+          <td><center><?php echo $value->Direccion?></center></td>
+          <td><center><?php echo $value->Telefono?></center></td>
+          <td><center><?php echo $value->NombreCont.' '.$value->PaternoCont.' '.$value->MaternoCont?></center></td>
+          <td><center><?php echo $value->TelefonoCont?></center></td>
+          <td><center><?php echo $value->CorreoCont?></center></td>
           <td>
             <center>
               <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Contacto/registrar')?>" class="btn btn-outline-primary">nuevo contacto</a>
+                <a href="<?php echo base_url('Contactos/registrar/').$value->Id?>" class="btn btn-outline-primary">nuevo contacto</a>
+               </div>
+             </center>
+          </td>
+          <td>
+            <center>
+              <div class="btn-group" role="group" aria-label="Third group">
+                <a href="<?php echo base_url('Empresas/editar/').$value->Id?>" class="btn btn-outline-primary">editar</a>
               </div>
             </center>
           </td>
           <td>
             <center>
               <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Empresas/editar')?>" class="btn btn-outline-primary">editar</a>
-              </div>
-            </center>
-          </td>
-          <td>
-            <center>
-              <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Empresas/')?>" class="btn btn-outline-danger">Eliminar</a>
+                <a onclick="if(confirma() === false) return false" href="<?php echo base_url('Empresas/eliminar/').$value->Id?>" class="btn btn-outline-danger">Eliminar</a>
               </div>
           </td>
           </center>
           </td>
         </tr>
-
-        <tr>
-          <td>
-            <center>
-              Alberto
-            </center>
-          </td>
-          <td>
-            <center>
-              16610696@utgz.edu.mx
-            </center>
-          </td>
-          <td>
-            <center>
-              2282515305
-            </center>
-          </td>
-          <td>
-            <center>
-              Contacto
-            </center>
-          </td>
-          <td>
-            <center>
-              Correo
-            </center>
-          </td>
-          
-          <td>
-            <center>
-              <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Contactos/registrar')?>" class="btn btn-outline-primary">nuevo contacto</a>
-              </div>
-            </center>
-          </td>
-          <td>
-            <center>
-              <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Empresas/editar')?>" class="btn btn-outline-primary">editar</a>
-              </div>
-            </center>
-          </td>
-          <td>
-            <center>
-              <div class="btn-group" role="group" aria-label="Third group">
-                <a href="<?php echo base_url('Empresas/')?>" class="btn btn-outline-danger">Eliminar</a>
-              </div>
-          </td>
-          </center>
-          </td>
-        </tr>
+        <?php }?>
 
       </tbody>
     </table>

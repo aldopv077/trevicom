@@ -19,26 +19,43 @@ class Login extends CI_Controller {
         if(isset($datos)){
             $Usuario = $datos['Usuario'];
             $Pass = $datos['Pass'];
+            $contador = 0;
 
             $datosusuario = $this->ModLogin->login($Usuario, $Pass);
 
-            //print_r($datosusuario);
-            //exit;
+            foreach($datosusuario as $value){
+                if(password_verify($Pass, $value->Pass)){
+                     $contador++;
+                 }
+             }
 
-            if($datosusuario == true){
-                $usuario = array(
-                    'is_logued_in' =>       TRUE,
-                    'Id'           =>       $datosusuario->IdEmpleado,
-                    'Iniciales'	   =>		$datosusuario->Iniciales,
-                    'Perfil'       =>       $datosusuario->Puesto,
-                );
-                $this->session->set_userdata($usuario);
+             if($contador == 1){
+                 //Se crea la sesión
+                foreach($datosusuario as $usuario){
+                    //Verifica si el usuario se encuetra activo
+                    if(password_verify($Pass, $usuario->Pass)){
+                        if($usuario->Activo == 1){  
+                            $datos = array(
+                                'is_logued_in' =>       TRUE,
+                                'Id'           =>       $usuario->IdEmpleado,
+                                'Nombre'       =>       $usuario->Nombre.' '.$usuario->Paterno,
+                                'Iniciales'	   =>		$usuario->Iniciales,
+                                'Perfil'       =>       $usuario->Puesto,
+                            );
+                        }else{   
+                            echo '<script> alert("Usuario y contraseña incorrectas"); </script>';
+                            redirect('Login/index', 'refresh');
+                        }
+                    }                    
+                }
+
+                $this->session->set_userdata($datos);
                 redirect('Ordenes/index');
-
-            }else{
-                echo '<script> alert("Usuario o contraseña incorrectos");</script>';
+             }
+             else if($contador > 1){
+                echo '<script> alert("Solicitar cambio de contraseña"); </script>';
                 redirect('Login/index', 'refresh');
-            }
+             }
         }
     }
 

@@ -52,7 +52,8 @@ class Clientes extends CI_Controller {
 					'Colonia' => $datos['Colonia'],
 					'Ciudad' => $datos['Ciudad'],
 					'CP' => $datos['CodigoPostal'],
-					'Macro' => $datos['Macro']
+					'Macro' => $datos['Macro'],
+					'Activo' => 1
 				);
 			
 				$ingresar = $this->ModClientes->ingresar($cliente);
@@ -68,14 +69,68 @@ class Clientes extends CI_Controller {
 		}
 	}
 
+	//Busqueda del cliente a editar los datos
+	public function editar($Id){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			if($Id != NULL){
+				$data['contenido'] = "clientes/editar";
+				$data['cliente'] = $this->ModClientes->busqueda($Id);
+				$data['perfil'] = $this->session->userdata('Perfil');
 
+				$this->load->view('plantilla',$data);
+			}
+		}
+	}
 
+	//Captura los datos del formulario editar para mandarlos al modelo
+	public function actualizar(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$datos = $this->input->post();
 
-	public function editar(){
-		$data['contenido'] = "clientes/editar";
-		$data['perfil'] = "Administrador";        
-        $data['perfil2'] = "Técnico";
+			if(isset($datos)){
+				$Id = $datos['Id'];
+				$cliente = array(
+					'Nombre' => $datos['Nombre'],
+					'Paterno' => $datos['Paterno'],
+					'Materno' => $datos['Materno'],
+					'Telefono' => $datos['Telefono'],
+					'Celular' => $datos['Celular'],
+					'Correo' => $datos['Correo'],
+					'Direccion' => $datos['Direccion'],
+					'NoExterior' => $datos['Exterior'],
+					'NoInterior' => $datos['Interior'],
+					'Colonia' => $datos['Colonia'],
+					'Ciudad' => $datos['Ciudad'],
+					'CP' => $datos['CodigoPostal'],
+					'Macro' => $datos['Macro'],
+				);
 
-		$this->load->view('plantilla',$data);
+				$ingresar = $this->ModClientes->editar($Id, $cliente);
+
+				if($ingresar){
+					echo'<script> alert("Cliente registrado"); </script>';
+                	redirect('Clientes/index', 'refresh');
+				}else{
+					echo'<script> alert("Ha ocurrido un error verificar con el administrador"); </script>';
+                	redirect('Usuarios/registrar', 'refresh');
+				}
+			}
+		}
+	}
+
+	//Cambiar el estado del cliente a inactivo
+	public function eliminar($Id){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			if($Id != NULL){
+            	$this->ModClientes->eliminar($Id);
+            	redirect('Clientes/index');
+        	}
+		}
 	}
 }

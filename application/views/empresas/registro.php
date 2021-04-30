@@ -12,83 +12,77 @@
  <div class="container box" id="advanced-search-form"> 
   <h1 align="center">Registrar</h1>
         <h1 align="center">Datos de la empresa</h1>
+        <h3 align="center">Los campos marcados con * son obligatorios</h3>
         <br>
-        <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
+        <form name="FrmRegistro" Id="FrmRegistro" method="post" action="<?php echo base_url('Empresas/ingresar')?>">
            <div class="form-row">
-                <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
                 <div class="form-group col-md-4">
-                  <label for="inputNombre">Nombre</label>
-                  <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
+                  <label for="Nombre">* Nombre</label>
+                  <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre" required required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputDireccion">Direccion</label>
-                  <input type="text" class="form-control" id="Direccion" name="Direccion" placeholder="Direccion completo">
+                  <label for="Direccion">* Dirección</label>
+                  <input type="text" class="form-control" id="Direccion" name="Direccion" placeholder="Calle/Privada/Callejón/Avenida" required>
                 </div><div class="form-group col-md-4">
-                  <label for="inputNo.Exterior">No.Exterior</label>
-                  <input type="text" class="form-control" id="No.Exterior" name="No.Exterior" placeholder="No.Exterior">
+                  <label for="NoExterior">* No.Exterior</label>
+                  <input type="text" class="form-control" id="NoExterior" name="NoExterior" placeholder="No.Exterior" required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputNo.Interior">No.Interior</label>
-                  <input type="text" class="form-control" id="No.Interior" name="No.Interior" placeholder="No.Interior">
+                  <label for="NoInterior">No.Interior</label>
+                  <input type="text" class="form-control" id="NoInterior" name="NoInterior" placeholder="No.Interior">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputColonia">Colonia</label>
-                  <input type="text" class="form-control" id="Colonia" name="Colonia" placeholder="Colonia">
+                  <label for="Colonia">* Colonia</label>
+                  <input type="text" class="form-control" id="Colonia" name="Colonia" placeholder="Colonia" required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputCodigopostal">Codigo Postal</label>
-                  <input type="text" class="form-control" id="Codigopostal" name="Codigopostal" placeholder="Codigo Postal">
+                  <label for="CodigoPostal">Código Postal</label>
+                  <input type="text" class="form-control" id="CodigoPostal" name="CodigoPostal" placeholder="Código Postal">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputCiudad">Ciudad</label>
-                  <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Ciudad">
+                  <label for="Ciudad">* Ciudad</label>
+                  <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Ciudad" required>
                 </div>                
                 <div class="form-group col-md-4">
-                  <label for="inputTelefono">Telefono</label>
-                  <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+                  <label for="Telefono">* Teléfono</label>
+                  <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Télefono" required>
                 </div>                
                 <div class="form-group col-md-4">
-                  <label for="inputDependencia">Dependencia</label>
+                  <label for="Dependencia">Dependencia</label>
                   <input type="text" class="form-control" id="Dependencia" name="Dependencia" placeholder="Dependencia">
                 </div>                                
                 <div class="form-group col-md-4">
-                  <label for="inputMacro">Macro</label>
-                  <input type="text" class="form-control" id="Macro" name="Macro" placeholder="Macro">
+                  <label for="Macro">* Macro</label>
+                  <input type="text" class="form-control" id="Macro" name="Macro" placeholder="Macro" required>
                 </div>
               </div>
               <h1 align="center">Datos del contacto</h1>
               <br>
               <div class="form-row">
-                <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
                 <div class="form-group col-md-4">
-                  <label for="inputNombre">Nombre</label>
-                  <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
+                  <input type="hidden" name="Principal" Id="Principal" value="1">
+                  <label for="NombreCont">* Nombre</label>
+                  <input type="text" class="form-control" id="NombreCont" name="NombreCont" placeholder="Nombre" required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputParterno">Apellido Parterno</label>
-                  <input type="text" class="form-control" id="Parterno" name="Parterno" placeholder="Apellido Parterno">
+                  <label for="PaternoCont">* Primer Apellido</label>
+                  <input type="text" class="form-control" id="PaternoCont" name="PaternoCont" placeholder="Primer Apellido" required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputMaterno">Apellido Materno</label>
-                  <input type="Nombre" class="form-control" id="Materno" name="Materno" placeholder="Materno">
+                  <label for="MaternoCont">Segundo Apellido</label>
+                  <input type="text" class="form-control" id="MaternoCont" name="MaternoCont" placeholder="Segundo Apellido">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="Departamento">Departamento</label>
-                  <select class="form-control" id="Departamento">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
+                  <label for="DepartamentoCont">* Departamento</label>
+                  <input type="text" class="form-control" id="DepartamentoCont" name="DepartamentoCont" placeholder="Departamento" required>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputTelefono">Telefono</label>
-                  <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+                  <label for="TelefonoCont">* Teléfono</label>
+                  <input type="text" class="form-control" id="TelefonoCont" name="TelefonoCont" placeholder="Télefono" required>
                 </div>  
                 <div class="form-group col-md-4">
-                  <label for="inputCorreo">Correo</label>
-                  <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo">
+                  <label for="CorreoCont">Correo</label>
+                  <input type="email" class="form-control" id="CorreoCont" name="CorreoCont" placeholder="Correo electrónico">
                 </div>
               </div>   
               <br>

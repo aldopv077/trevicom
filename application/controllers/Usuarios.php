@@ -43,6 +43,9 @@ class Usuarios extends CI_Controller {
 
 			if(isset($datform)){
 			
+				//cifrado de password
+				$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
+
 				$arrayUsuario = array(
 					'Nombre' => $datform['Nombre'],
 					'Paterno' => $datform['Paterno'],
@@ -51,7 +54,7 @@ class Usuarios extends CI_Controller {
 					'Puesto' => $datform['Puesto'],
 					'Iniciales' => $datform['Usuario'],
 					'Correo' => $datform['Correo'],
-					'Pass' => $datform['Password'],
+					'Pass' => $pass,
 					'Activo' => 1,
 				);
 
@@ -94,6 +97,8 @@ class Usuarios extends CI_Controller {
 			if(isset($datform)){
 				$Id = $datform['Id'];
 
+				$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
+
 				$usuario = array(
 					'Nombre' => $datform['Nombre'],
 					'Paterno' => $datform['Paterno'],
@@ -102,7 +107,7 @@ class Usuarios extends CI_Controller {
 					'Puesto' => $datform['Puesto'],
 					'Iniciales' => $datform['Usuario'],
 					'Correo' => $datform['Correo'],
-					'Pass' => $datform['Password'],
+					'Pass' => $pass,
 					'Activo' => 1,
 				);
 

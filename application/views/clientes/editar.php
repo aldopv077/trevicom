@@ -9,69 +9,69 @@
 
 <div class="container box" id="advanced-search-form">
   <h1 align="center">Editar</h1>
-  <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
+  <form name="FrmEditarCli" Id="FrmEditarCli" method="post" action="<?php echo base_url('Clientes/actualizar')?>">
+    <?php foreach($cliente as $cli){?>
     <div class="form-row">
-      <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
+      <input type="hidden" class="form-control" id="Id" name="Id" value="<?php echo $cli->IdCliente?>">
       <div class="form-group col-md-4">
-        <label for="inputNombre">Nombre</label>
-        <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
+        <label for="Nombre">Nombre</label>
+        <input type="Nombre" class="form-control" id="Nombre" name="Nombre"  value="<?php echo $cli->Nombre?>">
       </div>
       <div class="form-group col-md-4">
-        <label for="inputParterno">Apellido Parterno</label>
-        <input type="text" class="form-control" id="Parterno" name="Parterno" placeholder="Apellido Parterno">
+        <label for="Paterno">Primer Apellido</label>
+        <input type="text" class="form-control" id="Paterno" name="Paterno"  value="<?php echo $cli->Paterno?>">
       </div>
       <div class="form-group col-md-4">
-        <label for="inputMaterno">Apellido Materno</label>
-        <input type="Nombre" class="form-control" id="Materno" name="Materno" placeholder="Materno">
+        <label for="Materno">Segundo Apellido</label>
+        <input type="Nombre" class="form-control" id="Materno" name="Materno" value="<?php echo $cli->Materno?>">
       </div>
       </div>
       
-      <div class="form-row">
-        <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
-      
+      <div class="form-row">      
         <div class="form-group col-md-4">
-          <label for="inputDireccion">Direccion</label>
-          <input type="text" class="form-control" id="Direccion" name="Direccion" placeholder="Direccion completa">
+          <label for="Direccion">Direccion</label>
+          <input type="text" class="form-control" id="Direccion" name="Direccion" value="<?php echo $cli->Direccion?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputNo.Exterior">No.Exterior</label>
-          <input type="text" class="form-control" id="No.Exterior" name="No.Exterior" placeholder="No.Exterior">
+          <label for="No.Exterior">No.Exterior</label>
+          <input type="text" class="form-control" id="Exterior" name="Exterior" value="<?php echo $cli->NoExterior?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputNo.Interior">No.Interior</label>
-          <input type="text" class="form-control" id="No.Interior" name="No.Interior" placeholder="No.Interior">
+          <label for=tNo.Interior">No.Interior</label>
+          <input type="text" class="form-control" id="Interior" name="Interior" value="<?php echo $cli->NoInterior?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputColonia">Colonia</label>
-          <input type="text" class="form-control" id="Colonia" name="Colonia" placeholder="Colonia">
+          <label for="Colonia">Colonia</label>
+          <input type="text" class="form-control" id="Colonia" name="Colonia" value="<?php echo $cli->Colonia?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputCiudad">Ciudad</label>
-          <input type="text" class="form-control" id="Ciudad" name="Ciudad" placeholder="Ciudad">
+          <label for="Ciudad">Ciudad</label>
+          <input type="text" class="form-control" id="Ciudad" name="Ciudad" value="<?php echo $cli->Ciudad?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputCodigopostal">Codigo Postal</label>
-          <input type="text" class="form-control" id="Codigopostal" name="Codigopostal" placeholder="Codigo Postal">
+          <label for="Codigopostal">Código Postal</label>
+          <input type="text" class="form-control" id="CodigoPostal" name="CodigoPostal" value="<?php echo $cli->CP?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputCorreo">Correo</label>
-          <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo">
+          <label for="Correo">Correo</label>
+          <input type="text" class="form-control" id="Correo" name="Correo" value="<?php echo $cli->Correo?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputTelefono">Telefono</label>
-          <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+          <label for="Telefono">Teléfono</label>
+          <input type="text" class="form-control" id="Telefono" name="Telefono" value="<?php echo $cli->Telefono?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputCelular">Celular</label>
-          <input type="text" class="form-control" id="Celular" name="Celular" placeholder="Celular">
+          <label for="Celular">Celular</label>
+          <input type="text" class="form-control" id="Celular" name="Celular" value="<?php echo $cli->Celular?>">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputClienteMacro">Cliente Macro</label>
-          <input type="text" class="form-control" id="ClienteMacro" name="ClienteMacro" placeholder="Cliente MACRO">
+          <label for="ClienteMacro">Cliente Macro</label>
+          <input type="text" class="form-control" id="Macro" name="Macro" value="<?php echo $cli->Macro?>">
         </div>
       </div>
+      <?php }?>
     <br>
-    <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-primary">Actualizar</button>
+    <button name="Guardar" Id="Guardar" type="submit" class="btn btn-primary">Actualizar</button>
     <br>
   </form>
 </div>
