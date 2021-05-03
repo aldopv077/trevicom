@@ -12,9 +12,29 @@
     <div class="table-responsive">
       <table>
         <nav class="navbar navbar-light bg-light">
-          <form class="form-inline">
-            <input class="form-control col-md-8" type="search" placeholder="Cliente" aria-label="Cliente">
-            <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
+          <form name="FrmBuscarCliente" id="FrmBuscarCliente" class="form-inline" action="<?php echo base_url('Clientes/busqueda')?>" method="post">            
+                <div class="input-group">
+                  <input name="txtCliente" Id="txtCliente" type="search" class="form-control col-md-8" list="clientes" placeholder="Cliente">
+                  <datalist id="clientes">
+                      <?php
+                        if(isset($lista)){
+                          foreach ($lista as $key) {
+                            print '<option value="'.$key->IdCliente .' '. $key->Nombre .' '. $key->Paterno .' '. $key->Materno.'"></option>';
+                          }
+                        }else{
+                          foreach ($clientes as $key) {
+                            print '<option value="'.$key->IdCliente .' '. $key->Nombre .' '. $key->Paterno .' '. $key->Materno.'"></option>';
+                          }
+                        }
+                      ?>
+                  </datalist>
+                  <span class="input-group-btn"></span>
+                    <button class="btn btn-outline-success col-md-2">
+                      Buscar
+                    </button>
+                  </span>
+              </div>
+            
           </form>
         </nav>
       </table>
@@ -26,8 +46,7 @@
             <th><center>Celular</center></th>
             <th><center>Direccion</center></th>
             <th><center>Correo</center></th>
-            <th><center></center></th>
-            <th><center></center></th>
+            <th colspan="2"><center>Acciones</center></th>
           </tr>
         </thead>
   

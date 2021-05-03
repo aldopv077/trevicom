@@ -23,15 +23,29 @@ class ModEmpresas extends CI_Model{
     }
 
     //Listado de empresas registradas
-    public function listaempresas(){
-        $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
-        $this->db->from('TblEmpresas as em');
-        $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
-        $this->db->where('em.Activo', 1);
-        $this->db->where('con.Principal',1);
+    public function listaempresas($Id = null){
+        if($Id != null) {
+            
+            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
+            $this->db->from('TblEmpresas as em');
+            $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
+            $this->db->where('em.Activo', 1);
+            $this->db->where('con.Principal',1);
+            $this->db->where('em.IdEmpresa',$Id);
 
-        $consulta = $this->db->get();
-        return $consulta->result();
+            $consulta = $this->db->get();
+            return $consulta->result();
+        }else{
+            
+            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
+            $this->db->from('TblEmpresas as em');
+            $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
+            $this->db->where('em.Activo', 1);
+            $this->db->where('con.Principal',1);
+
+            $consulta = $this->db->get();
+            return $consulta->result();
+        }
     }
 
     //Busqueda de una sola empresa
@@ -43,6 +57,20 @@ class ModEmpresas extends CI_Model{
         $consulta = $this->db->get();
         return $consulta->result();
     }
+
+
+    //Busca la empresa sin importar si está activa o no
+    /*public function buscaempresa($Id){
+                    
+        $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
+        $this->db->from('TblEmpresas as em');
+        $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
+        //$this->db->where('con.Principal',1);
+        $this->db->where('em.IdEmpresa',$Id);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }*/
 
     //Actualiza los datos de la tabla Empresas del registro obtenido
 
@@ -56,5 +84,14 @@ class ModEmpresas extends CI_Model{
     //Cambia el estado de la empresa de activo a inactivo
     public function eliminar($Id){
         $this->db->query("UPDATE TblEmpresas SET Activo = 0 WHERE IdEmpresa = ". $Id);
+    }
+
+    //Busca todas las empresas sin importar si estan activas o no
+    public function listatodos(){
+        $this->db->select('IdEmpresa, Nombre');
+        $this->db->from('TblEmpresas');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
     }
 }

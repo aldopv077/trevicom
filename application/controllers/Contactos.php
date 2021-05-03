@@ -156,4 +156,57 @@ class Contactos extends CI_Controller {
         	}
 		}
 	}
+
+	//Redirecciona a la vista clientes/index con los resultados de la busqueda del cliente
+	public function busqueda(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$dato=$this->input->post();
+
+			if(isset($dato)){
+			  	$datosclie = $dato['Contacto'];
+				$list = explode(' ', $datosclie);
+
+			  	$IdEmpresa = $dato['IdEmpresa'];
+
+				//echo 'El tamaño del arreglo list es de: '. sizeof($list); exit;
+				
+				$materno = null;
+			
+				if(sizeof($list) == 4){
+			  		foreach($list as $value=>$datosclie){
+						$nombre=$list[0].' '.$list[1];
+						$paterno=$list[2];
+						$materno=$list[3];
+					}
+				}else if(sizeof($list) == 3){
+					foreach($list as $value=>$datosclie){
+						$nombre=$list[0];
+						$paterno=$list[1];
+						$materno=$list[2];
+					}
+				}else {
+					foreach($list as $value=>$datosclie){
+						$nombre=$list[0];
+						$paterno=$list[1];
+					}
+				}
+				
+				$empresa = $this->ModEmpresas->buscarempresa($IdEmpresa);
+				
+				foreach($empresa as $val){
+					$Nombre = $val->Nombre;
+				}
+
+				$data['contenido'] = "contactos/index";
+        		$data['perfil'] = $this->session->userdata('Perfil');
+				$data['contactos'] = $this->ModContactos->contactonombre($IdEmpresa, $nombre, $paterno, $materno);
+				$data['Empresa'] = $Nombre;
+				$data['IdEmpresa'] = $IdEmpresa;
+
+				$this->load->view('plantilla',$data);
+			}
+		}
+	}
 }

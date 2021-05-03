@@ -54,6 +54,11 @@
                   <label for="Macro">* Macro</label>
                   <input type="text" class="form-control" id="Macro" name="Macro" placeholder="Macro" value="<?php echo $empr->Macro?>" required>
                 </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="Activar">Activar nuevamente</label>
+                  <input type="checkbox" name="Activar" id="Activar" class="form-control">
+                </div>
               </div>
         <br>
         <?php }?>

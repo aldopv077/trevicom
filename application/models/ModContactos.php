@@ -46,4 +46,28 @@ class ModContactos extends CI_Model{
     public function eliminar($Id){
         $this->db->query("UPDATE TblContactoEmpresa SET Activo = 0 WHERE IdContacto = ". $Id);
     }
+
+    //Buscar contacto por nombre y apellidos{
+        public function contactonombre($Id, $Nombre, $Paterno, $Materno = null){
+            if($Materno != null){
+                $this->db->select('*');
+                $this->db->from('TblContactoEmpresa');
+                $this->db->where('IdEmpresa',$Id);
+                $this->db->where('Nombre',$Nombre);
+                $this->db->where('Paterno', $Paterno);
+                $this->db->where('Materno', $Materno);
+
+                $consulta = $this->db->get();
+                return $consulta->result();
+            }else{
+                $this->db->select('*');
+                $this->db->from('TblContactoEmpresa');
+                $this->db->where('IdEmpresa',$Id);
+                $this->db->where('Nombre',$Nombre);
+                $this->db->where('Paterno', $Paterno);
+
+                $consulta = $this->db->get();
+                return $consulta->result();
+            }
+        }
 }

@@ -12,8 +12,9 @@
     <div class="table-responsive">
       <table>
         <nav class="navbar navbar-light bg-light">
-          <form class="form-inline">
-            <input class="form-control col-md-8" type="search" placeholder="Cliente" aria-label="Cliente">
+          <form class="form-inline" name="FrmBuscarContaco" id="FrmBuscarContato" action="<?php echo base_url('Contactos/busqueda')?>" method="Post">
+            <input class="form-control col-md-8" type="search" placeholder="Contacto" aria-label="Contacto" name="Contacto">
+            <input type="hidden" name="IdEmpresa" id="IdEmpresa" value="<?php echo $IdEmpresa?>">
             <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
           </form>
         </nav>

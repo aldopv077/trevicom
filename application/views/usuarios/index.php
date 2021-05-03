@@ -14,33 +14,14 @@
 
         <h1 align="center">Usuarios</h1>
         <div class="table-responsive">
-          <table><nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-              <input class="form-control col-md-8" type="search" placeholder="Usuario" aria-label="Usuario">
-              <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
-            </form>
-          </nav></table>
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
               <tr>
-                <th>
-                  <center>Nombre</center>
-                </th>
-                <th>
-                  <center>Iniciales</center>
-                </th>
-                <th>
-                  <center>Correo</center>
-                </th>
-                <th>
-                  <center>Telefono</center>
-                </th>
-                <th>
-                  <center></center>
-                </th>
-                <th>
-                  <center></center>
-                </th>
+                <th><center>Nombre</center></th>
+                <th><center>Iniciales</center></th>
+                <th><center>Correo</center></th>
+                <th><center>Telefono</center></th>
+                <th colspan="2"><center>Acciones</center></th>
               </tr>
             </thead>
             

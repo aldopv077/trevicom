@@ -16,6 +16,7 @@ class Clientes extends CI_Controller {
 			$data['contenido'] = "clientes/index";
         	$data['perfil'] = $this->session->userdata('Perfil');
 			$data['clientes'] = $this->ModClientes->listaclientes();
+			$data['lista'] = $this->ModClientes->listatodos();
 			$this->load->view('plantilla',$data);
 		}
 	}
@@ -93,6 +94,13 @@ class Clientes extends CI_Controller {
 
 			if(isset($datos)){
 				$Id = $datos['Id'];
+
+				if(isset($datos['chkActivo'])){
+					$Activar = $datos['chkActivo'];
+				}else{
+					$Activar = 1;
+				}
+
 				$cliente = array(
 					'Nombre' => $datos['Nombre'],
 					'Paterno' => $datos['Paterno'],
@@ -107,6 +115,7 @@ class Clientes extends CI_Controller {
 					'Ciudad' => $datos['Ciudad'],
 					'CP' => $datos['CodigoPostal'],
 					'Macro' => $datos['Macro'],
+					'Activo' => $Activar
 				);
 
 				$ingresar = $this->ModClientes->editar($Id, $cliente);
@@ -131,6 +140,33 @@ class Clientes extends CI_Controller {
             	$this->ModClientes->eliminar($Id);
             	redirect('Clientes/index');
         	}
+		}
+	}
+
+	//Redirecciona a la vista clientes/index con los resultados de la busqueda del cliente
+	public function busqueda(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$dato=$this->input->post();
+
+			if(isset($dato)){
+			  $datosclie = $dato['txtCliente'];
+			  $list = explode(' ', $datosclie);
+			  foreach($list as $value=>$datosclie){
+				$Id=$list[0];
+				$nombre=$list[1];
+				$paterno=$list[2];
+				$materno=$list[3];
+			  }
+		
+				$data['contenido'] = "clientes/index";
+        		$data['perfil'] = $this->session->userdata('Perfil');
+				$data['clientes'] = $this->ModClientes->busqueda($Id);
+				$data['lista'] = $this->ModClientes->listatodos();
+
+				$this->load->view('plantilla',$data);
+			}
 		}
 	}
 }

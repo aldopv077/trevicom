@@ -48,5 +48,14 @@ class ModClientes extends CI_Model{
     public function eliminar($Id){
         $this->db->query("UPDATE TblClientes SET Activo = 0 WHERE IdCliente = ". $Id);
     }
+
+    //Lista sin importar si está activo
+    public function listatodos(){
+        $this->db->select('IdCliente, Nombre, Paterno, Materno');
+        $this->db->from('TblClientes');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
     
 }

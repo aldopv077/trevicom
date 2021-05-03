@@ -24,7 +24,7 @@
   <div class="card">
     <div class="login-logo">
       <img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="85%" height="100px">
-      <a><b>Iniciar session</b></a>
+      <a><b>Iniciar sesión</b></a>
     </div>
     <div class="card-body login-card-body">
       <form name="FrmLogin" id="FrmLogin" action="<?php echo base_url('Login/IniciaSesion')?>" method="post">

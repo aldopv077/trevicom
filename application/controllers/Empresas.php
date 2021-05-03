@@ -10,9 +10,13 @@ class Empresas extends CI_Controller {
 
 	public function index()
 	{
+		$Id = null;
+
+
 		$data['contenido'] = "empresas/index";
 		$data['perfil'] = $this->session->userdata('Perfil');
-		$data['empresas'] = $this->ModEmpresas->listaempresas();
+		$data['empresas'] = $this->ModEmpresas->listaempresas($Id);
+		$data['lista'] = $this->ModEmpresas->listatodos();
 		$this->load->view('plantilla',$data);
 	}
 
@@ -105,6 +109,11 @@ class Empresas extends CI_Controller {
 			if(isset($datos)){
 
 				$Id = $datos['Id'];
+				if(isset($datos['chkActivo'])){
+					$Activar = $datos['chkActivo'];
+				}else{
+					$Activar = 1;
+				}
 				
 				$empresa = array(
 					'Nombre' => $datos['Nombre'],
@@ -117,6 +126,7 @@ class Empresas extends CI_Controller {
 					'Telefono' => $datos['Telefono'],
 					'Dependencia' => $datos['Dependencia'],
 					'Macro' => $datos['Macro'],
+					'Activo' => $Activar
 				);
 
 				$actualiza= $this->ModEmpresas->actualizar($Id, $empresa);
@@ -138,6 +148,33 @@ class Empresas extends CI_Controller {
             	$this->ModEmpresas->eliminar($Id);
             	redirect('Empresas/index');
         	}
+		}
+	}
+
+	//Redirecciona a la vista clientes/index con los resultados de la busqueda del cliente
+	public function busqueda(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$dato=$this->input->post();
+
+			if(isset($dato)){
+			  $datosclie = $dato['txtCliente'];
+			  $list = explode(' ', $datosclie);
+			  foreach($list as $value=>$datosclie){
+				$Id=$list[0];
+				$nombre=$list[1];
+			  }
+			  
+				$data['contenido'] = "empresas/datos";
+        		$data['perfil'] = $this->session->userdata('Perfil');
+				$data['empresas'] = $this->ModEmpresas->buscarempresa($Id);
+				$data['contactos'] = $this->ModContactos->listacontactos($Id);
+				$data['lista'] = $this->ModEmpresas->listaempresas();
+
+				$this->load->view('plantilla',$data);
+				
+			}
 		}
 	}
 }

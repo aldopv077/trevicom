@@ -13,9 +13,28 @@
   <div class="table-responsive">
     <table>
       <nav class="navbar navbar-light bg-light">
-        <form class="form-inline">
-          <input class="form-control col-md-8" type="search" placeholder="Empresa" aria-label="Empresa">
-          <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
+        <form class="form-inline" name="FrmBuscarEmpresa" id="FrmBuscarEmpresa" action="<?php echo base_url('Empresas/busqueda')?>" method="post">
+          <div class="input-group">
+                  <input name="txtCliente" Id="txtCliente" type="search" class="form-control col-md-8" list="clientes" placeholder="Empresa">
+                  <datalist id="clientes">
+                      <?php
+                        if(isset($lista)){
+                          foreach ($lista as $key) {
+                            print '<option value="'.$key->IdEmpresa .' '. $key->Nombre.'"></option>';
+                          }
+                        }else{
+                          foreach ($empresas as $key) {
+                            print '<option value="'.$key->IdEmpresa .' '. $key->Nombre.'"></option>';
+                          }
+                        }
+                      ?>
+                  </datalist>
+                  <span class="input-group-btn"></span>
+                    <button class="btn btn-outline-success col-md-2">
+                      Buscar
+                    </button>
+                  </span>
+              </div>
         </form>
       </nav>
     </table>
