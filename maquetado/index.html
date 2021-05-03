@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+  <link rel="stylesheet" type="text/css" href="dist/css/registro.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div id="app">
+        <div class="wrapper">
+
+            <!-- Navbar cambiar de color con nav-indigo nav-dark -->
+            <nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                    </li>
+                </ul>
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+
+                    <li>
+                        <div>
+                            <a class="dropdown-item" href="" onclick="">
+
+                                    <i class="nav-icon fas fa-power-off"></i>
+                         </a>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <!-- navbar-indigo para cambiar el color de menu -->
+                <a href="" class="brand-link navbar-black">
+                    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                        style="opacity: .8">
+                    <span class="brand-text font-weight-light">System Treviño</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar brand-link navbar-navy">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="auth.login" class="d-block">
+
+                                <a class="nav-link " href=""></a>
+
+                                <form id="logout-form" action="logout" method="POST"
+                                    style="display: none;">
+
+                                </form>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Inicio</p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Usuarios</p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>Orden<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="Orden/NuevaOrden"
+                                            class="">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <p>Nueva Orde</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="Orden/EditarOrden"
+                                            class="">
+                                            <i class="far fa-file"></i>
+                                            <p>Editar Orden</p>
+                                        </a>
+                                    </li>
+                                     <li class="nav-item">
+                                        <a href="Orden/SeguimientoDeOrden"
+                                            class="">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <p>Seguimiento De Orden</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="status">
+                                            <i class="nav-icon fas fa-address-book"></i>
+                                            <p>Status</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>                     
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-building"></i>
+                                    <p>Empresa</p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-address-book"></i>
+                                    <p>Cliente</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+    </div>
+</body>
+
+<div class="container box" id="advanced-search-form-1">
+    <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-outline-success float-right">Registrar</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-outline-primary float-light">Consultar Empleado</button>
+    </div>
+</div>
+
+    <div class="container box" id="advanced-search-form">
+        <h1 align="center">Registro</h1>
+        <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
+            <div class="form-row">
+                <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
+                <div class="form-group col-md-4">
+                    <label for="inputNombre">Nombre</label>
+                    <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputParterno">Apellido Parterno</label>
+                    <input type="text" class="form-control" id="Parterno" name="Parterno" placeholder="Apellido Parterno">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputMaterno">Apellido Materno</label>
+                    <input type="Nombre" class="form-control" id="Materno" name="Materno" placeholder="Materno">
+                </div>
+            </div>
+    
+            <div class="form-row">
+                <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
+                <div class="form-group col-md-4">
+                    <label for="inputDomicilio">Domicilio</label>
+                    <input type="text" class="form-control" id="Domicilio" name="Domicilio"
+                        placeholder="Domicilio completo">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputTelefono">Telefono</label>
+                    <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputCelular">Celular</label>
+                    <input type="text" class="form-control" id="Celular" name="Celular" placeholder="Celular">
+                </div>
+            </div>
+    
+            <div class="form-group col-md-4">
+                <label for="Email">Email</label>
+                <input class="form-control" type="text" name="Descripcion" Id="Email" plaseholder="Email">
+            </div>
+    
+            <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-success">Agregar</button>
+            <br>
+        </form>
+    </div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+</body>
+</html>
