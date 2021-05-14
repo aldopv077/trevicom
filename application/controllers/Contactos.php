@@ -78,7 +78,8 @@ class Contactos extends CI_Controller {
 					'Telefono' => $datos['TelefonoCont'],
 					'Departamento' => $datos['DepartamentoCont'],
 					'Correo' => $datos['CorreoCont'],
-					'Principal' => $datos['Principal']
+					'Principal' => $datos['Principal'],
+					'Activo' => 1
 				);
 
 				$ingresacontacto = $this->ModContactos->ingresar($contacto);
@@ -122,6 +123,11 @@ class Contactos extends CI_Controller {
 			if($datos){
 
 				$Id = $datos['Id'];
+				if(isset($datos['chkActivo'])){
+					$Activar = $datos['chkActivo'];
+				}else{
+					$Activar = 1;
+				}
 
 				$contacto = array(
 					'IdEmpresa' => $datos['IdEmpresa'],
@@ -130,7 +136,8 @@ class Contactos extends CI_Controller {
 					'Telefono' => $datos['TelefonoCont'],
 					'Departamento' => $datos['DepartamentoCont'],
 					'Correo' => $datos['CorreoCont'],
-					'Principal' => $datos['Principal']
+					'Principal' => $datos['Principal'],
+					'Activo' => $Activar
 				);
 
 				$actualiza = $this->ModContactos->actualizar($Id, $contacto);

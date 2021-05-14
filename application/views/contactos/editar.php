@@ -38,6 +38,10 @@
                 <div class="form-group col-md-4">
                   <label for="CorreoCont">Correo</label>
                   <input type="email" class="form-control" id="CorreoCont" name="CorreoCont" placeholder="Correo electrónico" value="<?php echo $cont->Correo?>" >
+                </div> 
+                <div class="form-group col-md-4">
+                  <label for="Activar">Activar nuevamente</label>
+                  <input type="checkbox" name="Activar" id="Activar" class="form-control" <?php if($cont->Activo == 1){ echo 'checked';}?>>
                 </div>
               </div>
         <br>

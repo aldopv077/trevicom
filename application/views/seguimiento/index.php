@@ -73,7 +73,7 @@
           <thead class="thead-light">
             <tr>
               <th>
-                <center>Tipo de cliente</center>
+                <center>Tipo de información</center>
               </th>
               <th>
                 <center>Comentario</center>

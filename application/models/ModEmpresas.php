@@ -58,6 +58,16 @@ class ModEmpresas extends CI_Model{
         return $consulta->result();
     }
 
+    //Busqueda de las empresas activas
+    public function empresaactiva(){
+        $this->db->select('*');
+        $this->db->from('TblEmpresas');
+        $this->db->where('Activo', 1);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
 
     //Busca la empresa sin importar si está activa o no
     /*public function buscaempresa($Id){

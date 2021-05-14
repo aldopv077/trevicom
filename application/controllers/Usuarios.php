@@ -64,7 +64,7 @@ class Usuarios extends CI_Controller {
 					echo'<script> alert("Usuario registrado"); </script>';
                 	redirect('Usuarios/index', 'refresh');
 				}else{
-					echo'<script> alert("Ha ocurrido un error verificar con el administrador"); </script>';
+					echo'<script> alert("Ya existe un usuario con esas iniciales"); </script>';
                 	redirect('Usuarios/registrar', 'refresh');
 				}
 			}

@@ -15,19 +15,25 @@
 
         <h1 align="center">Consultar</h1>
         <div class="table-responsive">
+        <form class="form-inline">
           <div class="form-group col-md-4">
-            <label for="exampleFormControlSelect1">Buscar por:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>Nombre</option>
-              <option>Telefono</option>
-              <option>No.Serie</option>
-              <option>Empresa</option>
-              <option>No.Orden</option>
+            <label for="TipoBusqueda">Buscar por:</label>
+            <select class="form-control" id="TipoBusqueda" name="TipoBusqueda" onchange="">
+              <option value="Orden">No.Orden</option>
+              <option value="Cliente">Cliente</option>
+              <option value="Telefono">Telefono</option>
+              <option value="Serie">No.Serie</option>
+              <option value="Empresa">Empresa</option>
             </select>
           </div>
-          <table><nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-              <input class="form-control col-md-8" type="search" placeholder="" aria-label="Usuario">
+          <table>
+              <nav class="navbar navbar-light bg-light">
+              <input class="form-control col-md-8" type="search" id="NomCliente" name="NomCliente" placeholder="Nombre del cliente" aria-label="Usuario">
+              <input class="form-control col-md-8" type="text" id="TelCliente" name="TelCliente" placeholder="Teléfono del cliente" aria-label="Usuario">
+              <input class="form-control col-md-8" type="search" id="NoSerie" name="NoSerie" placeholder="Número de serie del equipo" aria-label="Usuario">
+              <input class="form-control col-md-8" type="search" id="NomEmpresa" name="NomEmpresa" placeholder="Nombre de la empresa" aria-label="Usuario">
+              <input class="form-control col-md-8" type="text" id="NoOrden" name="NoOrden"  placeholder="Número de orden" aria-label="Usuario">
+
               <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
             </form>
           </nav></table>

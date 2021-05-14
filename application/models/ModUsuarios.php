@@ -9,9 +9,21 @@ class ModUsuarios extends CI_Model{
     //Ingresa el registro de un nuevo empleado a la BD
     public function ingresar($usuario){
 
-            $ingresa = $this->db->insert('TblEmpleados', $usuario);
-            if($ingresa){
-                return true;
+            $Iniciales = $usuario['Iniciales'];
+
+            $this->db->select('IdEmpleado');
+            $this->db->from('TblEmpleados');
+            $this->db->where('Iniciales',$Iniciales);
+            $select = $this->db->get();
+            $consulta = $select->result();
+            
+            if($consulta == null){
+                $ingresa = $this->db->insert('TblEmpleados', $usuario);
+                if($ingresa){
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }

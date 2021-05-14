@@ -24,6 +24,16 @@ class ModContactos extends CI_Model{
         return $consulta->result();
     }
 
+    //buscar todos los contactos activos
+    public function contactosactivos(){
+        $this->db->select('*');
+        $this->db->from('TblContactoEmpresa');
+        $this->db->where('Activo',1);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
     //Busca el contacto seleccionado para su actualización de datos
     public function buscarcontacto($Id){
         $this->db->select('*');

@@ -57,7 +57,7 @@
                 
                 <div class="form-group col-md-4">
                   <label for="Activar">Activar nuevamente</label>
-                  <input type="checkbox" name="Activar" id="Activar" class="form-control">
+                  <input type="checkbox" name="Activar" id="Activar" class="form-control" <?php if($empr->Activo == 1){ echo 'checked';}?>>
                 </div>
               </div>
         <br>
