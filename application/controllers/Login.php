@@ -22,40 +22,44 @@ class Login extends CI_Controller {
             $contador = 0;
 
             $datosusuario = $this->ModLogin->login($Usuario, $Pass);
-
-            foreach($datosusuario as $value){
-                if(password_verify($Pass, $value->Pass)){
-                     $contador++;
-                 }
-             }
-
-             if($contador == 1){
-                 //Se crea la sesión
-                foreach($datosusuario as $usuario){
-                    //Verifica si el usuario se encuetra activo
-                    if(password_verify($Pass, $usuario->Pass)){
-                        if($usuario->Activo == 1){  
-                            $datos = array(
-                                'is_logued_in' =>       TRUE,
-                                'Id'           =>       $usuario->IdEmpleado,
-                                'Nombre'       =>       $usuario->Nombre.' '.$usuario->Paterno,
-                                'Iniciales'	   =>		$usuario->Iniciales,
-                                'Perfil'       =>       $usuario->Puesto,
-                            );
-                        }else{   
-                            echo '<script> alert("Usuario y contraseña incorrectas"); </script>';
-                            redirect('Login/index', 'refresh');
-                        }
-                    }                    
+            if($datosusuario != null){
+                foreach($datosusuario as $value){
+                    if(password_verify($Pass, $value->Pass)){
+                        $contador++;
+                    }
                 }
 
-                $this->session->set_userdata($datos);
-                redirect('Ordenes/index');
-             }
-             else if($contador > 1){
-                echo '<script> alert("Solicitar cambio de contraseña"); </script>';
-                redirect('Login/index', 'refresh');
-             }
+                if($contador == 1){
+                    //Se crea la sesión
+                    foreach($datosusuario as $usuario){
+                        //Verifica si el usuario se encuetra activo
+                        if(password_verify($Pass, $usuario->Pass)){
+                            if($usuario->Activo == 1){  
+                                $datos = array(
+                                    'is_logued_in' =>       TRUE,
+                                    'Id'           =>       $usuario->IdEmpleado,
+                                    'Nombre'       =>       $usuario->Nombre.' '.$usuario->Paterno,
+                                    'Iniciales'	   =>		$usuario->Iniciales,
+                                    'Perfil'       =>       $usuario->Puesto,
+                                );
+                            }else{   
+                                echo '<script> alert("Usuario y contraseña incorrectas"); </script>';
+                                redirect('Login/index', 'refresh');
+                            }
+                        }                    
+                    }
+
+                    $this->session->set_userdata($datos);
+                    redirect('Ordenes/index');
+                }
+                else if($contador > 1){
+                    echo '<script> alert("Solicitar cambio de contraseña"); </script>';
+                    redirect('Login/index', 'refresh');
+                }
+            }else{
+                echo '<script> alert("Usuario o contraseña incorrectos"); </script>';
+                    redirect('Login/index', 'refresh');
+            }
         }
     }
 

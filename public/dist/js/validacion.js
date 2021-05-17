@@ -1,15 +1,8 @@
 function AgregarOrden(){
+    //alert('funcion agregar orden');
+
     var Equipo = document.getElementById('cmbTipoEquipo').value;
     var Ing = document.getElementById('cmbIng').value;
-
-    var Cliente = document.getElementById('IdCliente').value;
-    var Empresa = document.getElementsById('IdEmpresa').value;
-
-    if(Cliente == "" || Empresa == ""){
-        alert('No se ha seleccionado los datos del cliente');
-        document.FrmBusquedaDatos.rbEmpresa.focus();
-        return false;
-    }
 
     if(document.getElementById('rbTaller').checked){
         if(Equipo == 0){
@@ -30,6 +23,23 @@ function AgregarOrden(){
     }else{
         alert('Debe elegir el lugar de revisión');
         document.FrmRegistro.rbTaller.focus();
+        return false;
+    }
+}
+
+function asignaciones(){
+    var IngInicial = document.getElementById('txtAsignado').value;
+    var IngReasignado = document.getElementById('cmbIng').value;
+
+    if(IngReasignado != 0){
+        if(IngInicial == IngReasignado){
+            alert('No puede elegir al mismo ingeniero');
+            document.getElementById('cmbIng').focus();
+            return false;
+        }
+    }else{
+        alert('Debe elegir a un ingeniero para realizar el cambio');
+        document.getElementById('cmbIng').focus();
         return false;
     }
 }

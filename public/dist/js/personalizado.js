@@ -10,60 +10,51 @@ function sinprogramar(){
 
 function cliente(){
     //alert("Cliente");
+    document.getElementById('txtClientes').style.display="block";
     document.getElementById('btnCliente').style.display="block";    
     document.getElementById('btnEmpresa').style.display="none";;    
     document.getElementById('cmbContacto').style.display="none";
-    document.getElementById('rbTelefono').checked=false;
-    document.getElementById('rb.Nombre').checked=false;
+    document.getElementById('txtEmpresa').style.display="none";
+    
 }
 function empresa(){
     //alert("Empresa");
+    document.getElementById('txtClientes').style.display="none";
     document.getElementById('btnCliente').style.display="none";    
     document.getElementById('btnEmpresa').style.display="block";   
     document.getElementById('cmbContacto').style.display="block";
-    document.getElementById('rbTelefono').checked=false;
-    document.getElementById('rb.Nombre').checked=false;
+    document.getElementById('txtEmpresa').style.display="block";
 
 }
-
-function habilitatel(){
-    //alert('Entró a la funcion habilitatel');
-    
-    if(document.getElementById('rbCliente').checked){
-        document.getElementById('txtTelefonoCl').style.display="block";
-        document.getElementById('txtClientes').style.display="none";
-        document.getElementById('txtEmpresa').style.display="none";
-        document.getElementById('txtTelefonoEm').style.display="none";
-    }else{
-        if(document.getElementById('rbEmpresa').checked){
-            document.getElementById('txtTelefonoEm').style.display="block";
-            document.getElementById('txtTelefonoCl').style.display="none";
-            document.getElementById('txtClientes').style.display="none";
-            document.getElementById('txtEmpresa').style.display="none";
-        }
-    }
-}
-
-function habilitanom(){
-    if(document.getElementById('rbCliente').checked){
-        
-        document.getElementById('txtClientes').style.display="block";
-        document.getElementById('txtTelefonoCl').style.display="none";
-        document.getElementById('txtEmpresa').style.display="none";
-        document.getElementById('txtTelefonoEm').style.display="none";
-    }else{
-        if(document.getElementById('rbEmpresa').checked){
-            
-            document.getElementById('txtEmpresa').style.display="block";
-            document.getElementById('txtTelefonoEm').style.display="none";
-            document.getElementById('txtTelefonoCl').style.display="none";
-            document.getElementById('txtClientes').style.display="none";
-        }
-    }
-}
-
 
 function busquedaorden(){
-    alert('Funcion busqueda de orden');
-    //var busqueda = document.getElementById('TipoBusqueda').value;
+    //alert('Funcion busqueda de orden');
+    var busqueda = document.getElementById('TipoBusqueda').value;
+
+    switch(busqueda){
+        case "Orden": 
+                document.getElementById('NoOrden').style.display="block";
+                document.getElementById('NomCliente').style.display="none";
+                document.getElementById('NomEmpresa').style.display="none";
+                document.getElementById('NoSerie').style.display="none";
+            break;
+        case "Cliente":
+                document.getElementById('NoOrden').style.display="none";
+                document.getElementById('NomCliente').style.display="block"
+                document.getElementById('NomEmpresa').style.display="none";
+                document.getElementById('NoSerie').style.display="none";
+            break;
+        case "Serie":
+                document.getElementById('NoOrden').style.display="none";
+                document.getElementById('NomCliente').style.display="none";
+                document.getElementById('NomEmpresa').style.display="none";
+                document.getElementById('NoSerie').style.display="block";
+            break;        
+        case "Empresa":
+                document.getElementById('NoOrden').style.display="none";
+                document.getElementById('NomCliente').style.display="none";
+                document.getElementById('NomEmpresa').style.display="block";
+                document.getElementById('NoSerie').style.display="none";
+            break;
+    }
 }

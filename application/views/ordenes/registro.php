@@ -25,9 +25,7 @@
         document.getElementById('cmbContacto').style.display="none";
 
         document.getElementById('txtClientes').style.display="block";
-        document.getElementById('txtTelefonoCl').style.display="none";
         document.getElementById('txtEmpresa').style.display="none";
-        document.getElementById('txtTelefonoEm').style.display="none";
       });
   </script>  
 
@@ -67,23 +65,6 @@
             <a href="<?php echo base_url('Clientes/registrar')?>" name="Ingresar" Id="btnCliente" class="btn btn-success">Nuevo Cliente</a>
             <a href="<?php echo base_url('Empresas/registrar')?>" name="Ingresar" Id="btnEmpresa" class="btn btn-success">Nueva Empresa</a>  
           </div>
-
-
-          <div class="container box col-md-12">
-            
-          <div class="custom-control custom-radio custom-control-inline ">
-            <label>Buscar por: </label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="rbTelefono" name="TipoBusqueda" class="custom-control-input" value="1" onchange="habilitatel();">
-            <label class="custom-control-label" for="rbTelefono">Telefono</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="rbNombre" name="TipoBusqueda" class="custom-control-input" value="2" onchange="habilitanom();">
-            <label class="custom-control-label" for="rbNombre">Nombre</label>
-          </div>
-
-
           <div class="container box col-md-12 form-inline">
                 <input class="form-control col-md-8" type="search" placeholder="Nombre de cliente" list="clientes" aria-label="Nombre de cliente" Id="txtClientes" name="txtClientes">
                 <datalist id="clientes">
@@ -94,15 +75,15 @@
                       ?>
                   </datalist>
                   <span class="input-group-btn"></span>
-                <input class="form-control col-md-8" type="search" placeholder="Teléfono de cliente" aria-label="Teléfono de cliente" Id="txtTelefonoCl" name="txtTelefonoCl">
-                <select class="form-control col-md-8"  aria-label="Nombre de la empresa" Id="txtEmpresa" name="txtEmpresa" onChange="ComponerLista(document.forms.FrmBusquedaDatos.txtEmpresa[selectedIndex].value);">
-                  <option value="0">Seleccione una empresa</option>
-                    <?php foreach($empresas as $emp){?>
-                      <option value="<?php echo $emp->IdEmpresa?>"><?php echo $emp->Nombre?></option>
-                    <?php  }?>
-                </select>
-
-                <input class="form-control col-md-8" type="search" placeholder="Teléfono de la empresa" aria-label="Teléfono de la empresa" Id="txtTelefonoEm" name="txtTelefonoEm">
+                <input class="form-control col-md-8" type="search" placeholder="Nombre de la empresa" list="cmbempresas" aria-label="Nombre de la empresa" Id="txtEmpresa" name="txtEmpresa" onChange="ComponerLista(document.forms.FrmBusquedaDatos.txtEmpresa.value);">
+                  <datalist id="cmbempresas">
+                      <?php
+                          foreach ($empresas as $emp) {
+                            print '<option value="'.$emp->IdEmpresa .' '. $emp->Nombre .' '. $emp->Telefono.'"></option>';
+                          }
+                      ?>
+                  </datalist>
+                  <span class="input-group-btn"></span>                
                 <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
                <!-- <a href="<?php echo base_url('Ordenes/pdf')?>" class="btn btn-outline-success col-md-2" type="submit">Ver PDF</a>-->
           </div>
@@ -117,8 +98,7 @@
         <br>
         </div>
         </div>
-        </form>
-    </div>
+        </form>    </div>
     
     <?php if($tipocliente == "Cliente") {?>
         <div class="container box col-md-12" id="advanced-search-form">
@@ -289,9 +269,11 @@
 <script>
   function ComponerLista(xPro)
       {
+        var Id =  xPro.split(' ');
+      
          document.forms.FrmBusquedaDatos.txtEmpresa.disabled = true;
          document.forms.FrmBusquedaDatos.cmbContactos.length = 0;
-         CargarPropiedades(xPro);
+         CargarPropiedades(Id[0]);
          document.forms.FrmBusquedaDatos.txtEmpresa.disabled = false;
       }
  
