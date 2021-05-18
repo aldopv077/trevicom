@@ -10,6 +10,7 @@ class Ordenes extends CI_Controller {
 		$this->load->model("ModEmpresas");
 		$this->load->model("ModContactos");
 		$this->load->model("ModUsuarios");
+		$this->load->model("ModSeguimiento");
     }
 
 	public function index()
@@ -28,6 +29,7 @@ class Ordenes extends CI_Controller {
 		}
 	}
 
+	//Obtiene los datos del cliente dependiendo si es empresa o cliente particular
 	public function datoscliente(){
 		
 		if($this->session->userdata('is_logued_in') == FALSE){
@@ -164,7 +166,7 @@ class Ordenes extends CI_Controller {
 						'Reincidencia' => $Reincidencia,
 						'Fecha' => $Fecha,
 						'Hora' => $Hora,
-						'Estatus' => 'En reparación'
+						'Estatus' => 'Sin revisar'
 					);					
 				}else{
 					$equipo = array(
@@ -188,7 +190,7 @@ class Ordenes extends CI_Controller {
 						'Reincidencia' => $Reincidencia,
 						'Fecha' => $Fecha,
 						'Hora' => $Hora,
-						'Estatus' => 'En reparación'
+						'Estatus' => 'Sin revisar'
 					);
 				}
 
@@ -250,9 +252,10 @@ class Ordenes extends CI_Controller {
 								$orden = $this->ModOrdenes->buscarordenEmpresa($IdOrden);
 								if($orden == null){
 									echo '<scritp> alert("No se encontraron resultados"); </script>';
-									redirect('Ordenes/consultar');
+									redirect('Ordenes/consultar','refresh');
 								}
 							}
+							$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($IdOrden);
 						break;
 					case "Serie":
 							$Serie = $datos['NoSerie'];
@@ -261,8 +264,20 @@ class Ordenes extends CI_Controller {
 								$orden = $this->ModOrdenes->buscarordenEmpresa($Serie);
 								if($orden == null){
 									echo '<scritp> alert("No se encontraron resultados"); </script>';
-									redirect('Ordenes/consultar');
+									redirect('Ordenes/consultar','refresh');
+								}else{
+									foreach($orden as $ord){
+										$Id = $ord->Orden;
+									}
+									
+									$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 								}
+							}else{
+								foreach($orden as $ord){
+									$Id = $ord->Orden;
+								}
+								
+								$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 							}
 						break;
 					case "Cliente":
@@ -325,6 +340,7 @@ class Ordenes extends CI_Controller {
 			$data['perfil'] = $this->session->userdata('Perfil');
 			$data['clientes'] = $this->ModClientes->listaclientes();
 			$data['empresas'] = $this->ModEmpresas->empresaactiva();
+			$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 			$data['conteo'] = $conteo;
 			$data['orden'] = $orden;
 			$this->load->view('plantilla',$data);
@@ -344,7 +360,7 @@ class Ordenes extends CI_Controller {
 				$this->load->view('plantilla',$data);
 			}else{
 				echo '<script> alert("No tiene permisos para ingresar a este apartado"); </script>';
-				redirect('Inicio/index');
+				redirect('Inicio/index','refresh');
 			}
 		}
 	}
@@ -375,6 +391,7 @@ class Ordenes extends CI_Controller {
 		}
 	}
 
+	//Captura los datos del formulario para realizar la reasignación en el modelo
 	public function asignar(){
 		if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login','refresh');

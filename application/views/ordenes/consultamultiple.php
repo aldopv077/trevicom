@@ -126,6 +126,10 @@
                         <p><?php echo $datos->Equipo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Falla</label>
+                        <p><?php echo $datos->Falla?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>No. Serie</label>
                         <p><?php echo $datos->Serie?></p>
                     </div>
@@ -166,6 +170,10 @@
                         <p><?php echo $datos->Equipo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Falla</label>
+                        <p><?php echo $datos->Falla?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>No. Serie</label>
                         <p><?php echo $datos->Serie?></p>
                     </div>
@@ -190,26 +198,26 @@
 
     <?php if($perfil == "Administrador"){?>
         <div class="container box col-md-12" id="advanced-search-form">
-            <form name="FrmComentario" Id="FrmComentario" method="post" action="" class="form-inline">
+            <form name="FrmAgregarComentario" Id="FrmAgregarComentario" method="post" action="<?php echo base_url('Seguimiento/registrar')?>" method="post">
                 <div class="form-group col-md-4">
-                    <label for="cmbTipoComentario">Tipo de comentario</label>
-                    <select class="form-control" id="cmbTipoComentario" name="cmbTipoComentario">
+                    <input type="hidden" name="txtIdOrden" Id="txtIdOrden" value="<?php echo $datos->Orden?>">
+                    <label for="cmbTComentario">Tipo de comentario</label>
+                    <select class="form-control" id="cmbTComentario" name="cmbTComentario">
                         <option value="0" selected>Seleccione una opción</option>
                         <option value="Información interna" >Información interna</option>
                         <option value="Mostrar al cliente">Mostrar al cliente</option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="inputNo.Serie"></label>
-                    <input type="" class="form-control" id="comentario" name="comentario" placeholder="Comentario">
+                    <label for="Comentario">Comentario</label>
+                    <input type="text" class="form-control" id="Comentario" name="Comentario" placeholder="Comentario" required>
                 </div>
                 <br> 
                 <div class="form-row">
-                    <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
                     <div class="container"></div>
                         <div class="form-group col-md-4">
-                            <label for="cmbEstado">Estatus del equipo:</label>
-                            <select class="form-control" id="cmbEstado" name="cmbEstado">
+                            <label for="cmbEstatus">Estatus del equipo:</label>
+                            <select class="form-control" id="cmbEstatus" name="cmbEstatus">
                                 <option value="0" selected> Seleccione una opción</option>
                                 <option value="En reparación"> En reparación </option>
                                 <option value="En espera de piezas"> En espera de piezas </option>
@@ -218,41 +226,43 @@
                             </select>
                         </div>
                     </div>
-                    <button name="Agregar" Id="Agregar" type="submit" class="btn btn-success col-md-2">Agregar</button>
+                    <button name="Agregar" Id="Agregar" type="submit" onclick="return Seguimiento();" class="btn btn-success col-md-2">Agregar</button>
                     <br>
                 </div>
             </form>
         </div>
     <?php }?>
 
-    
-    <div class="container box col-md-12" id="advanced-search-form">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead class="thead-light">
-            <h1 align="center">Comentarios</h1>
-                <tr>
-                    <th>
-                        <center>Tipo de comentario</center>
-                    </th>
-                    <th>
-                        <center>comentario</center>
-                    </th>
-                    <th>
-                        <center>Usuario</center>
-                    </th>
-                    <th>
-                        <center>Fecha</center>
-                    </th>
-                    <th>
-                        <center>Hora</center>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-          
-            </tbody> 
-        </table>
-    </div>
+    <?php if($conteo < 2){?>
+        <div class="container box col-md-12" id="advanced-search-form">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                <h1 align="center">Comentarios</h1>
+                    <tr>
+                        <th><center>Tipo de comentario</center></th>
+                        <th><center>comentario</center></th>
+                        <th><center>Estatus</center></th>
+                        <th><center>Usuario</center></th>
+                        <th><center>Fecha</center></th>
+                        <th><center>Hora</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($seguimiento as $seg){?>
+                        <tr>
+                            <td><center><?php echo $seg->TipoComentario?></center></td>
+                            <td><center><?php echo $seg->Comentario?></center></td>
+                            <td><center><?php echo $seg->Estatus?></center></td>
+                            <td><center><?php echo $seg->Iniciales?></center></td>
+                            <td><center><?php echo $seg->Fecha?></center></td>
+                            <td><center><?php echo $seg->Hora?></center></td>
+                        </tr>
+                    <?php }?>
+                </tbody> 
+            </table>
+        </div>
+    <?php }?>
 </div>
 
 <script src="<?php echo base_url('public/dist/js/personalizado.js')?>"></script>
+<script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>

@@ -101,7 +101,7 @@
     <div class="container box col-md-12" id="advanced-search-form">
         
         <h1 align="center">Registro del equipo</h1>
-        <h4 align="center">Los datos marcados con "*" son <strong>obligatorios</strong></h4><br><br>
+        <h6 align="center">Los datos marcados con "*" son <strong>obligatorios</strong></h6><br><br>
 
         <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
            <div class="form-row">

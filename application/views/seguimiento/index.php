@@ -1,48 +1,47 @@
 <div class="container box col-md-12" id="advanced-search-form"> 
-  <form name="FrmRegistro" Id="FrmRegistro" method="post" action="">
       <table>
         <nav class="navbar navbar-light bg-light">
-          <form class="form-inline">
-            <input class="form-control col-md-8" type="search" placeholder="Numero De Orden" aria-label="No. De Orden">
+          <form class="form-inline" name="FrmBuscarOrden" Id="FrmBuscarOrden" action="<?php echo base_url('Seguimiento/buscaorden')?>" method="post">
+            <input class="form-control col-md-8" type="search" Id="IdOrden" name="IdOrden"placeholder="Numero De Orden" aria-label="No. De Orden" required>
             <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
           </form>
         </nav>
       </table>
-        </form>
-        <div class="container box col-md-12" id="advanced-search-form">
-            <h1 align="center">Datos de la orden</h1>
-            <div class="form-row">
-              <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
-              <div class="form-group col-md-4">
-                <label for="inputNombre"></label>
-                <input type="Nombre" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre del cliente">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputserie"></label>
-                <input type="" class="form-control" id="serie" name="serie" placeholder="Marca">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputModelo"></label>
-                <input type="" class="form-control" id="Modelo" name="Modelo" placeholder="Modelo">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputMarca"></label>
-                <input type="Falla" class="form-control" id="Falla" name="Marca" placeholder="Falla">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputFecha"></label>
-                <input type="" class="form-control" id="Fecha" name="Fecha" placeholder="Fecha de ingreso">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputEstatus"></label>
-                <input type="" class="form-control" id="Estatus" name="Estatus" placeholder="Estatus">
-              </div>
-            </div>            
+    <div class="container box col-md-12" id="advanced-search-form">
+      <h1 align="center">Datos de orden</h1>
+      <div class="form-row">
+        <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
+        <div class="form-group col-md-4">
+          <label>Nombre: </label>
+          <label>-----</label>
+        </div>
+        <div class="form-group col-md-4">
+              <label>No. Serie</label>
+              <label>-----</label>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Marca</label>
+              <label>-----</label>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Modelo</label>
+              <label>-----</label>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Color</label>
+              <label>-----</label>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Estatus</label>
+              <label>-----</label>
+            </div>
+          </div>
         </div>
         <br>
+        <form>
         <div class="form-group col-md-4">
-          <label for="exampleFormControlSelect1">Tipo de comentario</label>
-          <select class="form-control" id="exampleFormControlSelect1">
+          <label for="cmbTComentario">Tipo de comentario</label>
+          <select class="form-control" id="cmbTComentario" name="cmbTComentario">
             <option value="0" selected>Seleccione una opción</option>
             <option value="Información interna" >Información interna</option>
             <option value="Mostrar al cliente">Mostrar al cliente</option>
@@ -54,11 +53,10 @@
         </div>
         <br> 
         <div class="form-row">
-          <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
           <div class="container"></div>
           <div class="form-group col-md-4">
-            <label for="exampleFormControlSelect1">Estatus del equipo:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="cmbEstatus">Estatus del equipo:</label>
+            <select class="form-control" id="cmbEstatus" name="cmbEstatus">
               <option value="0" selected> Seleccione una opción</option>
               <option value="1"> En reparación </option>
               <option value="2"> En espera de piezas </option>
@@ -67,7 +65,8 @@
             </select>
           </div>
         </div>
-        <button name="Agregar" Id="Agregar" type="submit" class="btn btn-success col-md-2">Agregar</button>
+        <button name="Agregar" Id="Agregar" type="submit" onclick="return Seguimiento();" class="btn btn-success col-md-2">Agregar</button>
+        </form>
         <br>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead class="thead-light">
@@ -92,63 +91,10 @@
         
         
           <tbody>
-            <tr>
-              <td>
-                <center>
-                  informacion interna
-                </center>
-              </td>
-              <td>
-                <center>
-                  -----------
-                </center>
-              </td>
-              <td>
-                <center>
-                  18/04/21
-                </center>
-              </td>
-              <td>
-                <center>
-                  5:30pm
-                </center>
-              </td>
-              <td>
-                <center>
-                  ------------
-                </center>
-              </td>
-            </tr>
-        
-            <tr>
-              <td>
-                <center>
-                  informacion interna
-                </center>
-              </td>
-              <td>
-                <center>
-                  -------------
-                </center>
-              </td>
-              <td>
-                <center>
-                  18/04/21
-                </center>
-              </td>
-              <td>
-                <center>
-                  5:30pm
-                </center>
-              </td>
-              <td>
-                <center>
-                  -------------
-                </center>
-              </td>
-            </tr>
           </tbody>
         
         </table>
       </form>
     </div>
+
+    <script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>

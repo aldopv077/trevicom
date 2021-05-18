@@ -3,28 +3,159 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Seguimiento extends CI_Controller {
 
+	function __construct() {
+        parent::__construct();
+        $this->load->model("ModOrdenes");
+        $this->load->model("ModSeguimiento");
+        $this->load->model("ModClientes");
+        $this->load->model("ModEmpresas");
+    }
+
+
+	//Redirecciona a la vista principal del seguimiento
 	public function index()
 	{
-		$data['contenido'] = "seguimiento/index";
-        $data['perfil'] = "Administrador";
-        $data['perfil2'] = "Técnico";
-        
-		$this->load->view('plantilla',$data);
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$data['contenido'] = "seguimiento/index";
+			$data['perfil'] = $this->session->userdata('Perfil');
+			$this->load->view('plantilla',$data);
+		}
 	}
 
+	//Captura el Id de la orden para buscarla y registrar su seguimiento
+	public function buscaorden(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$datos = $this->input->post();
+			if(isset($datos)){
+				$Id = $datos['IdOrden'];
+				$orden = $this->ModOrdenes->buscarordenCliente($Id);
+				if($orden == null){
+					$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
+					if($orden == null){
+						echo '<scritp> alert("No se encontraron resultados"); </script>';
+						redirect('Seguimiento/index', refresh);
+					}else if($this->session->userdata('Perfil') == "Técnico"){
+						foreach($orden as $ord){
+							$Asignado = $ord->Asignado;
+						}
+	
+						if($Asignado == $this->session->userdata('Iniciales')){
+							$data['contenido'] = "seguimiento/registro";
+							$data['perfil'] = $this->session->userdata('Perfil');
+							$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+							$data['orden'] = $orden;
+							
+							$this->load->view('plantilla',$data);
+						}
+						else{
+							echo '<script> alert("Este equipo no lo tiene asignado"); </script>';
+							redirect('Seguimiento/index','refresh');
+						}
+					}else{
+						$data['contenido'] = "seguimiento/registro";
+						$data['perfil'] = $this->session->userdata('Perfil');
+						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+						$data['orden'] = $orden;
+							
+						$this->load->view('plantilla',$data);
+					}
+	
+				}else if($this->session->userdata('Perfil') == "Técnico"){
+					foreach($orden as $ord){
+						$Asignado = $ord->Asignado;
+					}
+
+					if($Asignado == $this->session->userdata('Iniciales')){
+						$data['contenido'] = "seguimiento/registro";
+						$data['perfil'] = $this->session->userdata('Perfil');
+						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+						$data['orden'] = $orden;
+						
+						$this->load->view('plantilla',$data);
+					}else{
+						echo '<script> alert("Este equipo no lo tiene asignado"); </script>';
+						redirect('Seguimiento/index','refresh');
+					}
+				}else{
+					$data['contenido'] = "seguimiento/registro";
+					$data['perfil'] = $this->session->userdata('Perfil');
+					$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+					$data['orden'] = $orden;
+						
+					$this->load->view('plantilla',$data);
+				}
+			}
+		}
+	}
+
+	//Captura los datos del formulario para guardar el seguimiento de la orden en el modelo
 	public function registrar(){
-		$data['contenido'] = "seguimiento/registro";
-		$data['perfil'] = "Administrador";
-        $data['perfil2'] = "Técnico";
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$datos = $this->input->post();
 
-		$this->load->view('plantilla',$data);
-	}
+			//Se establece el uso horario que se utilizará
+			date_default_timezone_set('America/Mexico_City');
+			$datos = $this->input->post();
+			$fechag = date("Y-m-d");
+			$hora = date("h:i:s", time());
 
-	public function editar(){
-		$data['contenido'] = "seguimiento/editar";
-		$data['perfil'] = "Administrador";        
-        $data['perfil2'] = "Técnico";
+			if(isset($datos)){
+				$seguimiento = array(
+					'IdOrden' => $datos['txtIdOrden'],
+					'IdEmpleado' => $this->session->userdata('Id'),
+					'TipoComentario' => $datos['cmbTComantario'],
+					'Comentario' => $datos['Comentario'],
+					'Estatus' => $datos['cmbEstatus'],
+					'Fecha' => $fechag,
+					'Hora' => $hora,
+				);
 
-		$this->load->view('plantilla',$data);
+				//print_r($seguimiento);exit;
+				$ingresar=$this->ModSeguimiento->ingresar($seguimiento);
+
+				if($ingresar){
+					$Id = $datos['txtIdOrden'];
+					$orden = $this->ModOrdenes->buscarordenCliente($Id);
+					if($orden == null){
+						$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
+						if($orden == null){
+							echo '<scritp> alert("No se encontraron resultados"); </script>';
+							redirect('Seguimiento/index', refresh);
+						}
+					}
+
+					$data['contenido'] = "seguimiento/registro";
+					$data['perfil'] = $this->session->userdata('Perfil');
+					$data['orden'] = $orden;
+					$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+				
+					if($this->session->userdata('Perfil') == "Técnico"){
+						$this->load->view('plantilla',$data);
+					}else{
+						$conteo = 1;
+						$orden = $this->ModOrdenes->buscarordenCliente($Id);
+						if($orden == null){
+							$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
+						}
+
+						$data['contenido'] = 'ordenes/consultamultiple';
+						$data['perfil'] = $this->session->userdata('Perfil');
+						$data['clientes'] = $this->ModClientes->listaclientes();
+						$data['empresas'] = $this->ModEmpresas->empresaactiva();
+						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+						$data['conteo'] = $conteo;
+						$data['orden'] = $orden;
+						$this->load->view('plantilla',$data);
+					}
+					
+				}
+			}
+		}
 	}
 }

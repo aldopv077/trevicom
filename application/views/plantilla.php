@@ -138,13 +138,15 @@
                                             <p>Reportes</p>
                                         </a>
                                     </li>
-                                     <li class="nav-item">
-                                        <a href="<?php echo base_url('Seguimiento/index')?>"
-                                            class="">
-                                            <i class="fas fa-external-link-alt"></i>
-                                            <p>Seguimiento De Orden</p>
-                                        </a>
-                                    </li>
+                                    <?php //if($perfil == "Técnico"){?>
+                                        <li class="nav-item">
+                                            <a href="<?php echo base_url('Seguimiento/index')?>"
+                                                class="">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                <p>Seguimiento De Orden</p>
+                                            </a>
+                                        </li>
+                                    <?php //}?>
                                     <li class="nav-item">
                                         <a href="<?php echo base_url('Cotizaciones/index')?>">
                                         <i class="fas fa-money-check-alt"></i>

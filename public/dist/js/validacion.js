@@ -1,3 +1,7 @@
+//Validaciones de los campos obligatorios que no estén vacios
+//Solo combobox, checkbox y radiobutton
+
+//Validacion antes de agregar la orden a la BD
 function AgregarOrden(){
     //alert('funcion agregar orden');
 
@@ -27,6 +31,7 @@ function AgregarOrden(){
     }
 }
 
+//Validación de las asignaciones antes de guardarlas en al BD
 function asignaciones(){
     var IngInicial = document.getElementById('txtAsignado').value;
     var IngReasignado = document.getElementById('cmbIng').value;
@@ -40,6 +45,29 @@ function asignaciones(){
     }else{
         alert('Debe elegir a un ingeniero para realizar el cambio');
         document.getElementById('cmbIng').focus();
+        return false;
+    }
+}
+
+//Validación de los comentarios/seguimiento antes de guardarlos en la BD
+function Seguimiento(){
+    alert('Funcion seguimiento');
+    //return false;
+
+    var TComentario = document.getElementById('cmbTComentario').value;
+    var Estatus = document.getElementById('cmbEstatus').value;
+
+    alert('Tipo de comentario = '+TComentario+' Estatus = '+Estatus);
+
+    
+
+    if(TComentario == 0){
+        alert('Es necesario elegir un tipo de comentario');
+        document.getElementById('cmbTComentario').focus();
+        return false;
+    }else if(Estatus == 0){
+        alert('Es necesario elegir un estatus del equipo');
+        document.getElementById('cmbEstatus').focus();
         return false;
     }
 }
