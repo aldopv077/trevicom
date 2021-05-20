@@ -51,15 +51,9 @@ function asignaciones(){
 
 //Validación de los comentarios/seguimiento antes de guardarlos en la BD
 function Seguimiento(){
-    alert('Funcion seguimiento');
-    //return false;
 
     var TComentario = document.getElementById('cmbTComentario').value;
     var Estatus = document.getElementById('cmbEstatus').value;
-
-    alert('Tipo de comentario = '+TComentario+' Estatus = '+Estatus);
-
-    
 
     if(TComentario == 0){
         alert('Es necesario elegir un tipo de comentario');
@@ -68,6 +62,48 @@ function Seguimiento(){
     }else if(Estatus == 0){
         alert('Es necesario elegir un estatus del equipo');
         document.getElementById('cmbEstatus').focus();
+        return false;
+    }
+}
+
+//Validación de la consulta de reportes
+function Reportes(){
+    var Estatus = document.getElementById('cmbEstatus').value;
+
+    if(Estatus == 0){
+        alert('Debe de elegir por un estatus');
+        document.getElementById('cmbEstatus').focus();
+        return false;
+    }
+}
+
+//Valida que estén seleccionados los checkbox
+function check(tamanio){
+    
+    for(x=1;x<=tamanio;x++){
+        var nombre = 'No'+x;
+        
+        if(!document.getElementById(x).checked){
+            if(!document.getElementById(nombre).checked){
+                alert('Debe de elegir una opción');
+                document.getElementById(x).focus();
+                return false;
+            }
+        }
+    }
+}
+
+function coninventario(){
+    var Id = document.getElementById('IdInventario').value;
+    var Fecha = document.getElementById('Fecha').value;
+
+    if(Id == "" && Fecha == ""){
+        alert('Debe elegir una opción de busqueda');
+        document.getElementById('IdInventario').focus();
+        return false;
+    }else if(Id != "" && Fecha != ""){
+        alert('La busqueda solo es por un criterio de busqueda');
+        document.getElementById('IdInventario').focus();
         return false;
     }
 }

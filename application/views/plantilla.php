@@ -132,7 +132,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo base_url('Ordenes/reportes')?>"
+                                        <a href="<?php echo base_url('Reportes/index')?>"
                                             class="">
                                             <i class="far fa-file"></i>
                                             <p>Reportes</p>
@@ -154,7 +154,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo base_url('Ordenes/inventario')?>">
+                                        <a href="<?php echo base_url('Inventario/index')?>">
                                         <i class="fas fa-clipboard-check"></i>
                                             <p>Inventario</p>
                                         </a>

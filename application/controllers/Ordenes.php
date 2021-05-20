@@ -212,7 +212,7 @@ class Ordenes extends CI_Controller {
 
 					if($asignacion){
 						echo '<script> alert("Se ha agregado la orden correctamente"); </script>';
-						redirect('Ordenes/index');
+						redirect('Ordenes/index','refresh');
 					}
 				}				
 			}
@@ -422,25 +422,6 @@ class Ordenes extends CI_Controller {
 			}
 		}
 	}
-
-
-
-	public function reportes(){
-		$data['contenido'] = "ordenes/reportes";
-		$data['perfil'] = "Administrador";
-        $data['perfil2'] = "Técnico";
-
-		$this->load->view('plantilla',$data);
-	}
-
-	public function inventario(){
-		$data['contenido'] = "ordenes/inventario";
-		$data['perfil'] = "Administrador";
-        $data['perfil2'] = "Técnico";
-
-		$this->load->view('plantilla',$data);
-	}
-
 	public function pdf(){
 		//$this->load->view('ordenes/pdf');
 

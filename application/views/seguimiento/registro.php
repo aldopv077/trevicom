@@ -116,9 +116,9 @@
                 <label for="cmbEstatus">*Estatus del equipo:</label>
                 <select class="form-control" id="cmbEstatus" name="cmbEstatus">
                     <option value="0" selected> Seleccione una opción</option>
-                    <option value="En reparación"> En reparación </option>
+                    <option value="Revisado"> Revisado </option>
                     <option value="En espera de piezas"> En espera de piezas </option>
-                    <option value="Listo para entrega"> Listo para entrega </option>
+                    <option value="Terminado"> Terminado </option>
                     <option value="Terminado sin reparar"> Terminado sin reparar </option>
                 </select>
             </div>
