@@ -40,7 +40,7 @@ class ModOrdenes extends CI_Model{
     //Busca las ordenes por número de orden o por número de serie de Clientes
     public function buscarordenCliente($Id){
         //echo $Id; exit;
-        $this->db->select('ord.IdOrden As Orden, cli.IdCliente AS IdCliente, cli.Nombre As Nombre, cli.Paterno As Paterno, cli.Materno As Materno, cli.Telefono, cli.Celular, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha AS Fecha, ord.Hora As Hora');
+        $this->db->select('ord.IdOrden As Orden, cli.IdCliente As IdCliente, cli.Nombre As Nombre, cli.Paterno As Paterno, cli.Materno As Materno, cli.Direccion As Calle, cli.NoExterior As Exterior, cli.NoInterior As Interior, cli.Colonia As Col, cli.Ciudad As Ciudad, cli.Telefono As Telefono, cli.Celular As Celular, cli.Correo As Correo,te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.NumeroEquipo As NumeroEquipo,ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Accesorios As Accesorios, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Nombre AS RecibeN, usu.Paterno As RecibeP, usu.Materno AS RecibeM, ord.Asignado as Asignado, ord.Fecha AS Fecha, ord.Hora As Hora, ord.Prioridad As Prioridad, ord.Garantia As Garantia, ord.Reincidencia As Reincidencia, ord.Respaldo as Respaldo, ord.Contrasena AS Pass, ord.Costo As Costo');
         $this->db->from('TblOrdenes as ord');
         $this->db->join('TblClientes as cli','ord.IdCliente=cli.IdCliente');
         $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo=te.IdTipoEquipo');
@@ -55,7 +55,7 @@ class ModOrdenes extends CI_Model{
 
     //Busqueda de ordenes por número de orden o por número de serie de Empresas
     public function buscarordenEmpresa($Id){
-        $this->db->select('ord.IdOrden As Orden, emp.IdEmpresa As IdEmpresa, emp.Nombre As Empresa, cnt.Nombre As Nombre, cnt.Paterno As Paterno, cnt.Materno As Materno, emp.Telefono as Telefono, cnt.Telefono AS TelContacto, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha AS Fecha, ord.Hora As Hora');
+        $this->db->select('ord.IdOrden As Orden, emp.IdEmpresa As IdEmpresa, emp.Nombre As Empresa, cnt.Nombre As Nombre, cnt.Paterno As Paterno, cnt.Materno As Materno, cnt.Correo As Correo, emp.Direccion As Calle, Emp.NoExterior As Exterior, emp.NoInterior As Interior, emp.Colonia As Col, emp.Ciudad As Ciudad, emp.Telefono as TelEmpresa, emp.Extencion AS Extencion, cnt.Telefono AS TelContacto, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.NumeroEquipo AS NumeroEquipo, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Accesorios AS Accesorios, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Nombre AS RecibeN, usu.Paterno As RecibeP, usu.Materno AS RecibeM, ord.Asignado as Asignado, ord.Fecha AS Fecha, ord.Hora As Hora,ord.Prioridad As Prioridad, ord.Garantia As Garantia, ord.Reincidencia As Reincidencia, ord.Respaldo as Respaldo, ord.Contrasena AS Pass, ord.Costo As Costo');
         $this->db->from('TblOrdenes as ord');
         $this->db->join('TblEmpresas as emp','ord.IdEmpresa=emp.IdEmpresa');        
         $this->db->join('TblContactoEmpresa as cnt','ord.IdContactoEmpresa=cnt.IdContacto');    
@@ -72,7 +72,7 @@ class ModOrdenes extends CI_Model{
     //Busca las ordenes por IdClientes
     public function buscarordenIdCliente($Id){
         //echo $Id; exit;
-        $this->db->select('ord.IdOrden As Orden, cli.IdCliente AS IdCliente, cli.Nombre As Nombre, cli.Paterno As Paterno, cli.Materno As Materno, cli.Telefono, cli.Celular, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha As Fecha, ord.Hora AS Hora');
+        $this->db->select('ord.IdOrden As Orden, cli.IdCliente AS IdCliente, cli.Nombre As Nombre, cli.Paterno As Paterno, cli.Materno As Materno, cli.Telefono, cli.Celular, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha As Fecha, ord.Hora AS Hora, ord.Prioridad As Prioridad, ord.Garantia As Garantia, ord.Reincidencia As Reincidencia, ord.Respaldo as Respaldo, ord.Contrasena AS Pass, ord.Costo As Costo');
         $this->db->from('TblOrdenes as ord');
         $this->db->join('TblClientes as cli','ord.IdCliente=cli.IdCliente');
         $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo=te.IdTipoEquipo');
@@ -86,7 +86,7 @@ class ModOrdenes extends CI_Model{
 
     //Busqueda de ordenes por IdEmpresas
     public function buscarordenIdEmpresa($Id){
-        $this->db->select('ord.IdOrden As Orden, emp.IdEmpresa As IdEmpresa, emp.Nombre As Empresa, cnt.Nombre As Nombre, cnt.Paterno As Paterno, cnt.Materno As Materno, emp.Telefono as Telefono, cnt.Telefono AS TelContacto, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha As Fecha, ord.Hora AS Hora');
+        $this->db->select('ord.IdOrden As Orden, emp.IdEmpresa As IdEmpresa, emp.Nombre As Empresa, cnt.Nombre As Nombre, cnt.Paterno As Paterno, cnt.Materno As Materno, emp.Telefono as TelEmpresa, cnt.Telefono AS TelContacto, te.TipoEquipo As Equipo, ord.NumeroSerie AS Serie, ord.Marca As Marca, ord.Modelo As Modelo, ord.Falla AS Falla, ord.Observaciones AS Observ, ord.Estatus AS Estatus, usu.Iniciales AS Recibe, ord.Asignado as Asignado, ord.Fecha As Fecha, ord.Hora AS Hora, ord.Prioridad As Prioridad, ord.Garantia As Garantia, ord.Reincidencia As Reincidencia, ord.Respaldo as Respaldo, , ord.Contrasena AS Pass, ord.Costo As Costo');
         $this->db->from('TblOrdenes as ord');
         $this->db->join('TblEmpresas as emp','ord.IdEmpresa=emp.IdEmpresa');        
         $this->db->join('TblContactoEmpresa as cnt','ord.IdContactoEmpresa=cnt.IdContacto');    
@@ -119,6 +119,42 @@ class ModOrdenes extends CI_Model{
         $this->db->from('TblAsignaciones AS asg');
         $this->db->join('TblEmpleados as usu','asg.IdEmpleado = usu.IdEmpleado');
         $this->db->where('asg.IdOrden',$Id);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Actualiza el costo de la orden y el estatus de la orden
+    public function costo($Id, $Costo, $Estatus){
+        
+        $this->db->query("UPDATE TblOrdenes SET Costo =". $Costo .", Estatus = '".$Estatus."' WHERE IdOrden = ". $Id);
+
+        return true;
+    }
+
+    //Actualiza solo el estatus de la orden
+    public function estatus($Id, $Estatus){
+       
+        $this->db->query("UPDATE TblOrdenes SET Estatus = '".$Estatus."' WHERE IdOrden = ". $Id);
+
+        return true;
+    }
+
+    //Marca como entregado el equipo
+    public function entregar($Id){
+        $actualiza = $this->db->query("UPDATE TblOrdenes SET Estatus = 'Entregado' WHERE IdOrden = ". $Id);
+        if($actualiza){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //Consulta el último comentario
+    public function verificaestatus($Id){
+        $this->db->select('Estatus');
+        $this->db->from('TblOrdenes');
+        $this->db->where('IdOrden', $Id);
 
         $consulta = $this->db->get();
         return $consulta->result();

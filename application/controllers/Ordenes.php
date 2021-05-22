@@ -107,7 +107,7 @@ class Ordenes extends CI_Controller {
 			$datos = $this->input->post();
 			$fechag = date("Y-m-d");
 			$fecham = date("d-m-Y");
-			$hora = date("h:i:s", time());
+			$hora = date("h:i:s a",  time());
 			
 			if(isset($datos)){
 				//Se verifica que se hayan seleccionado algun checkbox
@@ -210,9 +210,8 @@ class Ordenes extends CI_Controller {
 					);
 					$agrAsignacion = $this->ModOrdenes->asignar($asignacion);
 
-					if($asignacion){
-						echo '<script> alert("Se ha agregado la orden correctamente"); </script>';
-						redirect('Ordenes/index','refresh');
+					if($agrAsignacion){
+						$this->verorden($IdOrden);
 					}
 				}				
 			}
@@ -422,7 +421,91 @@ class Ordenes extends CI_Controller {
 			}
 		}
 	}
-	public function pdf(){
+
+	public function verorden($Id){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			require_once('././public/vendor/autoload.php');
+			$css = file_get_contents('././public/dist/css/pdf.css');
+
+			$orden = null;
+			$orden = $this->ModOrdenes->buscarordenCliente($Id);
+			
+			if($orden == null){
+				$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
+				if($orden == null){
+					echo '<scritp> alert("No se encontraron resultados"); </script>';
+					redirect('Ordenes/consultar','refresh');
+				}
+				
+				$data['orden'] = $orden;
+
+				$mpdf = new \Mpdf\Mpdf([]);
+
+				$html = $this->load->view('ordenes/ordenEmpresaPDF', $data, true);
+
+				$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+				$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+	
+				$mpdf->Output();
+			}else{
+				$data['orden'] = $orden;
+				$mpdf = new \Mpdf\Mpdf([]);
+				$html = $this->load->view('ordenes/ordenClientePDF', $data, true);
+				
+				$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+				$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+	
+				$mpdf->Output();
+			}
+		}
+	}
+
+	public function verentrega($Id){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			require_once('././public/vendor/autoload.php');
+			$css = file_get_contents('././public/dist/css/pdf.css');
+
+			$orden = null;
+			$orden = $this->ModOrdenes->buscarordenCliente($Id);
+			
+			if($orden == null){
+				$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
+				if($orden == null){
+					echo '<scritp> alert("No se encontraron resultados"); </script>';
+					redirect('Ordenes/consultar','refresh');
+				}
+				
+				$data['orden'] = $orden;
+				$data['resultado'] = $this->ModSeguimiento->resultado($Id);
+
+				$mpdf = new \Mpdf\Mpdf([]);
+
+				$html = $this->load->view('ordenes/entregaEmpresaPDF', $data, true);
+
+				$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+				$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+	
+				$mpdf->Output();
+			}else{
+				$data['orden'] = $orden;
+				$data['resultado'] = $this->ModSeguimiento->resultado($Id);
+
+				$mpdf = new \Mpdf\Mpdf([]);
+				$html = $this->load->view('ordenes/entregaClientePDF', $data, true);
+				
+				$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+				$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+	
+				$mpdf->Output();
+			}
+		}
+	}
+
+	/*public function pdf(){
 		//$this->load->view('ordenes/pdf');
 
 		$data=[];
@@ -439,5 +522,29 @@ class Ordenes extends CI_Controller {
 		$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
 	
 		$mpdf->Output();
+	}*/
+
+	//Captura los datos del formulario para marcar como entregado el equipo
+	public function entregar($Id){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+			$consulta = $this->ModOrdenes->verificaestatus($Id);
+
+			foreach($consulta as $con){
+				$Estatus = $con->Estatus;
+			}
+
+			if($Estatus == "Terminado" || $Estatus == "Terminado sin reparar"){
+				$actualiza = $this->ModOrdenes->entregar($Id);
+
+				if($actualiza){
+					$this->verentrega($Id);
+				}
+			}else{
+				echo '<script> alert("No es posible entregar el equipo si no se encuentra terminado"); </script>';
+				redirect('Ordenes/index');
+			}			
+		}
 	}
 }

@@ -1,3 +1,9 @@
+<script>
+    window.addEventListener('load', function() {
+        document.getElementById('Costo').style.display="none";
+        document.getElementById('Costo').disabled= true;
+    });
+</script>
 <div class="container box col-md-12" id="advanced-search-form"> 
       <table>
         <nav class="navbar navbar-light bg-light">
@@ -53,7 +59,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Tel-Empresa:</label>
-                        <p><?php echo $datos->Telefono?></p>
+                        <p><?php echo $datos->TelEmpresa?></p>
                     </div>
                     <div class="form-group col-md-4">
                         <label>Contacto:</label>
@@ -106,7 +112,7 @@
             </select>
             </div>
             <div class="form-group col-md-8">
-            <label for="comentario">*Comentario</label>
+            <label for="Comentario">*Comentario</label>
             <input type="" class="form-control" id="Comentario" name="Comentario" placeholder="Comentario" required>
             </div>
             <br> 
@@ -114,13 +120,18 @@
             <div class="container"></div>
             <div class="form-group col-md-4">
                 <label for="cmbEstatus">*Estatus del equipo:</label>
-                <select class="form-control" id="cmbEstatus" name="cmbEstatus">
+                <select class="form-control" id="cmbEstatus" name="cmbEstatus" onchange="costo();">
                     <option value="0" selected> Seleccione una opción</option>
                     <option value="Revisado"> Revisado </option>
                     <option value="En espera de piezas"> En espera de piezas </option>
                     <option value="Terminado"> Terminado </option>
                     <option value="Terminado sin reparar"> Terminado sin reparar </option>
                 </select>
+            </div>
+            
+            <div class="form-group col-md-3">
+            <label for="Costo"></label>
+            <input type="text" class="form-control" id="Costo" name="Costo" placeholder="Costo">
             </div>
             </div>
             <button name="Agregar" Id="Agregar" type="submit" onclick="return Seguimiento();" class="btn btn-success col-md-2">Agregar</button>

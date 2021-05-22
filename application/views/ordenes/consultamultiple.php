@@ -142,8 +142,32 @@
                         <p><?php echo $datos->Modelo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Urgente</label>
+                        <p><?php if($datos->Prioridad == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Garantia</label>
+                        <p><?php if($datos->Garantia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Respaldo de información</label>
+                        <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Reincidencia</label>
+                        <p><?php if($datos->Reincidencia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Contraseña</label>
+                        <p><?php echo $datos->Pass?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Costo</label>
+                        <p><?php echo $datos->Costo?></p>
                     </div>
                 </div>
             <?php }else{?>
@@ -155,7 +179,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Tel-Empresa:</label>
-                        <p><?php echo $datos->Telefono?></p>
+                        <p><?php echo $datos->TelEmpresa?></p>
                     </div>
                     <div class="form-group col-md-4">
                         <label>Contacto:</label>
@@ -186,11 +210,39 @@
                         <p><?php echo $datos->Modelo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Urgente</label>
+                        <p><?php if($datos->Prioridad == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Garantia</label>
+                        <p><?php if($datos->Garantia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Respaldo de información</label>
+                        <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Reincidencia</label>
+                        <p><?php if($datos->Reincidencia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Contraseña</label>
+                        <p><?php echo $datos->Pass?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
                     </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label>Costo</label>
+                        <p><?php echo $datos->Costo?></p>
+                    </div>
                 </div>
             <?php }?>
+                <div class="btn-group" role="group" aria-label="Third group">
+                    <a href="<?php echo base_url('Ordenes/verorden/').$datos->Orden?>" target="_blank" class="btn btn-outline-primary float-light">Ver Orden</a>
+                </div>
         <?php }?>
     </div>
     <?php }?>
@@ -260,6 +312,7 @@
                     <?php }?>
                 </tbody> 
             </table>
+            <a href="<?php echo base_url('Ordenes/entregar/').$datos->Orden?>"  class="btn btn-success col-md-4">Entregar equipo</a>
         </div>
     <?php }?>
 </div>

@@ -57,7 +57,7 @@
         <tr>
           <td><center><?php echo $value->Nombre?></center></td>
           <td><center><?php echo $value->Direccion?></center></td>
-          <td><center><?php echo $value->Telefono?></center></td>
+          <td><center><?php echo $value->Telefono.' Ext. '.$value->Extencion?></center></td>
           <td><center><?php echo $value->NombreCont.' '.$value->PaternoCont.' '.$value->MaternoCont?></center></td>
           <td><center><?php echo $value->TelefonoCont?></center></td>
           <td><center><?php echo $value->CorreoCont?></center></td>

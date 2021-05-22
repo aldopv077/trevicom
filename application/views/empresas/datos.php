@@ -78,7 +78,7 @@
                         <center><?php echo $empresa->CodigoPostal?></center>
                     </td>
                     <td>
-                        <center><?php echo $empresa->Telefono?></center>
+                        <center><?php echo $empresa->Telefono.' Ext'.$empresa->Extencion?></center>
                     </td>
                     <td>
                         <center><?php echo $empresa->Dependencia?></center>

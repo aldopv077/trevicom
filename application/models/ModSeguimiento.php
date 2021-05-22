@@ -26,4 +26,15 @@ class ModSeguimiento extends CI_Model{
         $consulta = $this->db->get();
         return $consulta->result();
     }
+
+    //Obtiene el comentario del estatus terminado de la orden seleccionada
+    public function resultado($Id){
+        $this->db->select_max('Comentario');
+        $this->db->from('TblComentarios');
+        $this->db->where('IdOrden', $Id);
+        $this->db->where('Estatus' , 'Terminado');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
 }

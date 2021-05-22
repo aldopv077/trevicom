@@ -106,10 +106,11 @@ class Seguimiento extends CI_Controller {
 			$hora = date("h:i:s", time());
 
 			if(isset($datos)){
+
 				$seguimiento = array(
 					'IdOrden' => $datos['txtIdOrden'],
 					'IdEmpleado' => $this->session->userdata('Id'),
-					'TipoComentario' => $datos['cmbTComantario'],
+					'TipoComentario' => $datos['cmbTComentario'],
 					'Comentario' => $datos['Comentario'],
 					'Estatus' => $datos['cmbEstatus'],
 					'Fecha' => $fechag,
@@ -120,6 +121,20 @@ class Seguimiento extends CI_Controller {
 				$ingresar=$this->ModSeguimiento->ingresar($seguimiento);
 
 				if($ingresar){
+
+					if(isset($datos['Costo'])){
+						$Costo = $datos['Costo'];
+						$Estatus = $datos ['cmbEstatus'];
+						$Id = $datos['txtIdOrden'];
+						
+						$this->ModOrdenes->costo($Id, $Costo, $Estatus);
+					}else{
+						$Estatus = $datos ['cmbEstatus'];
+						$Id = $datos['txtIdOrden'];
+
+						$this->ModOrdenes->estatus($Id, $Estatus);
+					}
+
 					$Id = $datos['txtIdOrden'];
 					$orden = $this->ModOrdenes->buscarordenCliente($Id);
 					if($orden == null){
@@ -130,13 +145,16 @@ class Seguimiento extends CI_Controller {
 						}
 					}
 
-					$data['contenido'] = "seguimiento/registro";
-					$data['perfil'] = $this->session->userdata('Perfil');
-					$data['orden'] = $orden;
-					$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
-				
 					if($this->session->userdata('Perfil') == "Técnico"){
-						$this->load->view('plantilla',$data);
+						$data['contenido'] = "seguimiento/registro";
+						$data['perfil'] = $this->session->userdata('Perfil');
+						$data['orden'] = $orden;
+						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
+
+						$this->session->set_userdata('DatosSeguimiento', $data);
+						redirect('Seguimiento/seguir');
+
+						//$this->load->view('plantilla',$data);
 					}else{
 						$conteo = 1;
 						$orden = $this->ModOrdenes->buscarordenCliente($Id);
@@ -151,6 +169,7 @@ class Seguimiento extends CI_Controller {
 						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 						$data['conteo'] = $conteo;
 						$data['orden'] = $orden;
+						
 						$this->load->view('plantilla',$data);
 					}
 					
@@ -158,4 +177,15 @@ class Seguimiento extends CI_Controller {
 			}
 		}
 	}
+
+	//redirecciona a la vista de registro 
+	public function seguir(){
+		if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+            $dat = $this->session->userdata('DatosSeguimiento');
+            $this->load->view('plantilla',$dat);
+        }
+	}
+
 }

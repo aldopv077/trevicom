@@ -47,6 +47,10 @@
                   <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Télefono" value="<?php echo $empr->Telefono?>" required>
                 </div>                
                 <div class="form-group col-md-4">
+                  <label for="Extencion">* Extención</label>
+                  <input type="text" class="form-control" id="Extencion" name="Extencion" placeholder="Extención" value="<?php echo $empr->Extencion?>">
+                </div>                
+                <div class="form-group col-md-4">
                   <label for="Dependencia">Dependencia</label>
                   <input type="text" class="form-control" id="Dependencia" name="Dependencia" placeholder="Dependencia" value="<?php echo $empr->Dependencia?>">
                 </div>                                

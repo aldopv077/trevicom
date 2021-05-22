@@ -10,9 +10,9 @@
 
 
  <div class="container box" id="advanced-search-form"> 
-  <h1 align="center">Registrar</h1>
-        <h1 align="center">Datos de la empresa</h1>
-        <h3 align="center">Los campos marcados con * son obligatorios</h3>
+  <h1 align="center">Registrar datos de la empresa</h1>
+        <h2 align="center"></h2>
+        <h6 align="center">Los campos marcados con * son obligatorios</h6>
         <br>
         <form name="FrmRegistro" Id="FrmRegistro" method="post" action="<?php echo base_url('Empresas/ingresar')?>">
            <div class="form-row">
@@ -47,6 +47,10 @@
                   <label for="Telefono">* Teléfono</label>
                   <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Télefono" required>
                 </div>                
+                <div class="form-group col-md-4">
+                  <label for="Extencion"> Extención</label>
+                  <input type="text" class="form-control" id="Extencion" name="Extencion" placeholder="Extención">
+                </div>               
                 <div class="form-group col-md-4">
                   <label for="Dependencia">Dependencia</label>
                   <input type="text" class="form-control" id="Dependencia" name="Dependencia" placeholder="Dependencia">

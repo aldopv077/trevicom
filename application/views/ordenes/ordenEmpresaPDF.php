@@ -1,116 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden PDF</title>
-
-    <style>
-        *{
-            margin: 5px;
-            padding: 0px;
-        }
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        header{
-            border: 1px solid black;
-            height: 100px;
-            width: 100%;
-            text-align: center;
-            
-        }
-        header img{
-            margin-top: 10px;
-            margin-left: 10px;
-            width: 150px;
-            height: 80px;
-            float: left;
-        }
-        header h4{
-            line-height: 80px;
-            margin-right: 20%;
-        }
-        .Orden{
-            text-align: right;
-            margin-right: 20px;
-            margin-top: -70px;
-            margin-left:85%;
-            /*border: 1px solid black;*/
-            font-size:15pt;
-        }
-
-        .Datos{
-            margin-top: 5px;
-            width: 100%;
-            /*border: 1px solid black;*/
-        }
-
-        .Datos .contacto{
-            margin-left: 0px;
-        }
-
-        .leyenda{
-            margin-top: 5px;
-            width: 100%;
-            /*border: 1px solid black;*/
-            font-family: 'Bookman Old Style';
-            font-style: italic;
-            font-size: 10pt;
-        }
-
-
-        .condiciones ol li{
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 8pt;
-        }
-        .leyenda .firma{
-            text-align: right;
-            margin-right: 30px;
-        }
-
-        .redes{
-            float: left;
-        }
-
-        .redes img{
-            width: 25px;
-            height: 25px;
-            
-        }
-
-        hr{
-            color: black;
-            border: 2px solid black;
-        }
-
-        footer{
-            font-size: 10pt;
-        }
-    </style>
-
+    <link rel="stylesheet" href="<?php echo base_url('public/dist/css/pdf.css')?>">
 </head>
 <body>
     <?php foreach($orden as $ord){?>
+        <?php
+            $formatofecha = strtotime($ord->Fecha);
+            $Anio = date("Y", $formatofecha);
+            $Mes = date("m", $formatofecha);
+            $Dia = date("d", $formatofecha);
+            $Fecha = $Dia ."/". $Mes ."/". $Anio; 
+        ?>
     <div id="container">
         <header>
-            <img src="<?php echo base_url('public/dist/img/trevicom.png')?>">
-            <h4>COMPROBANTE DE RECEPCIÓN DE EQUIPO</h4>
-            <div class="Orden">
-                <h6>Número de orden</h6>
-                <p><?php echo $ord->Orden?></p>
-            </div>
+            
+            <table>
+                <tr>
+                    <td><img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="150" height="50"></td>
+                    <td><center><h3>COMPROBANTE DE RECEPCIÓN DE EQUIPO</h3></center></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <center>
+                            <h6>Número de orden</h6>
+                            <p><?php echo $ord->Orden?></p>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+            <p><strong>Recibió: </strong> <?php echo $ord->RecibeN.' '.$ord->RecibeP?> <strong>Fecha de ingreso: </strong><?php echo $ord->Fecha?> <strong>Hora de ingreso</strong> <?php echo $ord->Hora?></Strong></p>
         </header>
 
         <section class="Datos">
-            <br>
-            <label><strong>Cliente: </strong> <?php echo $ord->Nombre.' '.$ord->Paterno.' '.$ord->Materno?> </label><br><br>
-            <label><strong>Dirección: </strong> <?php echo $ord->Calle.' #'. $ord->Exterior.' Int '.$ord->Interior.' Col. '.$ord->Col.' Ciudad de '.$ord->Ciudad?> </label><br><br>
+            <label><strong>Cliente: </strong> <?php echo $ord->Empresa?> </label><br>
+            <label><strong>Dirección: </strong> <?php echo $ord->Calle.' #'. $ord->Exterior.' Int '.$ord->Interior.' Col. '.$ord->Col.' Ciudad de '.$ord->Ciudad?> </label><br>
+            <label><strong>Contacto: </strong> <?php echo $ord->Nombre.' '.$ord->Paterno.' '.$ord->Materno?> </label><br>
             <div class="contacto">
-                <label><strong>Teléfono: </strong> <?php echo $ord->Telefono?> </label>
-                <label><strong>Celular: </strong> <?php echo $ord->Celular?> </label>
+                <label><strong>Teléfono: </strong> <?php echo $ord->TelEmpresa?> </label>
+                <label><strong>Ext: </strong> <?php echo $ord->Extencion?> </label>
+                <label><strong>Tel. Contacto: </strong> <?php echo $ord->TelContacto?> </label>
                 <label><strong>Correo: </strong> <?php echo $ord->Correo?> </label>
             </div>
         </section>
@@ -122,19 +49,17 @@
                 <label><strong>Marca: </strong> <?php echo $ord->Marca?> </label>
                 <label><strong>Modelo: </strong> <?php echo $ord->Modelo?> </label>
             </div>
-            <br>
             <div class="contacto">
                 <label><strong>Núm. Serie: </strong> <?php echo $ord->Serie?> </label>
                 <label><strong>Tipo servicio: </strong> <?php if($ord->Garantia == 1){echo 'Garantía';}else{echo 'Servicio';}?> </label>
                 <label><strong>Ingeniero: </strong> <?php echo $ord->Asignado?> </label>
             </div>
-            <br>
             <label><strong>Falla: </strong> <?php echo $ord->Falla?> </label><br><br>
             <label><strong>Accesorios: </strong> <?php echo $ord->Accesorios?> </label><br><br>
             <label><strong>Observaciones: </strong> <?php echo $ord->Observ?> </label><br><br>
         </section>
         <section class="leyenda">
-            <p><strong>En caso de restaurar el equipo, se pierden los programas y solo se incluirá el sistema operativo original.</strong></p>
+            <strong>En caso de restaurar el equipo, se pierden los programas y solo se incluirá el sistema operativo original.</strong><br>
             <hr>
             <div class="condiciones">
                     <ol>
@@ -158,15 +83,17 @@
         </section>
         
         <div class="redes">
-            <img src="<?php echo base_url('public/dist/img/Whatsapp.png')?>"> 22-83-64-77-91 <img src="<?php echo base_url('public/dist/img/Facebook.png')?>"> Trevicom <img src="<?php echo base_url('public/dist/img/Instagram.png')?>">Treviño Computación <img src="<?php echo base_url('public/dist/img/Carrito.png"')?>">Trevicom.mx
+            <img src="<?php echo base_url('public/dist/img/Whatsapp.png')?>" width="20" height="20"> 22-83-64-77-91 
+            <img src="<?php echo base_url('public/dist/img/Facebook.png')?>" width="20" height="20"> Trevicom 
+            <img src="<?php echo base_url('public/dist/img/Instagram.png')?>" width="20" height="20">Treviño Computación 
+            <img src="<?php echo base_url('public/dist/img/Carrito.png')?>"width="20" height="20">Trevicom.mx
         </div>
-        <br><br><br><br><br>
+        <br>
         <footer>
-            <p><strong>Av. Murillo Vidal N° 98, Fracc. Ensueño; Xalapa, Ver.  E-mail: garantiashp@trevicom.com.mx</strong></p>
+            <strong>Av. Murillo Vidal N° 98, Fracc. Ensueño; Xalapa, Ver.  E-mail: garantiashp@trevicom.com.mx</strong>
             <hr>
-            <p><strong>N° Telefónico: 01 (228) 8 17 93 92 ext. 115, 113 y 111</strong></p>
+            <strong>N° Telefónico: 01 (228) 8 17 93 92 ext. 115, 113 y 111</strong>
         </footer>
     </div>
     <?php }?>
 </body>
-</html>

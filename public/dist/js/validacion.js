@@ -93,6 +93,19 @@ function check(tamanio){
     }
 }
 
+function costo(){
+    var estatus = document.getElementById('cmbEstatus').value;
+
+    if(estatus == "Terminado"){
+        document.getElementById('Costo').style.display = "block";
+        document.getElementById('Costo').disabled = false;
+    }else{
+        document.getElementById('Costo').style.display = "none";
+        document.getElementById('Costo').disabled = true;
+    }
+}
+
+//Verifica que una opción del inventario esté seleccionada
 function coninventario(){
     var Id = document.getElementById('IdInventario').value;
     var Fecha = document.getElementById('Fecha').value;

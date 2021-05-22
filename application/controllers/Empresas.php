@@ -44,8 +44,10 @@ class Empresas extends CI_Controller {
 					'Ciudad' => $datos['Ciudad'],
 					'CodigoPostal' => $datos['CodigoPostal'],
 					'Telefono' => $datos['Telefono'],
+					'Extencion' => $datos['Extencion'],
 					'Dependencia' => $datos['Dependencia'],
 					'Macro' => $datos['Macro'],
+					'Activo' => 1
 				);
 
 				$IdEmpresa = $this->ModEmpresas->ingresar($empresa);
@@ -62,7 +64,9 @@ class Empresas extends CI_Controller {
 						'Materno' => $datos['MaternoCont'],
 						'Telefono' => $datos['TelefonoCont'],
 						'Departamento' => $datos['DepartamentoCont'],
-						'Correo' => $datos['CorreoCont']
+						'Correo' => $datos['CorreoCont'],
+						'Activo' => 1,
+						'Principal' => 1,
 					);
 					//print_r($contacto); exit;
 
@@ -124,6 +128,7 @@ class Empresas extends CI_Controller {
 					'Ciudad' => $datos['Ciudad'],
 					'CodigoPostal' => $datos['CodigoPostal'],
 					'Telefono' => $datos['Telefono'],
+					'Extencion' => $datos['Extencion'],
 					'Dependencia' => $datos['Dependencia'],
 					'Macro' => $datos['Macro'],
 					'Activo' => $Activar

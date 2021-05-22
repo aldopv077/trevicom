@@ -26,7 +26,7 @@ class ModEmpresas extends CI_Model{
     public function listaempresas($Id = null){
         if($Id != null) {
             
-            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
+            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, em.Telefono as Extencion, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
             $this->db->from('TblEmpresas as em');
             $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
             $this->db->where('em.Activo', 1);
@@ -37,7 +37,7 @@ class ModEmpresas extends CI_Model{
             return $consulta->result();
         }else{
             
-            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
+            $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, em.Extencion As Extencion, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
             $this->db->from('TblEmpresas as em');
             $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
             $this->db->where('em.Activo', 1);
@@ -68,22 +68,7 @@ class ModEmpresas extends CI_Model{
         return $consulta->result();
     }
 
-
-    //Busca la empresa sin importar si está activa o no
-    /*public function buscaempresa($Id){
-                    
-        $this->db->select('em.IdEmpresa AS Id, em.Nombre AS Nombre, em.Direccion as Direccion, em.Telefono as Telefono, con.Nombre As NombreCont, con.Paterno as PaternoCont, con.Materno as MaternoCont, con.Telefono as TelefonoCont, con.Correo as CorreoCont');
-        $this->db->from('TblEmpresas as em');
-        $this->db->join('TblContactoEmpresa as con', 'em.IdEmpresa = con.IdEmpresa');
-        //$this->db->where('con.Principal',1);
-        $this->db->where('em.IdEmpresa',$Id);
-
-        $consulta = $this->db->get();
-        return $consulta->result();
-    }*/
-
     //Actualiza los datos de la tabla Empresas del registro obtenido
-
     public function actualizar($Id, $empresa){
         $this->db->where('IdEmpresa', $Id);
         $this->db->update('TblEmpresas', $empresa);
