@@ -412,10 +412,19 @@ class Ordenes extends CI_Controller {
 					'Fecha' => $fechag,
 					'Hora' => $hora
 				);
+
+				$consulta = $this->ModOrdenes->consultarAsignacion($IdOrden);
+				if($consulta){
+					$this->ModOrdenes->actualizaorden($IdOrden,$datos['cmbIng']);
+				}
+
+
 				$agrAsignacion = $this->ModOrdenes->asignar($asignacion);
 
+
+
 				if($asignacion){
-					echo '<script> alert("Se ha agregado la orden correctamente"); </script>';
+					echo '<script> alert("Se ha reasignado la orden correctamente"); </script>';
 					redirect('Ordenes/index');
 				}
 			}

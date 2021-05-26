@@ -79,22 +79,30 @@
                         <th><center>Marca</center></th>
                         <th><center>Modelo</center></th>
                         <th><center>Estatus</center></th>
+                        <th><center>Lugar</center></th>
                         <th><center>Fecha</center></th>
                         <th><center>Hora</center></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($orden as $datos){?>
+                    <?php foreach($orden as $datos){
+                        $formatofecha = strtotime($datos->Fecha);
+                        $Anio = date("Y", $formatofecha);
+                        $Mes = date("m", $formatofecha);
+                        $Dia = date("d", $formatofecha);
+                        $Fecha = $Dia ."/". $Mes ."/". $Anio; 
+                    ?>
                         <tr>
                             <td><center><a href="<?php echo base_url('Ordenes/buscar/').$datos->Orden?>"> <?php echo $datos->Orden?> </a></center></td>
                             <td><center><?php echo $datos->Nombre?></center></td>
-                            <td><center><?php echo $datos->Equipo?></center></td>
                             <td><center><?php echo $datos->Telefono?></center></td>
+                            <td><center><?php echo $datos->Equipo?></center></td>
                             <td><center><?php echo $datos->Serie?></center></td>
                             <td><center><?php echo $datos->Marca?></center></td>
                             <td><center><?php echo $datos->Modelo?></center></td>
                             <td><center><?php echo $datos->Estatus?></center></td>
-                            <td><center><?php echo $datos->Fecha?></center></td>
+                            <td><center><?php echo $datos->Lugar?></center></td>
+                            <td><center><?php echo $Fecha?></center></td>
                             <td><center><?php echo $datos->Hora?></center></td>
                         </tr>
                     <?php }?>
@@ -166,6 +174,10 @@
                         <p><?php echo $datos->Estatus?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Lugar</label>
+                        <p><?php echo $datos->Lugar?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>Costo</label>
                         <p><?php echo $datos->Costo?></p>
                     </div>
@@ -235,13 +247,17 @@
                     </div>
                     
                     <div class="form-group col-md-4">
+                        <label>Lugar</label>
+                        <p><?php echo $datos->Lugar?></p>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>Costo</label>
                         <p><?php echo $datos->Costo?></p>
                     </div>
                 </div>
             <?php }?>
                 <div class="btn-group" role="group" aria-label="Third group">
-                    <a href="<?php echo base_url('Ordenes/verorden/').$datos->Orden?>" target="_blank" class="btn btn-outline-primary float-light">Ver Orden</a>
+                    <a href="<?php echo base_url('Ordenes/verorden/').$datos->Orden?>" target="_blank" class="btn btn-outline-primary float-light">Imprimir Orden</a>
                 </div>
         <?php }?>
     </div>
@@ -300,13 +316,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($seguimiento as $seg){?>
+                    <?php foreach($seguimiento as $seg){
+                        $formatofecha = strtotime($seg->Fecha);
+                        $Anio = date("Y", $formatofecha);
+                        $Mes = date("m", $formatofecha);
+                        $Dia = date("d", $formatofecha);
+                        $Fecha = $Dia ."/". $Mes ."/". $Anio; 
+                    ?>
                         <tr>
                             <td><center><?php echo $seg->TipoComentario?></center></td>
                             <td><center><?php echo $seg->Comentario?></center></td>
                             <td><center><?php echo $seg->Estatus?></center></td>
                             <td><center><?php echo $seg->Iniciales?></center></td>
-                            <td><center><?php echo $seg->Fecha?></center></td>
+                            <td><center><?php echo $Fecha?></center></td>
                             <td><center><?php echo $seg->Hora?></center></td>
                         </tr>
                     <?php }?>

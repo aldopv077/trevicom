@@ -28,15 +28,15 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('public/dist/css/registro.css')?>">
 
-  <script>
-            function confirma() {
-                if (confirm("¿Realmente desea eliminarlo?")) {
-                    alert("El registro ha sido eliminado");
-                } else {
+    <script>
+        function confirma() {
+            if (confirm("¿Realmente desea eliminarlo?")) {
+                alert("El registro ha sido eliminado");
+            } else {
                return false;
-                }
             }
-        </script>
+        }
+    </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php $perfil = $perfil?>
@@ -100,12 +100,12 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <!--<li class="nav-item has-treeview">
+                            <li class="nav-item has-treeview">
                                 <a href="<?php echo base_url('Inicio/index')?>" class="nav-link">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Inicio</p>
                                 </a>
-                            </li>-->
+                            </li>
                             <?php 
                                 if($perfil == "Administrador"){
                             ?>
@@ -138,7 +138,7 @@
                                             <p>Reportes</p>
                                         </a>
                                     </li>
-                                    <?php //if($perfil == "Técnico"){?>
+                                    <?php if($perfil == "Técnico"){?>
                                         <li class="nav-item">
                                             <a href="<?php echo base_url('Seguimiento/index')?>"
                                                 class="">
@@ -146,7 +146,7 @@
                                                 <p>Seguimiento De Orden</p>
                                             </a>
                                         </li>
-                                    <?php //}?>
+                                    <?php }?>
                                     <li class="nav-item">
                                         <a href="<?php echo base_url('Cotizaciones/index')?>">
                                         <i class="fas fa-money-check-alt"></i>

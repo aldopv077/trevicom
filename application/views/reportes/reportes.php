@@ -54,7 +54,13 @@
               <tr>
                 <td colspan="8"> <h6><center>CLIENTES</center></h6> </td>
               </tr>
-              <?php foreach($reporteCli as $cli){?>
+              <?php foreach($reporteCli as $cli){
+                  $formatofecha = strtotime($cli->Fecha);
+                  $Anio = date("Y", $formatofecha);
+                  $Mes = date("m", $formatofecha);
+                  $Dia = date("d", $formatofecha);
+                  $Fecha = $Dia ."/". $Mes ."/". $Anio;   
+              ?>
                     <tr>
                       <td><center><?php echo $cli->Orden?></center></td>
                       <td><center><?php echo $cli->Nombre.' '.$cli->CPaterno.' '.$cli->CMaterno?></center></td>
@@ -63,13 +69,19 @@
                       <td><center><?php echo $cli->Modelo?></center></td>
                       <td><center><?php echo $cli->Falla?></center></td>
                       <td><center><?php echo $cli->Estatus?></center></td>
-                      <td><center><?php echo $cli->Fecha?></center></td>
+                      <td><center><?php echo $Fecha?></center></td>
                     </tr>
               <?php }?>
               <tr>
                 <td colspan="8"> <h6><center>EMPRESAS</center></h6> </td>
               </tr>
-              <?php foreach($reporteEmp as $emp){?>
+              <?php foreach($reporteEmp as $emp){
+                  $formatofecha = strtotime($emp->Fecha);
+                  $Anio = date("Y", $formatofecha);
+                  $Mes = date("m", $formatofecha);
+                  $Dia = date("d", $formatofecha);
+                  $Fecha = $Dia ."/". $Mes ."/". $Anio; 
+              ?>
                     <tr>
                       <td><center><?php echo $emp->Orden?></center></td>
                       <td><center><?php echo $emp->Nombre?></center></td>
@@ -78,7 +90,7 @@
                       <td><center><?php echo $emp->Modelo?></center></td>
                       <td><center><?php echo $emp->Falla?></center></td>
                       <td><center><?php echo $emp->Estatus?></center></td>
-                      <td><center><?php echo $emp->Fecha?></center></td>
+                      <td><center><?php echo $Fecha?></center></td>
                     </tr>
               <?php }?>
             </tbody>

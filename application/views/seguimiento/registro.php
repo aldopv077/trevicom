@@ -50,6 +50,10 @@
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
                     </div>
+                    <div class="form-group col-md-4">
+                        <label>Lugar</label>
+                        <p><?php echo $datos->Lugar?></p>
+                    </div>
                 </div>
             <?php }else{?>
                 <div class="form-row">
@@ -92,6 +96,10 @@
                     <div class="form-group col-md-4">
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Lugar</label>
+                        <p><?php echo $datos->Lugar?></p>
                     </div>
                 </div>
             <?php }?>
@@ -148,12 +156,19 @@
                     <th><center>Usuario</center></th>
                 </tr>
             </thead>
-                <?php foreach($seguimiento as $seg){?>
+                <?php foreach($seguimiento as $seg){
+                    
+                    $formatofecha = strtotime($seg->Fecha);
+                    $Anio = date("Y", $formatofecha);
+                    $Mes = date("m", $formatofecha);
+                    $Dia = date("d", $formatofecha);
+                    $Fecha = $Dia ."/". $Mes ."/". $Anio;    
+                ?>
                     <tr>
                         <td><center><?php echo $seg->TipoComentario?></center></td>
                         <td><center><?php echo $seg->Comentario?></center></td>
                         <td><center><?php echo $seg->Estatus?></center></td>
-                        <td><center><?php echo $seg->Fecha?></center></td>
+                        <td><center><?php echo $Fecha?></center></td>
                         <td><center><?php echo $seg->Hora?></center></td>
                         <td><center><?php echo $seg->Iniciales?></center></td>
                     </tr>

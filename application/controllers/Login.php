@@ -50,7 +50,7 @@ class Login extends CI_Controller {
                     }
 
                     $this->session->set_userdata($datos);
-                    redirect('Ordenes/index');
+                    redirect('Inicio/index');
                 }
                 else if($contador > 1){
                     echo '<script> alert("Solicitar cambio de contraseña"); </script>';

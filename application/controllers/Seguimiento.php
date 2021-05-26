@@ -103,7 +103,7 @@ class Seguimiento extends CI_Controller {
 			date_default_timezone_set('America/Mexico_City');
 			$datos = $this->input->post();
 			$fechag = date("Y-m-d");
-			$hora = date("h:i:s", time());
+			$hora = date("h:i:s a", time());
 
 			if(isset($datos)){
 
