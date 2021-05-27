@@ -148,6 +148,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
                 <tr>
+                    <th><center>No.</center></th>
                     <th><center>Tipo de información</center></th>
                     <th><center>Comentario</center></th>
                     <th><center>Estatus</center></th>
@@ -165,6 +166,7 @@
                     $Fecha = $Dia ."/". $Mes ."/". $Anio;    
                 ?>
                     <tr>
+                        <td><center><?php echo $seg->IdComentario?></center></td>
                         <td><center><?php echo $seg->TipoComentario?></center></td>
                         <td><center><?php echo $seg->Comentario?></center></td>
                         <td><center><?php echo $seg->Estatus?></center></td>

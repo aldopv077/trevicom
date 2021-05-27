@@ -1,9 +1,9 @@
 <div class="container box" id="advanced-search-form-1">
   <div class="btn-group" role="group" aria-label="Third group">
-    <a href="<?php echo base_url('Ordenes/index')?>" class="btn btn-outline-success float-right">Registrar</a>
+    <a href="<?php echo base_url('Cotizaciones/index')?>" class="btn btn-outline-success float-right">Registrar</a>
   </div>
   <div class="btn-group" role="group" aria-label="Third group">
-      <a href="<?php echo base_url('Ordenes/consultar')?>" class="btn btn-outline-primary float-light">Consultar</a>
+      <a href="<?php echo base_url('Cotizaciones/consultar')?>" class="btn btn-outline-primary float-light">Consultar</a>
   </div>
 
 <div class="container box" id="advanced-search-form">
@@ -32,32 +32,17 @@
           </div>              
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
-              <tr>
-                <th>
-                  <center>Cantidad</center>
-                </th>
-                <th>
-                  <center>Descripcion</center>
-                </th>
-                <th>
-                  <center>Costo</center>
-                </th>
-                <th>
-                  <center>Precio sin IVA</center>
-                </th>
-                <th>
-                  <center>IVA</center>
-                </th>
-                <th>
-                  <center>Precio con IVA</center>
-                </th>
-                <th>
-                  <center></center>
-                </th>
-              </tr>
+                <tr>
+                  <th><center>No.</center></th>
+                  <th><center>Cantidad</center></th>
+                  <th><center>Descripcion</center></th>
+                  <th><center>U. de medida</center></th>
+                  <th><center>Precio Unit. sin IVA</center></th>
+                  <th><center>Importe sin IVA</center></th>
+                  <th><center>Total con IVA</center></th>
+                  <th><center>Acciones</center></th>
+                </tr>
             </thead>
-          
-          
             <tbody>
               <tr>
                 <td>

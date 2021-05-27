@@ -22,6 +22,7 @@ class ModSeguimiento extends CI_Model{
         $this->db->from('TblComentarios AS com');
         $this->db->join('TblEmpleados AS usu','com.IdEmpleado = usu.IdEmpleado');
         $this->db->where('com.IdOrden',$Id);
+        $this->db->order_by('com.IdComentario', 'DESC');
 
         $consulta = $this->db->get();
         return $consulta->result();

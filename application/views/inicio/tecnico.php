@@ -46,23 +46,23 @@
                             
                             ?>
                             <tr>
-                                <td><center><strong> Sin revisar</strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/SinRevisar'?>">Sin revisar</a></strong></center></td>
                                 <td><center><?php echo $SinRevisar?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong>Revisado</strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/Revisado'?>">Revisado</a></strong></center></td>
                                 <td><center><?php echo $Revisado?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong>En espera de piezas</strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/EsperaPzas'?>">En espera de piezas</a></strong></center></td>
                                 <td><center><?php echo $EsperaPzas?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong>Terminado</strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/Terminado'?>">Terminado</a></strong></center></td>
                                 <td><center><?php echo $Terminado?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong>Terminado sin reparar</strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/TerminadoSR'?>">Terminado sin reparar</a></strong></center></td>
                                 <td><center><?php echo $TerminadoSR?></center></td>
                             </tr> 
                             <tr>
