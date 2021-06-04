@@ -88,4 +88,20 @@ class ModCotizaciones extends CI_Model{
 
         return true;
     }
+
+    //ingresa los precios de las partidas de la cotización
+    public function agrPrecios($Id, $precios){
+        $this->db->where('IdPartida', $Id);
+        $this->db->update('TblPartidasCotizacion', $precios);
+
+        return true;
+    }
+
+    //Ingresa los totales generales de la cotización realizada
+    public function actCotizacion($Id, $cotizacion){
+        $this->db->where('IdCotizacion', $Id);
+        $this->db->update('TblCotizacion', $cotizacion);
+
+        return true;
+    }
 }

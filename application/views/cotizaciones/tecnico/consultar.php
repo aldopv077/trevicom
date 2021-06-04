@@ -51,7 +51,7 @@
               <tr>
                 <td colspan="8"> <h6><center>En solicitud</center></h6> </td>
               </tr>
-              <?php foreach($CotizacionPend as $Pend){?>
+              <?php foreach($cotizacionPend as $Pend){?>
                 <tr>
                   <td><center><a href="<?php echo base_url('Cotizaciones/econCotizacion/').$Pend->IdCotizacion?>"> <?php echo $Pend->IdCotizacion?> </center></td>
                   <td><center> <?php echo $Pend->IdOrden?> </center></td>

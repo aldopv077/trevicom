@@ -37,6 +37,19 @@
             <button name="Ingresar" Id="Ingresar" type="submit" onclick="return Reportes();" class="btn btn-danger col-md-6">Generar Reporte</button>
             </div>
             </form>
+            <form Id="FrmConOrden" name="FrmConOrden" action="<?php echo base_url('Cotizaciones/conCotizacion')?>" method="post">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="cmbIng">Numero de cotización:</label>
+                  <input class="form-control col-md-6" type="text" name="Cotizacion" id="Cotizacion">
+                </div>
+                
+                <div class="form-group col-md-6">
+                  <label></label>
+                  <button name="Buscar" Id="Buscar" type="submit" class="btn btn-success col-md-4"> Buscar </button>
+                </div>
+              </div>
+            </form>
           <br>
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
@@ -46,11 +59,30 @@
                 <th><center>Estatus</center></th>
               </tr>
             </thead>
-            
-
             <tbody>
-                  
+              <tr>
+                <td colspan="8"> <h6><center>En solicitud</center></h6> </td>
+              </tr>
+              <?php foreach($cotizacionPend as $Pend){?>
+                <tr>
+                  <td><center><a href="<?php echo base_url('Cotizaciones/econCotizacion/').$Pend->IdCotizacion?>"> <?php echo $Pend->IdCotizacion?> </center></td>
+                  <td><center> <?php echo $Pend->IdOrden?> </center></td>
+                  <td><center> <?php echo $Pend->Estatus?> </center></td>
+                </tr>
+              <?php }?>
+              <tr>
+                <td colspan="8"> <h6><center>Realizadas</center></h6> </td>
+              </tr>
+              
+              <?php foreach($cotizacionReal as $Real){?>
+                <tr>
+                  <td><center> <?php echo $Real->IdCotizacion?> </center></td>
+                  <td><center> <?php echo $Real->IdOrden?> </center></td>
+                  <td><center> <?php echo $Real->Estatus?> </center></td>
+                </tr>
+              <?php }?>
+
             </tbody>
           </table>
-    </div>
+        </div>
     <script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>

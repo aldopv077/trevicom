@@ -120,3 +120,37 @@ function coninventario(){
         return false;
     }
 }
+
+//Verifica si el costo en US o el costo en MN tienen datos
+function calcular(tam){
+
+    for(x=1; x < tam; x++){
+        var precious = 'PrecioUS'+x;
+        var PrecioUS = document.getElementById(precious).value;
+        var preciomx = 'CostoMN'+x;
+        var PrecioMX = document.getElementById(preciomx).value;
+        var cambio = 'TipoCambio'+x;
+        var TipoCambio = document.getElementById(cambio).value;
+
+
+        if(PrecioUS == "" && TipoCambio == ""){
+            if(PrecioMX == ""){
+                alert('Debe de llenar el campo PrecioUS o CostoMN');
+                document.getElementById(precious).focus();
+                return false;
+            }                
+        }else{ 
+            if(PrecioUS == ""){
+                alert('Debe de llenar el campo PrecioUS');
+                document.getElementById(precious).focus();
+                return false;
+            }else{
+                if(TipoCambio == ""){
+                    alert('Debe de llenar el campo Tipo de cambio');
+                    document.getElementById(cambio).focus();
+                    return false;
+                }
+            }
+        }
+    }
+}

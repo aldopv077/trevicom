@@ -12,14 +12,13 @@
                 <div class="table-responsive">          
                 <div class="form-row">
                     <input type="hidden" class="form-control" id="Cotizacion" name="Cotizacion" value="<?php echo $Idcot;?>">
-                    
                     <div class="form-group col-md-4">
                     <label for="Cantidad">Cantidad</label>
                     <input type="text" class="form-control" id="Cantidad" name="Cantidad" placeholder="Cantidad">
                     </div>
                     <div class="form-group col-md-4">
-                    <label for="Descripcion">Descripcion</label>
-                    <input type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Descripcion">
+                    <label for="Descripcion">Descripción</label>
+                    <input type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Descripción">
                     </div>
                 </div>
                 <div class="form-group col-md-8">
@@ -51,12 +50,6 @@
                         <?php }?>
                     </tbody>
                 </table>
-            </div>
-            <br>
-            <div class="container box">
-            <button type="button" class="btn btn-danger float-right">Cancelar</button>
-            </div>
-            <br>
-        
+            </div>        
     </form>
 </div>
