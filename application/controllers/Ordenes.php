@@ -135,6 +135,30 @@ class Ordenes extends CI_Controller {
 					$Reincidencia = 0;
 				}
 
+				if(isset($datos['Intervenido'])){
+					$Intervenido = $datos['Intervenido'];
+				}else{
+					$Intervenido = 0;
+				}
+
+				if(isset($datos['Tinta'])){
+					$Tinta = $datos['Tinta'];
+				}else{
+					$Tinta = 0;
+				}
+
+				if(isset($datos['FCartuchos'])){
+					$FCartuchos = $datos['FCartuchos'];
+				}else{
+					$FCartuchos = 0;
+				}
+
+				if(isset($datos['Toner'])){
+					$Toner = $datos['Toner'];
+				}else{
+					$Toner = 0;
+				}
+
 				if($datos['LugarRevision'] == "Domicilio"){
 					$Fecha = $datos['Fecha'];
 					$Hora = $datos['Hora'];
@@ -164,6 +188,10 @@ class Ordenes extends CI_Controller {
 						'Garantia' => $Garantia,
 						'Respaldo' => $Respaldo,
 						'Reincidencia' => $Reincidencia,
+						'Intervenido' => $Intervenido,
+						'Tinta' => $Tinta,
+						'Cartuchos' => $FCartuchos,
+						'Toner' => $Toner,
 						'Fecha' => $Fecha,
 						'Hora' => $Hora,
 						'Estatus' => 'Sin revisar'
@@ -188,6 +216,10 @@ class Ordenes extends CI_Controller {
 						'Garantia' => $Garantia,
 						'Respaldo' => $Respaldo,
 						'Reincidencia' => $Reincidencia,
+						'Intervenido' => $Intervenido,
+						'Tinta' => $Tinta,
+						'Cartuchos' => $FCartuchos,
+						'Toner' => $Toner,
 						'Fecha' => $Fecha,
 						'Hora' => $Hora,
 						'Estatus' => 'Sin revisar'

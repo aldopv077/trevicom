@@ -70,6 +70,17 @@ class Contactos extends CI_Controller {
 			$datos = $this->input->post();
 
 			if(isset($datos)){
+				if(isset($datos['rbCorreo'])){
+					$seleccion = $datos['rbCorreo'];
+
+					if($seleccion == "Empresa"){
+						$Correo = $datos['CorreoCont'];
+					}else{
+						$Correo = $dato['correo'].$cmbDominio;
+					}
+				}else{
+					$Correo = "";
+				}
 				$contacto = array(
 					'IdEmpresa' => $datos['IdEmpresa'],
 					'Nombre' => $datos['NombreCont'],
@@ -77,7 +88,7 @@ class Contactos extends CI_Controller {
 					'Materno' => $datos['MaternoCont'],
 					'Telefono' => $datos['TelefonoCont'],
 					'Departamento' => $datos['DepartamentoCont'],
-					'Correo' => $datos['CorreoCont'],
+					'Correo' => $Correo,
 					'Principal' => $datos['Principal'],
 					'Activo' => 1
 				);

@@ -52,10 +52,23 @@
             <label for="Codigopostal">*Codigo Postal</label>
             <input type="text" class="form-control" id="CodigoPostal" name="CodigoPostal" placeholder="Codigo Postal" required>
           </div>
-          <div class="form-group col-md-4">
-            <label for="Correo">Correo</label>
-            <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo">
-          </div>
+            <div class="form-group col-md-4">
+              <label for="Correo">Correo</label>
+              <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo">
+            </div>
+            <div class="form-group col-md-3">
+                  <label for="dominio" style="color: white"> ----- </label>
+                  <select class="form-control" name="cmbDominio" id="cmbDominio">
+                    <option value="@hotmail.com">@hotmail.com</option>
+                    <option value="@gmail.com">@gmail.com</option>
+                    <option value="@outlook.com">@outlook.com</option>
+                    <option value="@outlook.es">@outlook.es</option>
+                    <option value="@live.com.mx">@live.com.mx</option>
+                    <option value="@yahoo.com.mx">@yahoo.com.mx</option>
+                    <option value="@yahoo.com">@yahoo.com</option>
+                  </select>
+                </div>
+
           <div class="form-group col-md-4">
             <label for="Telefono">*Telefono</label>
             <input type="text" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono" required>

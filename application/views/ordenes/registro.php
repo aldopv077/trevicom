@@ -26,6 +26,9 @@
 
         document.getElementById('txtClientes').style.display="block";
         document.getElementById('txtEmpresa').style.display="none";
+
+        document.getElementById('IndicadoresPC').style.display="none";
+        document.getElementById('IndicadoresImpresoras').style.display="none";
       });
   </script>  
 
@@ -239,8 +242,8 @@
                     
                    
                   </div>
-                <div class="container box col-md-12">
-                  <div>
+                <div class="container box col-md-3">
+                  <div Id="IndicadoresGrales">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="Urgente" name="Prioridad" value="1">
                       <label class="custom-control-label" for="Urgente">Urgente</label>
@@ -250,13 +253,38 @@
                       <label class="custom-control-label" for="Garantia">Garantia</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="Respaldo" name="Respaldo" value="1">
-                      <label class="custom-control-label" for="Respaldo">Respaldo de información</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="Reincidencia" name="Reincidencia" value="1">
                       <label class="custom-control-label" for="Reincidencia">Reincidencia</label>
                     </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="Intervenido" name="Intervenido" value="1">
+                      <label class="custom-control-label" for="Intervenido">Equipo Intervenido</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="container box col-md-3">
+                  <div id="IndicadoresPC">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="Respaldo" name="Respaldo" value="1">
+                        <label class="custom-control-label" for="Respaldo">Respaldo de información</label>
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="container box col-md-3">
+                  <div id="IndicadoresImpresoras">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="Tinta" name="Tinta" value="1">
+                        <label class="custom-control-label" for="Tinta">Tinta regada</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="FCartuchos" name="FCartuchos" value="1">
+                        <label class="custom-control-label" for="FCartuchos">Faltan cartuchos</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="Toner" name="Toner" value="1">
+                        <label class="custom-control-label" for="Toner">Toner disperso</label>
+                      </div>
                   </div>
                 </div>
                 <br>               

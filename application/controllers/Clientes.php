@@ -40,13 +40,14 @@ class Clientes extends CI_Controller {
 			$datos = $this->input->post();
 
 			if(isset($datos)){
+				$correo = $datos['Correo'].$datos['cmbDominio'];
 				$cliente = array(
 					'Nombre' => $datos['Nombre'],
 					'Paterno' => $datos['Paterno'],
 					'Materno' => $datos['Materno'],
 					'Telefono' => $datos['Telefono'],
 					'Celular' => $datos['Celular'],
-					'Correo' => $datos['Correo'],
+					'Correo' => $correo,
 					'Direccion' => $datos['Direccion'],
 					'NoExterior' => $datos['Exterior'],
 					'NoInterior' => $datos['Interior'],

@@ -65,6 +65,8 @@ function TipoEquipo(){
     var accesorios = document.getElementById('Accesorios'); 
     var pass = document.getElementById('Contrasena');
     var te = parseInt(document.getElementById('cmbTipoEquipo').value);
+    var indpc = document.getElementById('IndicadoresPC');
+    var indimp = document.getElementById('IndicadoresImpresoras');
     
 
     switch(te){
@@ -73,12 +75,16 @@ function TipoEquipo(){
                 pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');
                 accesorios.style.border="1px solid red";  
                 pass.style.border="1px solid red";
+                indpc.style.display="block";
+                indimp.style.display="none";
             break;
         case 2:
                 accesorios.setAttribute('placeholder','Adaptador de corriente obligatorio');
                 accesorios.style.border="1px solid red"; 
                 pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');                  
-                pass.style.border="1px solid red";  
+                pass.style.border="1px solid red"; 
+                indpc.style.display="block";
+                indimp.style.display="none";
             break;
         
         case 3:
@@ -86,20 +92,45 @@ function TipoEquipo(){
                 accesorios.style.border="1px solid red";    
                 pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');                  
                 pass.style.border="1px solid red";  
+                indpc.style.display="block";
+                indimp.style.display="none";
             break;
         case 4:
                 accesorios.setAttribute('placeholder','Adaptador de corriente y cartuchos obligatorios, no dejar cable de corriente');
                 accesorios.style.border="1px solid red";   
                 pass.setAttribute('placeholder','Contraseña');
                 pass.style.border="1px solid lightgrey"; 
+                indpc.style.display="none";
+                indimp.style.display="block";
+            break;
+        case 5:
+                accesorios.setAttribute('placeholder','Adaptador de corriente y cartuchos obligatorios, no dejar cable de corriente');
+                accesorios.style.border="1px solid red";   
+                pass.setAttribute('placeholder','Contraseña');
+                pass.style.border="1px solid lightgrey"; 
+                indpc.style.display="none";
+                indimp.style.display="block";
             break;
         default:
                 accesorios.setAttribute('placeholder','Accesorios');
                 accesorios.style.border="1px solid lightgrey"; 
                 pass.setAttribute('placeholder','Contraseña');
                 pass.style.border="1px solid lightgrey"; 
+                indpc.style.display="none";
+                indimp.style.display="none";
             break;
     }
-    
-    
+}
+
+//habilita el tipo de correo del contacto de la empresa
+function correo(){
+    if(document.getElementById('rbEmpresa').checked){
+        document.getElementById('Empresa').style.display="block";
+        document.getElementById('Convencional').style.display="none";
+        document.getElementById('DominioConvencional').style.display="none";
+    }else{
+        document.getElementById('Empresa').style.display="none";
+        document.getElementById('Convencional').style.display="block";
+        document.getElementById('DominioConvencional').style.display="block";
+    }
 }

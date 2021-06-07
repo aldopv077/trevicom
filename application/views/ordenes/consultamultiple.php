@@ -23,10 +23,12 @@
         <div class="container box barra" Id="barra">
                 <?php foreach($orden as $relevantes){
                     if(isset($relevantes->IdCliente)){
-                        echo $relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Días transcurridos: </strong>'.$dias.' <strong>No. Orden: </strong>'. $relevantes->Orden.'<br>';
+                        echo $relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
+                        echo '<strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Tiempo de estancia: </strong>'.$dias.' días <strong> No. Orden: </strong>'. $relevantes->Orden.'<br>';
                         echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
                     }else{
-                        echo $relevantes->Empresa.' '.$relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Días transcurridos: </strong>'.$dias.'<br>';
+                        echo $relevantes->Empresa.' '.$relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
+                        echo '<strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Tiempo de estancia: </strong>'.$dias.' días <strong> No. Orden: </strong>'. $relevantes->Orden.'<br>';
                         echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
                     }
                 }?>
@@ -193,13 +195,40 @@
                         <p><?php if($datos->Garantia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Respaldo de información</label>
-                        <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
-                    </div>
-                    <div class="form-group col-md-4">
                         <label>Reincidencia</label>
                         <p><?php if($datos->Reincidencia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                     </div>
+                    <div class="form-group col-md-4">
+                        <label>Equipo Intervenido</label>
+                        <p><?php if($datos->Intervenido == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Respaldo de información</label>
+                        <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                    </div>
+
+                    <?php if($datos->Equipo == 1 || $datos->Equipo == 2 || $datos->Equipo == 3){?>
+                        <div class="form-group col-md-4">
+                            <label>Respaldo</label>
+                            <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
+                    <?php if($datos->Equipo == 4 || $datos->Equipo == 5){?>
+                        <div class="form-group col-md-4">
+                            <label>Tinta regada</label>
+                            <p><?php if($datos->Tinta == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Toner disperso</label>
+                            <p><?php if($datos->Toner == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cartuchos faltantes</label>
+                            <p><?php if($datos->Cartuchos == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
                     <div class="form-group col-md-4">
                         <label>Contraseña</label>
                         <p><?php echo $datos->Pass?></p>
@@ -265,13 +294,32 @@
                         <p><?php if($datos->Garantia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Respaldo de información</label>
-                        <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
-                    </div>
-                    <div class="form-group col-md-4">
                         <label>Reincidencia</label>
                         <p><?php if($datos->Reincidencia == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                     </div>
+
+                    <?php if($datos->Equipo == "PC-Escritorio" || $datos->Equipo == "Todo en uno" || $datos->Equipo == "Laptop"){?>
+                        <div class="form-group col-md-4">
+                            <label>Respaldo</label>
+                            <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
+                    <?php if($datos->Equipo == "Impresora" || $datos->Equipo == "Copiadora"){?>
+                        <div class="form-group col-md-4">
+                            <label>Tinta regada</label>
+                            <p><?php if($datos->Tinta == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Toner disperso</label>
+                            <p><?php if($datos->Toner == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cartuchos faltantes</label>
+                            <p><?php if($datos->Cartuchos == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
                     <div class="form-group col-md-4">
                         <label>Contraseña</label>
                         <p><?php echo $datos->Pass?></p>
