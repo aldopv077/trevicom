@@ -107,8 +107,11 @@ class Reportes extends CI_Controller {
                     case "SinRevisar":
                             $estatus = 'Sin revisar';  
                         break;
-                    case "Revisado":
-                            $estatus = 'Revisado';
+                    case "EnReparación":
+                            $estatus = 'En reparación';
+                        break;
+                    case "Detenido":
+                            $estatus = 'Detenido';
                         break;
                     case "Terminado":
                             $estatus = 'Terminado';

@@ -68,18 +68,23 @@
                       ?>
                   </datalist>
                   <span class="input-group-btn"></span>                
-                <button class="btn btn-outline-success col-md-2" type="submit">Buscar</button>
                <!-- <a href="<?php echo base_url('Ordenes/pdf')?>" class="btn btn-outline-success col-md-2" type="submit">Ver PDF</a>-->
           </div>
           <br>
-          <div class="form-group col-md-4" Id="cmbContacto">
-            <label for="exampleFormControlSelect1">contacto</label>
-            <select class="form-control" id="cmbContactos" name="cmbContactos">
-                <option value="0">Seleccione un contacto</option>
-            </select>
+          <div class="form-inline col-md-12" Id="cmbContacto">
+            <div class="form-group col-md-12">              
+              <label for="cmbContactos">Contacto</label>
+              <select class="form-control col-md-4" id="cmbContactos" name="cmbContactos">
+                  <option value="0">Seleccione un contacto</option>
+              </select>
+              <a href="" name="btnNuevoContacto" Id="btnNuevoContacto" class="btn btn-primary col-md-3">Nuevo Contacto</a>
+            </div>
           </div>
+          
         </div>
         <br>
+        
+        <button class="btn btn-outline-success col-md-4" type="submit">Verificar datos</button>
         </div>
         </div>
         </form>
@@ -160,8 +165,8 @@
                   <input type="text" class="form-control" id="Telefono" name="Accesorios" placeholder="Accesorios">
                 </div>
                 <div class="form-group col-md-12">
-                  <label for="inputObservacion">Observación</label>
-                  <input type="text" class="form-control" id="Observacion" name="Observacion" placeholder="Observacion">
+                  <label for="inputObservacion">Estado Físico</label>
+                  <input type="text" class="form-control" id="Observacion" name="Observacion" placeholder="Estado Físico">
                 </div>
                 <div class="form-group col-md-12">
                   <label for="inputContraseña">Contraseña</label>
@@ -222,7 +227,10 @@
   function ComponerLista(xPro)
       {
         var Id =  xPro.split(' ');
-      
+        var enlace = document.getElementById('btnNuevoContacto');
+
+        enlace.setAttribute('href','<?php echo base_url("Contactos/registrar/")?>'+Id[0]);
+
          document.forms.FrmBusquedaDatos.txtEmpresa.disabled = true;
          document.forms.FrmBusquedaDatos.cmbContactos.length = 0;
          CargarPropiedades(Id[0]);
@@ -248,7 +256,7 @@
         <?php
        		}
         ?> 
-           document.forms.FrmBusquedaDatos.cmbContactos.disabled=false;
+          document.forms.FrmBusquedaDatos.cmbContactos.disabled=false;
        }
 </script>
  

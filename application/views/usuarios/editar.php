@@ -28,12 +28,23 @@
                   <input type="text" class="form-control" id="Materno" name="Materno" value="<?php echo $value->Materno ?>"  required>
                 </div>
               </div>
-
-              <div class="form-row">               
+              <div class="form-row">  
                 <div class="form-group col-md-4">
-                  <label for="Telefono">Telefono</label>
-                  <input type="text" class="form-control" id="Telefono" name="Telefono" value="<?php echo $value->Telefono ?>" required>
+                  <label for="Direccion">Dirección</label>
+                  <input type="text" class="form-control" id="Direccion" name="Direccion" value="<?php echo $value->Direccion?>" required>
                 </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="Telefono">Teléfono</label>
+                  <input type="text" class="form-control" id="Telefono" name="Telefono" value="<?php echo $value->Telefono?>" required>
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="TelefonoEme">Teléfono de emergenca</label>
+                  <input type="text" class="form-control" id="TelefonoEme" name="TelefonoEme" value="<?php echo $value->TelefonoEmergencia?>" required>
+                </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="Puesto">Puesto</label>
                   <select name="Puesto" class="form-control" id="Puesto" required>
@@ -52,13 +63,15 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="Password">Contraseña</label>
-                  <input type="password" class="form-control" id="Password" name="Password" placeholder="Contraseña" required>
+                  <input type="password" class="form-control" id="Password" name="Password" placeholder="Contraseña">
                 </div>
               </div>  
               <br> 
           <?php }?>           
-              <button name="Ingresar" Id="Ingresar" type="submit" class="btn btn-primary">Guardar</button>
+              <button name="Ingresar" Id="Ingresar" type="submit" onclick="return editusuarios();" class="btn btn-primary">Guardar</button>
             </div>
             <br>                                       
         </form>
     </div>
+
+<script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>

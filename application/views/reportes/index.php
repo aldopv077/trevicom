@@ -24,7 +24,7 @@
                   <option value="0">Selecciones un estatus</option>
                   <option value="Sin revisar">Sin revisar</option>
                   <option value="En reparación">En Reparación</option>
-                  <option value="Revisado">Revisado</option>
+                  <option value="Detenido">Detenido</option>
                   <option value="Terminado">Terminado</option>
                   <option value="En espera de piezas">En espera de piezas</option>
                   <option value="Terminado sin reparar">Terminado sin reparar</option>

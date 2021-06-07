@@ -8,6 +8,7 @@
 			$EsperaPzas = 0;
 			$Terminado = 0;
 			$TerminadoSR = 0;
+            $Detenido = 0;
             $Total = 0;
 
             $usuarios = $Usuarios;
@@ -20,9 +21,12 @@
 							case "Sin revisar":
 									$SinRevisar = $SinRevisar + 1; 
 								break;
-							case "Revisado":
+							case "En reparación":
 									$Revisado = $Revisado + 1;
-								break;
+								break;    
+							case "Detenido":
+                                $Detenido = $Detenido + 1;
+                            break;
 							case "En espera de piezas":
 									$EsperaPzas = $EsperaPzas +1;
 								break;
@@ -35,7 +39,7 @@
 						}
 					}
 				}
-                $Total = $SinRevisar + $Revisado + $EsperaPzas + $Terminado + $TerminadoSR;
+                $Total = $SinRevisar + $Revisado + $EsperaPzas + $Terminado + $TerminadoSR + $Detenido;
 
 				//echo 'Sin revisar: '.$SinRevisar. ' Revisado: '.$Revisado.' En espera de piezas: '.$EsperaPzas.' Terminado: '.$Terminado.' Terminado sin reparar: '.$TerminadoSR;
 			?>
@@ -53,9 +57,13 @@
                             <td><center><?php echo $SinRevisar?></center></td>
                         </tr> 
                         <tr>
-                            <td><center><strong>Revisado</strong></center></td>
+                            <td><center><strong>En reparación</strong></center></td>
                             <td><center><?php echo $Revisado?></center></td>
-                        </tr>  
+                        </tr> 
+                        <tr>
+                            <td><center><strong>Detenido</strong></center></td>
+                            <td><center><?php echo $Detenido?></center></td>
+                        </tr> 
                         <tr>
                             <td><center><strong>En espera de piezas</strong></center></td>
                             <td><center><?php echo $EsperaPzas?></center></td>
@@ -78,6 +86,7 @@
             <?php	
 				$SinRevisar = 0;
 				$Revisado = 0;
+                $Detenido = 0;
 				$EsperaPzas = 0;
 				$Terminado = 0;
 				$TerminadoSR = 0;

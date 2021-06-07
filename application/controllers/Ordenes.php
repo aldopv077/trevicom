@@ -209,6 +209,18 @@ class Ordenes extends CI_Controller {
 						'Hora' => $hora
 					);
 					$agrAsignacion = $this->ModOrdenes->asignar($asignacion);
+					
+					$comentario = array(
+						'IdOrden' => $IdOrden,
+						'IdEmpleado' => $this->session->userdata('Id'),
+						'TipoComentario' => 'Mostrar al cliente',
+						'Comentario' => 'Equipo recibido',
+						'Estatus' => 'Sin revisar',
+						'Fecha' => $fechag,
+						'Hora' => $hora
+					);
+
+					$agrComentario = $this->ModSeguimiento->ingresar($comentario);
 
 					if($agrAsignacion){
 						$this->verorden($IdOrden);
@@ -312,6 +324,36 @@ class Ordenes extends CI_Controller {
 							$orden = $this->ModOrdenes->buscarordenIdEmpresa($IdCliente);
 						break;
 				}
+				
+				foreach($orden as $datos){
+					$formatofecha = strtotime($datos->Fecha);
+                    $fecha = date("d-m-Y");
+                    
+                    $AnioActual = date("Y");
+                    $MesActual = date("m");
+                    $DiaActual = date("d");
+
+                    $AnioSQL = date("Y", $formatofecha);
+                    $MesSQL = date("m", $formatofecha);
+                    $DiaSQL = date("d", $formatofecha);
+
+                    //contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+                    $timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+                    $timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+
+                    $segundos_diferencia = $timestampActual - $timestampSQL;
+                    $dias = $segundos_diferencia/(60*60*24);
+
+                    //Valor abosoluto de los días y asi siquita el signo negativo
+                    $dias = abs($dias);
+
+                    //se quitan los decimales y se redondea al valor más bajo cercano
+                    $dias = floor($dias);
+
+                    $FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+                    $FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+				}
+
 
 				$data['contenido'] = 'ordenes/consultamultiple';
 				$data['perfil'] = $this->session->userdata('Perfil');
@@ -319,6 +361,7 @@ class Ordenes extends CI_Controller {
 				$data['empresas'] = $this->ModEmpresas->empresaactiva();
 				$data['conteo'] = $conteo;
 				$data['orden'] = $orden;
+				$data['dias'] = $dias;
 				$this->load->view('plantilla',$data);
 			}
 		}
@@ -335,6 +378,35 @@ class Ordenes extends CI_Controller {
 				$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
 			}
 
+			foreach($orden as $datos){
+				$formatofecha = strtotime($datos->Fecha);
+				$fecha = date("d-m-Y");
+				
+				$AnioActual = date("Y");
+				$MesActual = date("m");
+				$DiaActual = date("d");
+
+				$AnioSQL = date("Y", $formatofecha);
+				$MesSQL = date("m", $formatofecha);
+				$DiaSQL = date("d", $formatofecha);
+
+				//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+				$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+				$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+
+				$segundos_diferencia = $timestampActual - $timestampSQL;
+				$dias = $segundos_diferencia/(60*60*24);
+
+				//Valor abosoluto de los días y asi siquita el signo negativo
+				$dias = abs($dias);
+
+				//se quitan los decimales y se redondea al valor más bajo cercano
+				$dias = floor($dias);
+
+				$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+				$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+			}
+
 			$data['contenido'] = 'ordenes/consultamultiple';
 			$data['perfil'] = $this->session->userdata('Perfil');
 			$data['clientes'] = $this->ModClientes->listaclientes();
@@ -342,6 +414,7 @@ class Ordenes extends CI_Controller {
 			$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 			$data['conteo'] = $conteo;
 			$data['orden'] = $orden;
+			$data['dias'] = $dias;
 			$this->load->view('plantilla',$data);
 		}		
 	}
@@ -552,7 +625,7 @@ class Ordenes extends CI_Controller {
 				}
 			}else{
 				echo '<script> alert("No es posible entregar el equipo si no se encuentra terminado"); </script>';
-				redirect('Ordenes/index');
+				redirect('Ordenes/index', 'refresh');
 			}			
 		}
 	}

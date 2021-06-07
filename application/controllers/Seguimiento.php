@@ -33,21 +33,54 @@ class Seguimiento extends CI_Controller {
 			if(isset($datos)){
 				$Id = $datos['IdOrden'];
 				$orden = $this->ModOrdenes->buscarordenCliente($Id);
+				
 				if($orden == null){
 					$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
 					if($orden == null){
 						echo '<scritp> alert("No se encontraron resultados"); </script>';
-						redirect('Seguimiento/index', refresh);
+						redirect('Seguimiento/index', 'refresh');
 					}else if($this->session->userdata('Perfil') == "Técnico"){
 						foreach($orden as $ord){
 							$Asignado = $ord->Asignado;
 						}
 	
 						if($Asignado == $this->session->userdata('Iniciales')){
+
+							foreach($orden as $datos){
+								$formatofecha = strtotime($datos->Fecha);
+								$fecha = date("d-m-Y");
+								
+								$AnioActual = date("Y");
+								$MesActual = date("m");
+								$DiaActual = date("d");
+			
+								$AnioSQL = date("Y", $formatofecha);
+								$MesSQL = date("m", $formatofecha);
+								$DiaSQL = date("d", $formatofecha);
+			
+								//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+								$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+								$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+			
+								$segundos_diferencia = $timestampActual - $timestampSQL;
+								$dias = $segundos_diferencia/(60*60*24);
+			
+								//Valor abosoluto de los días y asi siquita el signo negativo
+								$dias = abs($dias);
+			
+								//se quitan los decimales y se redondea al valor más bajo cercano
+								$dias = floor($dias);
+			
+								$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+								$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+							}
+	
+
 							$data['contenido'] = "seguimiento/registro";
 							$data['perfil'] = $this->session->userdata('Perfil');
 							$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 							$data['orden'] = $orden;
+							$data['dias'] =$dias;
 							
 							$this->load->view('plantilla',$data);
 						}
@@ -56,10 +89,41 @@ class Seguimiento extends CI_Controller {
 							redirect('Seguimiento/index','refresh');
 						}
 					}else{
+						foreach($orden as $datos){
+							$formatofecha = strtotime($datos->Fecha);
+							$fecha = date("d-m-Y");
+							
+							$AnioActual = date("Y");
+							$MesActual = date("m");
+							$DiaActual = date("d");
+		
+							$AnioSQL = date("Y", $formatofecha);
+							$MesSQL = date("m", $formatofecha);
+							$DiaSQL = date("d", $formatofecha);
+		
+							//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+							$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+							$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+		
+							$segundos_diferencia = $timestampActual - $timestampSQL;
+							$dias = $segundos_diferencia/(60*60*24);
+		
+							//Valor abosoluto de los días y asi siquita el signo negativo
+							$dias = abs($dias);
+		
+							//se quitan los decimales y se redondea al valor más bajo cercano
+							$dias = floor($dias);
+		
+							$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+							$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+						}
+
+
 						$data['contenido'] = "seguimiento/registro";
 						$data['perfil'] = $this->session->userdata('Perfil');
 						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 						$data['orden'] = $orden;
+						$data['dias'] = $dias;
 							
 						$this->load->view('plantilla',$data);
 					}
@@ -70,10 +134,42 @@ class Seguimiento extends CI_Controller {
 					}
 
 					if($Asignado == $this->session->userdata('Iniciales')){
+						
+						foreach($orden as $datos){
+							$formatofecha = strtotime($datos->Fecha);
+							$fecha = date("d-m-Y");
+							
+							$AnioActual = date("Y");
+							$MesActual = date("m");
+							$DiaActual = date("d");
+		
+							$AnioSQL = date("Y", $formatofecha);
+							$MesSQL = date("m", $formatofecha);
+							$DiaSQL = date("d", $formatofecha);
+		
+							//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+							$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+							$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+		
+							$segundos_diferencia = $timestampActual - $timestampSQL;
+							$dias = $segundos_diferencia/(60*60*24);
+		
+							//Valor abosoluto de los días y asi siquita el signo negativo
+							$dias = abs($dias);
+		
+							//se quitan los decimales y se redondea al valor más bajo cercano
+							$dias = floor($dias);
+		
+							$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+							$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+						}
+
+
 						$data['contenido'] = "seguimiento/registro";
 						$data['perfil'] = $this->session->userdata('Perfil');
 						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 						$data['orden'] = $orden;
+						$data['dias'] = $dias;
 						
 						$this->load->view('plantilla',$data);
 					}else{
@@ -81,10 +177,40 @@ class Seguimiento extends CI_Controller {
 						redirect('Seguimiento/index','refresh');
 					}
 				}else{
+					foreach($orden as $datos){
+						$formatofecha = strtotime($datos->Fecha);
+						$fecha = date("d-m-Y");
+						
+						$AnioActual = date("Y");
+						$MesActual = date("m");
+						$DiaActual = date("d");
+	
+						$AnioSQL = date("Y", $formatofecha);
+						$MesSQL = date("m", $formatofecha);
+						$DiaSQL = date("d", $formatofecha);
+	
+						//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+						$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+						$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+	
+						$segundos_diferencia = $timestampActual - $timestampSQL;
+						$dias = $segundos_diferencia/(60*60*24);
+	
+						//Valor abosoluto de los días y asi siquita el signo negativo
+						$dias = abs($dias);
+	
+						//se quitan los decimales y se redondea al valor más bajo cercano
+						$dias = floor($dias);
+	
+						$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+						$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+					}
+
 					$data['contenido'] = "seguimiento/registro";
 					$data['perfil'] = $this->session->userdata('Perfil');
 					$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 					$data['orden'] = $orden;
+					$data['dias'] = $dias;
 						
 					$this->load->view('plantilla',$data);
 				}
@@ -162,6 +288,35 @@ class Seguimiento extends CI_Controller {
 							$orden = $this->ModOrdenes->buscarordenEmpresa($Id);
 						}
 
+						foreach($orden as $datos){
+							$formatofecha = strtotime($datos->Fecha);
+							$fecha = date("d-m-Y");
+							
+							$AnioActual = date("Y");
+							$MesActual = date("m");
+							$DiaActual = date("d");
+		
+							$AnioSQL = date("Y", $formatofecha);
+							$MesSQL = date("m", $formatofecha);
+							$DiaSQL = date("d", $formatofecha);
+		
+							//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+							$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+							$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+		
+							$segundos_diferencia = $timestampActual - $timestampSQL;
+							$dias = $segundos_diferencia/(60*60*24);
+		
+							//Valor abosoluto de los días y asi siquita el signo negativo
+							$dias = abs($dias);
+		
+							//se quitan los decimales y se redondea al valor más bajo cercano
+							$dias = floor($dias);
+		
+							$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+							$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+						}
+
 						$data['contenido'] = 'ordenes/consultamultiple';
 						$data['perfil'] = $this->session->userdata('Perfil');
 						$data['clientes'] = $this->ModClientes->listaclientes();
@@ -169,7 +324,7 @@ class Seguimiento extends CI_Controller {
 						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 						$data['conteo'] = $conteo;
 						$data['orden'] = $orden;
-						
+						$data['dias'] = $dias;
 						$this->load->view('plantilla',$data);
 					}
 					

@@ -15,7 +15,7 @@
             
             <table>
                 <tr>
-                    <td><img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="150" height="50"></td>
+                    <td><img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="150" height="70"></td>
                     <td><center><h3>COMPROBANTE DE RECEPCIÓN DE EQUIPO</h3></center></td>
                     <td></td>
                     <td></td>
@@ -95,7 +95,8 @@
         <footer>
             <strong>Av. Murillo Vidal N° 98, Fracc. Ensueño; Xalapa, Ver.  E-mail: garantiashp@trevicom.com.mx</strong>
             <hr>
-            <strong>N° Telefónico: 01 (228) 8 17 93 92 ext. 115, 113 y 111</strong>
+            <strong>N° Telefónico: 01 (228) 8 17 93 92 ext. 115, 113 y 111</strong><br>
+            <p><strong>Consulte nuestro aviso de privacidad en: http://trevicom.com.mx/aviso-de-privacidad/</strong>
         </footer>
     </div>
     <?php }?>

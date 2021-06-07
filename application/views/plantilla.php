@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +43,7 @@
     <div id="app">
         <div class="wrapper">
             <!-- Navbar cambiar de color con nav-indigo nav-dark -->
-            <nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
+            <nav class="main-header navbar navbar-expand navbar-dark navbar-dark" <?php if($contenido == "ordenes/consultamultiple" || $contenido == "seguimiento/registro"){echo "style='display:none;'";}?>>
                 <!-- Left navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -153,12 +153,14 @@
                                             <p>Cotizaciones</p>
                                         </a>
                                     </li>
+                                    <?php if($perfil == "Administrador"){?>
                                     <li class="nav-item">
                                         <a href="<?php echo base_url('Inventario/index')?>">
                                         <i class="fas fa-clipboard-check"></i>
                                             <p>Inventario</p>
                                         </a>
                                     </li>
+                                    <?php }?>
                                 </ul>
                             </li>                     
                             <li class="nav-item has-treeview">

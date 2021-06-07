@@ -15,6 +15,7 @@
                         <?php 
                             $SinRevisar = 0;
                             $Revisado = 0;
+                            $Detenido = 0;
                             $EsperaPzas = 0;
                             $Terminado = 0;
                             $TerminadoSR = 0;
@@ -30,6 +31,9 @@
                                     case "Revisado":
                                             $Revisado = $Revisado + 1;
                                         break;
+                                    case "Detenido":
+                                        $Detenido = $Detenido + 1;
+                                    break;
                                     case "En espera de piezas":
                                             $EsperaPzas = $EsperaPzas +1;
                                         break;
@@ -50,8 +54,12 @@
                                 <td><center><?php echo $SinRevisar?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/Revisado'?>">Revisado</a></strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/EnReparación'?>">En reparación</a></strong></center></td>
                                 <td><center><?php echo $Revisado?></center></td>
+                            </tr>  
+                            <tr>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/Detendio'?>">Detenido</a></strong></center></td>
+                                <td><center><?php echo $Detenido?></center></td>
                             </tr> 
                             <tr>
                                 <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/EsperaPzas'?>">En espera de piezas</a></strong></center></td>

@@ -23,7 +23,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="login-logo">
-      <img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="85%" height="100px">
+      <img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="85%" height="130px">
       <a><b>Iniciar sesión</b></a>
     </div>
     <div class="card-body login-card-body">

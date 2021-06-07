@@ -154,3 +154,42 @@ function calcular(tam){
         }
     }
 }
+
+//Cuenta los caracteres que tiene el campo contraseña y que se haya seleccionado un puesto
+function usuarios(){
+    //alert('funcion pass');  
+
+    var no = document.getElementById('Password').value;
+    if(no.length < 8){
+        alert('La contraseña debe tener minimo 8 caracteres');
+        document.getElementById('Password').focus();
+        return false;
+    }
+
+    if(document.getElementById('Puesto').value == 0){
+        alert('Debe de elegir un puesto para el usuario');
+        document.getElementById('Puesto').focus();
+        return false;
+    }
+}
+
+//Cuenta los caracteres que tiene el campo contraseña y que se haya seleccionado un puesto
+function editusuarios(){
+    //alert('funcion pass');  
+
+    if(document.getElementById('Password').value != ""){
+        var no = document.getElementById('Password').value;
+
+        if(no.length < 8){
+            alert('La contraseña debe tener minimo 8 caracteres');
+            document.getElementById('Password').focus();
+            return false;
+        }
+    }
+
+    if(document.getElementById('Puesto').value == 0){
+        alert('Debe de elegir un puesto para el usuario');
+        document.getElementById('Puesto').focus();
+        return false;
+    }
+}

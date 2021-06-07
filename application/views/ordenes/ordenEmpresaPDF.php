@@ -15,7 +15,7 @@
             
             <table>
                 <tr>
-                    <td><img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="150" height="50"></td>
+                    <td><img src="<?php echo base_url('public/dist/img/trevicom.png')?>" width="150" height="70"></td>
                     <td><center><h3>COMPROBANTE DE RECEPCIÓN DE EQUIPO</h3></center></td>
                     <td></td>
                     <td></td>
@@ -47,7 +47,8 @@
                 <label><strong>Equipo: </strong> <?php echo $ord->Equipo?> </label>
                 <label><strong>Núm. Producto: </strong> <?php echo $ord->NumeroEquipo?> </label>
                 <label><strong>Marca: </strong> <?php echo $ord->Marca?> </label>
-                <label><strong>Modelo: </strong> <?php echo $ord->Modelo?> </label>
+                <label><strong>Modelo: </strong> <?php echo $ord->Modelo?> </label><br>
+                <label><strong>Contraseña: </strong> <?php echo $ord->Pass?> </label><br>
             </div>
             <div class="contacto">
                 <label><strong>Núm. Serie: </strong> <?php echo $ord->Serie?> </label>
@@ -56,7 +57,7 @@
             </div>
             <label><strong>Falla: </strong> <?php echo $ord->Falla?> </label><br><br>
             <label><strong>Accesorios: </strong> <?php echo $ord->Accesorios?> </label><br><br>
-            <label><strong>Observaciones: </strong> <?php echo $ord->Observ?> </label><br><br>
+            <label><strong>Estado físico: </strong> <?php echo $ord->Observ?> </label><br><br>
         </section>
         <section class="leyenda">
             <strong>En caso de restaurar el equipo, se pierden los programas y solo se incluirá el sistema operativo original.</strong><br>
@@ -93,6 +94,7 @@
             <strong>Av. Murillo Vidal N° 98, Fracc. Ensueño; Xalapa, Ver.  E-mail: garantiashp@trevicom.com.mx</strong>
             <hr>
             <strong>N° Telefónico: 01 (228) 8 17 93 92 ext. 115, 113 y 111</strong>
+            <p><strong>Consulte nuestro aviso de privacidad en: https://trevicom.com.mx/aviso-de-privacidad/</strong>
         </footer>
     </div>
     <?php }?>

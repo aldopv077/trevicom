@@ -24,7 +24,7 @@
                   <option value="0">Selecciones un estatus</option>
                   <option value="Sin revisar">Sin revisar</option>
                   <option value="En reparación">En Reparación</option>
-                  <option value="Revisado">Revisado</option>
+                  <option value="Detenido">Detenido</option>
                   <option value="Terminado">Terminado</option>
                   <option value="En espera de piezas">En espera de piezas</option>
                   <option value="Terminado sin reparar">Terminado sin reparar</option>
@@ -62,7 +62,7 @@
                   $Fecha = $Dia ."/". $Mes ."/". $Anio;   
               ?>
                     <tr>
-                      <td><center><?php echo $cli->Orden?></center></td>
+                      <td><center> <a href="<?php echo base_url('Ordenes/buscar/').$cli->Orden?>"> <?php echo $cli->Orden?> </a> </center></td>
                       <td><center><?php echo $cli->Nombre.' '.$cli->CPaterno.' '.$cli->CMaterno?></center></td>
                       <td><center><?php echo $cli->TipoEquipo?></center></td>
                       <td><center><?php echo $cli->Marca?></center></td>
@@ -83,7 +83,7 @@
                   $Fecha = $Dia ."/". $Mes ."/". $Anio; 
               ?>
                     <tr>
-                      <td><center><?php echo $emp->Orden?></center></td>
+                      <td><center> <a href="<?php echo base_url('Ordenes/buscar/').$emp->Orden?>"> <?php echo $emp->Orden?></center> </a> </td>
                       <td><center><?php echo $emp->Nombre?></center></td>
                       <td><center><?php echo $emp->TipoEquipo?></center></td>
                       <td><center><?php echo $emp->Marca?></center></td>

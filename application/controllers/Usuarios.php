@@ -42,22 +42,27 @@ class Usuarios extends CI_Controller {
 			$datform = $this->input->post();
 
 			if(isset($datform)){
-			
-				//cifrado de password
-				$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
+				
 
-				$arrayUsuario = array(
-					'Nombre' => $datform['Nombre'],
-					'Paterno' => $datform['Paterno'],
-					'Materno' => $datform['Materno'],
-					'Telefono' => $datform['Telefono'],
-					'Puesto' => $datform['Puesto'],
-					'Iniciales' => $datform['Usuario'],
-					'Correo' => $datform['Correo'],
-					'Pass' => $pass,
-					'Activo' => 1,
-				);
+					//cifrado de password
+					$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
+					$correo = $datform['Correo'].$datform['cmbDominio'];
 
+					
+					$arrayUsuario = array(
+						'Nombre' => $datform['Nombre'],
+						'Paterno' => $datform['Paterno'],
+						'Materno' => $datform['Materno'],
+						'Telefono' => $datform['Telefono'],
+						'Puesto' => $datform['Puesto'],
+						'Iniciales' => $datform['Usuario'],
+						'Correo' => $correo,
+						'Direccion' => $datform['Direccion'],
+						'TelefonoEmergencia' => $datform['TelefonoEme'],
+						'Pass' => $pass,
+						'Activo' => 1,
+					);
+				
 				$ingresar = $this->ModUsuarios->ingresar($arrayUsuario);
 
 				if($ingresar){
@@ -97,19 +102,36 @@ class Usuarios extends CI_Controller {
 			if(isset($datform)){
 				$Id = $datform['Id'];
 
-				$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
+				if($datform['Password'] != null){
+					$pass = password_hash($datform['Password'], PASSWORD_DEFAULT, array('coste'=>12));
 
-				$usuario = array(
-					'Nombre' => $datform['Nombre'],
-					'Paterno' => $datform['Paterno'],
-					'Materno' => $datform['Materno'],
-					'Telefono' => $datform['Telefono'],
-					'Puesto' => $datform['Puesto'],
-					'Iniciales' => $datform['Usuario'],
-					'Correo' => $datform['Correo'],
-					'Pass' => $pass,
-					'Activo' => 1,
-				);
+					$usuario = array(
+						'Nombre' => $datform['Nombre'],
+						'Paterno' => $datform['Paterno'],
+						'Materno' => $datform['Materno'],
+						'Telefono' => $datform['Telefono'],
+						'Puesto' => $datform['Puesto'],
+						'Iniciales' => $datform['Usuario'],
+						'Correo' => $datform['Correo'],
+						'Direccion' => $datform['Direccion'],
+						'TelefonoEmergencia' => $datform['TelefonoEme'],
+						'Pass' => $pass,
+						'Activo' => 1,
+					);
+				}else{
+					$usuario = array(
+						'Nombre' => $datform['Nombre'],
+						'Paterno' => $datform['Paterno'],
+						'Materno' => $datform['Materno'],
+						'Telefono' => $datform['Telefono'],
+						'Puesto' => $datform['Puesto'],
+						'Iniciales' => $datform['Usuario'],
+						'Correo' => $datform['Correo'],
+						'Direccion' => $datform['Direccion'],
+						'TelefonoEmergencia' => $datform['TelefonoEme'],
+						'Activo' => 1,
+					);
+				}
 
 				$actualizar = $this->ModUsuarios->editar($Id, $usuario);
 

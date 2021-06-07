@@ -4,6 +4,39 @@
         document.getElementById('Costo').disabled= true;
     });
 </script>
+
+<?php foreach($orden as $datos){
+    $formatofecha = strtotime($datos->Fecha);
+    $Anio = date("Y", $formatofecha);
+    $Mes = date("m", $formatofecha);
+    $Dia = date("d", $formatofecha);
+    $Fecha = $Dia ."/". $Mes ."/". $Anio; 
+}?>
+
+<div class="container box barra" Id="barra">
+    <?php foreach($orden as $relevantes){
+        if(isset($relevantes->IdCliente)){
+            echo $relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Días transcurridos: </strong>'.$dias.' <strong>No. Orden: </strong>'. $relevantes->Orden.'<br>';
+            echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
+        }else{
+            echo $relevantes->Empresa.' '.$relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Días transcurridos: </strong>'.$dias.'<br>';
+            echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
+        }
+    }?>
+</div>
+<script>
+    var dias = <?php echo $dias?>;         
+        
+    if(dias <= 7){
+        document.getElementById('barra').style.background="#d3d3d3";
+    }else if(dias > 7 && dias <= 14){
+        document.getElementById('barra').style.background="#dbdf23";
+    }else if(dias > 14){
+        document.getElementById('barra').style.background="#6b0404";
+        document.getElementById('barra').style.color="white";
+    }    
+</script>
+<br><br><br>
 <div class="container box col-md-12" id="advanced-search-form"> 
       <table>
         <nav class="navbar navbar-light bg-light">

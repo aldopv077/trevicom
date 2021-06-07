@@ -58,3 +58,48 @@ function busquedaorden(){
             break;
     }
 }
+
+function TipoEquipo(){
+    //alert('funcion Tipo de equipo');
+
+    var accesorios = document.getElementById('Accesorios'); 
+    var pass = document.getElementById('Contrasena');
+    var te = parseInt(document.getElementById('cmbTipoEquipo').value);
+    
+
+    switch(te){
+        case 1:
+                accesorios.setAttribute('placeholder','Accesorios adicionales al CPU');
+                pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');
+                accesorios.style.border="1px solid red";  
+                pass.style.border="1px solid red";
+            break;
+        case 2:
+                accesorios.setAttribute('placeholder','Adaptador de corriente obligatorio');
+                accesorios.style.border="1px solid red"; 
+                pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');                  
+                pass.style.border="1px solid red";  
+            break;
+        
+        case 3:
+                accesorios.setAttribute('placeholder','Cargador obigatorio, no dejar mochila');
+                accesorios.style.border="1px solid red";    
+                pass.setAttribute('placeholder', 'Proporcionar contraseña en caso de tener');                  
+                pass.style.border="1px solid red";  
+            break;
+        case 4:
+                accesorios.setAttribute('placeholder','Adaptador de corriente y cartuchos obligatorios, no dejar cable de corriente');
+                accesorios.style.border="1px solid red";   
+                pass.setAttribute('placeholder','Contraseña');
+                pass.style.border="1px solid lightgrey"; 
+            break;
+        default:
+                accesorios.setAttribute('placeholder','Accesorios');
+                accesorios.style.border="1px solid lightgrey"; 
+                pass.setAttribute('placeholder','Contraseña');
+                pass.style.border="1px solid lightgrey"; 
+            break;
+    }
+    
+    
+}
