@@ -1,7 +1,3 @@
-<style>
-    
-</style>
-
 <script>
     window.addEventListener('load', function () {
         document.getElementById('NoOrden').style.display="block";
@@ -10,7 +6,12 @@
         document.getElementById('NoSerie').style.display="none";
       });
 </script>
-<?php foreach($orden as $datos){
+<?php 
+    if($orden == null){
+        echo '<script> alert("No se han encotrado resultados para la consulta");</script>';
+        redirect('Ordenes/consultar', 'refresh');
+    }
+    foreach($orden as $datos){
     $formatofecha = strtotime($datos->Fecha);
     $Anio = date("Y", $formatofecha);
     $Mes = date("m", $formatofecha);
@@ -25,11 +26,13 @@
                     if(isset($relevantes->IdCliente)){
                         echo $relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
                         echo '<strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Tiempo de estancia: </strong>'.$dias.' días <strong> No. Orden: </strong>'. $relevantes->Orden.'<br>';
-                        echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
+                        echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla.'<br>';
+                        echo '<strong>Asignado: </strong>'.$relevantes->Asignado;
                     }else{
                         echo $relevantes->Empresa.' '.$relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
                         echo '<strong>Fecha de recepción:</strong> '.$Fecha.' <strong>Tiempo de estancia: </strong>'.$dias.' días <strong> No. Orden: </strong>'. $relevantes->Orden.'<br>';
-                        echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla;
+                        echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Falla: </strong>'.$relevantes->Falla.'<br>';
+                        echo '<strong>Asignado: </strong>'.$relevantes->Asignado;
                     }
                 }?>
         </div>
@@ -207,14 +210,14 @@
                         <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                     </div>
 
-                    <?php if($datos->Equipo == 1 || $datos->Equipo == 2 || $datos->Equipo == 3){?>
+                    <?php if($datos->Equipo == 'PC-Escritoio' || $datos->Equipo == 'Todo en uno' || $datos->Equipo == 'Laptop'){?>
                         <div class="form-group col-md-4">
                             <label>Respaldo</label>
                             <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
                         </div>
                     <?php }?>
 
-                    <?php if($datos->Equipo == 4 || $datos->Equipo == 5){?>
+                    <?php if($datos->Equipo == 'Impresora' || $datos->Equipo == 'Copiadora'){?>
                         <div class="form-group col-md-4">
                             <label>Tinta regada</label>
                             <p><?php if($datos->Tinta == 1 ){echo 'Sí';}else{echo 'No';}?></p>

@@ -1,8 +1,5 @@
 <div class="container box" id="advanced-search-form-1">
   <div class="btn-group" role="group" aria-label="Third group">
-    <a href="<?php echo base_url('Cotizaciones/index')?>" class="btn btn-outline-success float-right">Registrar</a>
-  </div>
-  <div class="btn-group" role="group" aria-label="Third group">
       <a href="<?php echo base_url('Cotizaciones/consultar')?>" class="btn btn-outline-primary float-light">Consultar</a>
   </div>
 

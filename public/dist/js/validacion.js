@@ -125,17 +125,17 @@ function coninventario(){
 function calcular(tam){
 
     for(x=1; x < tam; x++){
-        var precious = 'PrecioUS'+x;
+        var precious = 'PrecioUS-'+x;
         var PrecioUS = document.getElementById(precious).value;
-        var preciomx = 'CostoMN'+x;
+        var preciomx = 'CostoMN-'+x;
         var PrecioMX = document.getElementById(preciomx).value;
-        var cambio = 'TipoCambio'+x;
+        var cambio = 'TipoCambio-'+x;
         var TipoCambio = document.getElementById(cambio).value;
 
 
         if(PrecioUS == "" && TipoCambio == ""){
             if(PrecioMX == ""){
-                alert('Debe de llenar el campo PrecioUS o CostoMN');
+                alert('Debe de llenar los campos PrecioUS y TipoCambio o el campo CostoMN');
                 document.getElementById(precious).focus();
                 return false;
             }                

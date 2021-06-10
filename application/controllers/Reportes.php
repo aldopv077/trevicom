@@ -72,6 +72,7 @@ class Reportes extends CI_Controller {
                             }
                         break;
                     default:
+                            
                             if($Ing == "0"){
                                 $reporteCli = $this->ModReportes->ReporteCliente($Estatus);
                                 $reporteEmp = $this->ModReportes->ReporteEmpresa($Estatus);
@@ -107,7 +108,7 @@ class Reportes extends CI_Controller {
                     case "SinRevisar":
                             $estatus = 'Sin revisar';  
                         break;
-                    case "EnReparación":
+                    case "EnReparacion":
                             $estatus = 'En reparación';
                         break;
                     case "Detenido":
@@ -124,7 +125,7 @@ class Reportes extends CI_Controller {
                         break;
                 }
 
-                
+                                
                 $reporteCli = $this->ModReportes->ReporteIngCliente($ing, $estatus);
                 $reporteEmp = $this->ModReportes->ReporteIngEmpresa($ing, $estatus);
                 //print_r($reporteCli); echo'<br><br>'; print_r($reporteEmp); exit;

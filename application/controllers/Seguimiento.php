@@ -272,9 +272,40 @@ class Seguimiento extends CI_Controller {
 					}
 
 					if($this->session->userdata('Perfil') == "Técnico"){
+						foreach($orden as $datos){
+							$formatofecha = strtotime($datos->Fecha);
+							$fecha = date("d-m-Y");
+							
+							$AnioActual = date("Y");
+							$MesActual = date("m");
+							$DiaActual = date("d");
+		
+							$AnioSQL = date("Y", $formatofecha);
+							$MesSQL = date("m", $formatofecha);
+							$DiaSQL = date("d", $formatofecha);
+		
+							//contabilizar cuantos días hay de diferencia entre la fecha actual y la fecha de registro
+							$timestampSQL = mktime(0,0,0, $MesSQL, $DiaSQL, $AnioSQL);
+							$timestampActual = mktime(0,0,0,$MesActual,$DiaActual,$AnioActual);
+		
+							$segundos_diferencia = $timestampActual - $timestampSQL;
+							$dias = $segundos_diferencia/(60*60*24);
+		
+							//Valor abosoluto de los días y asi siquita el signo negativo
+							$dias = abs($dias);
+		
+							//se quitan los decimales y se redondea al valor más bajo cercano
+							$dias = floor($dias);
+		
+							$FechaSQL = $DiaSQL ."/". $MesSQL ."/". $AnioSQL;
+							$FechaActual = $DiaActual .'/'. $MesActual .'/'. $AnioActual;
+						}
+
+
 						$data['contenido'] = "seguimiento/registro";
 						$data['perfil'] = $this->session->userdata('Perfil');
 						$data['orden'] = $orden;
+						$data['dias'] = $dias;
 						$data['seguimiento'] = $this->ModSeguimiento->listaseguimiento($Id);
 
 						$this->session->set_userdata('DatosSeguimiento', $data);
@@ -325,9 +356,10 @@ class Seguimiento extends CI_Controller {
 						$data['conteo'] = $conteo;
 						$data['orden'] = $orden;
 						$data['dias'] = $dias;
-						$this->load->view('plantilla',$data);
+						//$this->load->view('plantilla',$data);
+						$this->session->set_userdata('DatosSeguimiento', $data);
+						redirect('Seguimiento/seguir');
 					}
-					
 				}
 			}
 		}

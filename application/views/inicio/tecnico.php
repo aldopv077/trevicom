@@ -28,7 +28,7 @@
                                     case "Sin revisar":
                                             $SinRevisar = $SinRevisar + 1; 
                                         break;
-                                    case "Revisado":
+                                    case "En reparación":
                                             $Revisado = $Revisado + 1;
                                         break;
                                     case "Detenido":
@@ -54,7 +54,7 @@
                                 <td><center><?php echo $SinRevisar?></center></td>
                             </tr> 
                             <tr>
-                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/EnReparación'?>">En reparación</a></strong></center></td>
+                                <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$this->session->userdata('Iniciales').'/EnReparacion'?>">En reparación</a></strong></center></td>
                                 <td><center><?php echo $Revisado?></center></td>
                             </tr>  
                             <tr>

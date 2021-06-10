@@ -50,10 +50,11 @@ class ModCotizaciones extends CI_Model{
     }
 
     //Consulta todas las cotizaciones que esten en estatus de realizadas
-    public function conCotizacionReal(){
+    public function conCotizacionReal($Fecha){
         $this->db->select('*');
         $this->db->from('TblCotizacion');
         $this->db->where('Estatus', 'Realizada');
+        $this->db->where('Fecha',$Fecha);
 
         $consulta = $this->db->get();
         return $consulta->result();
@@ -71,11 +72,12 @@ class ModCotizaciones extends CI_Model{
     }
 
     //Consulta todas las cotizaciones que esten en estatus de realizadas
-    public function conCotizacionRealTec($tec){
+    public function conCotizacionRealTec($tec, $Fecha){
         $this->db->select('*');
         $this->db->from('TblCotizacion');
         $this->db->where('Estatus', 'Realizada');
         $this->db->where('Asignado', $tec);
+        $this->db->where('Fecha',$Fecha);
 
         $consulta = $this->db->get();
         return $consulta->result();

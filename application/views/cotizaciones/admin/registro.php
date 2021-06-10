@@ -38,7 +38,7 @@
 </div>
 
 <br>
-<div class="container box">
+<div style="width: 97%; margin-left:100px;">
     <div class="table-responsive">
         <form Id="FrmCalcularCotizacion" name="FrmCalcularCotizacion" action="<?php echo base_url('Cotizaciones/Calcular')?>" method="post">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -52,6 +52,7 @@
                         <th><center>Costo en MN</center></th>
                         <th><center>% de Margen</center></th>
                         <th><center>Flete</center></th>
+                        <th><center>Utilidad</center></th>
                         <th><center>Proveedor</center></th>
                         <th><center>Acciones</center></th>
                     </tr>
@@ -65,13 +66,14 @@
                             <td><center><?php echo $No?></center></td>
                             <td><center><?php echo $par->Cantidad?></center></td>
                             <td><center><?php echo $par->Descripcion?></center></td>
-                            <td><center><input type="text" id="PrecioUS<?php echo $No;?>" name="PrecioUS[]" class="form-control" placeholder="Precio Us"></center></td>
-                            <td><center><input type="text" id="TipoCambio<?php echo $No;?>" name="TipoCambio[]" class="form-control" placeholder="Tipo de Cambio"></center></td>
-                        
-                            <td><center><input type="text" id="CostoMN<?php echo $No;?>" name="CostoMN[]" class="form-control" placeholder="Costo MN"></center></td>
-                            <td><center><input type="text" id="Margen<?php echo $No;?>" name="Margen[]" class="form-control" placeholder="% Margen"></center></td>
-                            <td><center><input type="text" id="Flete<?php echo $No;?>" name="Flete[]" class="form-control" placeholder="Flete"></center></td>
-                            <td><center><input type="text" id="Proveedor<?php echo $No;?>" name="Proveedor[]" class="form-control" placeholder="Proveedor"></center></td>
+                            <td><center><input type="text" id="PrecioUS-<?php echo $No;?>" name="PrecioUS[]" class="form-control" placeholder="Precio Us"></center></td>
+                            <td><center><input type="text" id="TipoCambio-<?php echo $No;?>" name="TipoCambio[]" class="form-control" placeholder="Tipo de Cambio"></center></td>
+                            <td><center><input type="text" onfocus="costomx();" id="CostoMN-<?php echo $No;?>" name="CostoMN[]" class="form-control" placeholder="Costo MN"></center></td>
+
+                            <td><center><input type="text" id="Margen-<?php echo $No;?>" name="Margen[]" class="form-control" placeholder="% Margen"></center></td>
+                            <td><center><input type="text" id="Flete-<?php echo $No;?>" name="Flete[]" class="form-control" placeholder="Flete"></center></td>
+                            <td><center><input type="text" onfocus="utilidad();" id="Utilidad-<?php echo $No;?>" name="Utilidad[]" class="form-control" placeholder="Utilidad"></center></td>
+                            <td><center><input type="text" id="Proveedor-<?php echo $No;?>" name="Proveedor[]" class="form-control" placeholder="Proveedor"></center></td>
                         
                             <td>
                                 <center>
@@ -80,11 +82,14 @@
                                     </div>
                                 </center>
                             </td>
-                            <td><input type="hidden" name="Cantidad[]" value="<?php echo $par->Cantidad?>"></td>
-                            <td><input type="hidden" name="IdPartida[]" value="<?php echo $par->IdPartida?>"></td>
+                            <td>
+                                <input type="hidden" name="Cantidad[]" value="<?php echo $par->Cantidad?>">
+                                <input type="hidden" name="IdPartida[]" value="<?php echo $par->IdPartida?>">
+                            </td>
+                            
                         </tr>
                         <tr> 
-                            <td colspan="10"><textarea class="form-control" name="Comentario[]" id="Comentario" cols="30" rows="3"></textarea></td>
+                            <td colspan="10"><textarea class="form-control" name="Comentario[]" id="Comentario-<?php echo $No;?>" cols="30" rows="3"></textarea></td>
                         </tr>
                             
                     <?php $No++; }?>
@@ -98,5 +103,7 @@
             </div>
         </div>
     </form>
+    </div>
 </div>
 <script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>
+<script src="<?php echo base_url('public/dist/js/personalizado.js')?>"></script>

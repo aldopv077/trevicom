@@ -5,6 +5,7 @@ class Cotizaciones extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("ModCotizaciones");
+        $this->load->model("ModUsuarios");
     }
 
     public function index()
@@ -16,6 +17,7 @@ class Cotizaciones extends CI_Controller {
 
             if($perfil == "Administrador"){
                 $data['contenido'] = "cotizaciones/admin/index";
+                $data['ing'] = $this->ModUsuarios->listausuarios();
             }else{
                 $data['contenido'] = "cotizaciones/tecnico/index";
             }
@@ -37,7 +39,6 @@ class Cotizaciones extends CI_Controller {
                     'IdOrden' => $datos['Orden'],
                     'Asignado' => $this->session->userdata('Iniciales'),
                     'Estatus' => 'Solicitud'
-
                 );
 
                 $IdCot = $this->ModCotizaciones->solicitud($solicitud);
@@ -108,11 +109,16 @@ class Cotizaciones extends CI_Controller {
         if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login', 'refresh');
         }else{
+            //Se establece el uso horario que se utilizará
+			date_default_timezone_set('America/Mexico_City');
+			$fecha = date("Y-m-d");
+
             if($this->session->userdata('Perfil') == "Administrador"){
                 $data['contenido'] = 'cotizaciones/admin/consultar';
                 $data['perfil'] = $this->session->userdata('Perfil');
                 $data['cotizacionPend'] = $this->ModCotizaciones->conCotizacionPend();
-                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionReal();
+                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionReal($fecha);
+                $data['ing'] = $this->ModUsuarios->listausuarios();
 
                 
                 $this->load->view('plantilla',$data);
@@ -120,7 +126,7 @@ class Cotizaciones extends CI_Controller {
                 $data['contenido'] = 'cotizaciones/tecnico/consultar';
                 $data['perfil'] = $this->session->userdata('Perfil');
                 $data['cotizacionPend'] = $this->ModCotizaciones->conCotizacionPendTec($this->session->userdata('Iniciales'));
-                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionRealTec($this->session->userdata('Iniciales'));
+                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionRealTec($this->session->userdata('Iniciales', $fecha));
 
                 $this->load->view('plantilla',$data);
             }
@@ -207,7 +213,12 @@ class Cotizaciones extends CI_Controller {
                                
                 if($CostoUS[$x] != "" && $TipoCambio[$x] != "" && $CostoMX[$x] == ""){
                     $CostoMX[$x] = $CostoUS[$x] * $TipoCambio[$x];
-                    $cientoganan = '0.'.$Margen[$x];
+                    if($Margen[$x] < 10){
+                        $cientoganan = '0.0'.$Margen[$x];
+                    }else{
+                        $cientoganan = '0.'.$Margen[$x];
+                    }
+                    
                     $PrecioUnitario = ($CostoMX[$x]/(1 - $cientoganan)) + $Flete[$x];
                     $Utilidad = ($PrecioUnitario - $CostoMX[$x])-$Flete[$x];
                     

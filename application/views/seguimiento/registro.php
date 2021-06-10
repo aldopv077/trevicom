@@ -80,6 +80,31 @@
                         <p><?php echo $datos->Modelo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Contraseña</label>
+                        <p><?php echo $datos->Pass?></p>
+                    </div>
+                    <?php if($datos->Equipo == 'PC-Escritoio' || $datos->Equipo == 'Todo en uno' || $datos->Equipo == 'Laptop'){?>
+                        <div class="form-group col-md-4">
+                            <label>Respaldo</label>
+                            <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
+                    <?php if($datos->Equipo == 'Impresora' || $datos->Equipo == 'Copiadora'){?>
+                        <div class="form-group col-md-4">
+                            <label>Tinta regada</label>
+                            <p><?php if($datos->Tinta == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Toner disperso</label>
+                            <p><?php if($datos->Toner == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cartuchos faltantes</label>
+                            <p><?php if($datos->Cartuchos == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+                    <div class="form-group col-md-4">
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
                     </div>
@@ -127,6 +152,31 @@
                         <p><?php echo $datos->Modelo?></p>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Contraseña</label>
+                        <p><?php echo $datos->Pass?></p>
+                    </div>
+                    <?php if($datos->Equipo == 'PC-Escritoio' || $datos->Equipo == 'Todo en uno' || $datos->Equipo == 'Laptop'){?>
+                        <div class="form-group col-md-4">
+                            <label>Respaldo</label>
+                            <p><?php if($datos->Respaldo == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+
+                    <?php if($datos->Equipo == 'Impresora' || $datos->Equipo == 'Copiadora'){?>
+                        <div class="form-group col-md-4">
+                            <label>Tinta regada</label>
+                            <p><?php if($datos->Tinta == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Toner disperso</label>
+                            <p><?php if($datos->Toner == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cartuchos faltantes</label>
+                            <p><?php if($datos->Cartuchos == 1 ){echo 'Sí';}else{echo 'No';}?></p>
+                        </div>
+                    <?php }?>
+                    <div class="form-group col-md-4">
                         <label>Estatus</label>
                         <p><?php echo $datos->Estatus?></p>
                     </div>
@@ -163,7 +213,7 @@
                 <label for="cmbEstatus">*Estatus del equipo:</label>
                 <select class="form-control" id="cmbEstatus" name="cmbEstatus" onchange="costo();">
                     <option value="0" selected> Seleccione una opción</option>
-                    <option value="Revisado"> Revisado </option>
+                    <option value="En reparación"> En reparación </option>
                     <option value="En espera de piezas"> En espera de piezas </option>
                     <option value="Terminado"> Terminado </option>
                     <option value="Terminado sin reparar"> Terminado sin reparar </option>
@@ -190,7 +240,9 @@
                     <th><center>Usuario</center></th>
                 </tr>
             </thead>
-                <?php foreach($seguimiento as $seg){
+                <?php 
+                    $No = sizeof($seguimiento);
+                    foreach($seguimiento as $seg){
                     
                     $formatofecha = strtotime($seg->Fecha);
                     $Anio = date("Y", $formatofecha);
@@ -199,7 +251,7 @@
                     $Fecha = $Dia ."/". $Mes ."/". $Anio;    
                 ?>
                     <tr>
-                        <td><center><?php echo $seg->IdComentario?></center></td>
+                        <td><center><?php echo $No?></center></td>
                         <td><center><?php echo $seg->TipoComentario?></center></td>
                         <td><center><?php echo $seg->Comentario?></center></td>
                         <td><center><?php echo $seg->Estatus?></center></td>
@@ -207,7 +259,7 @@
                         <td><center><?php echo $seg->Hora?></center></td>
                         <td><center><?php echo $seg->Iniciales?></center></td>
                     </tr>
-                <?php }?>
+                <?php $No--; }?>
             <tbody>
             </tbody>
         
