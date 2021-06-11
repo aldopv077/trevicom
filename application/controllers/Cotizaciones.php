@@ -5,6 +5,7 @@ class Cotizaciones extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("ModCotizaciones");
+        $this->load->model("ModOrdenes");
         $this->load->model("ModUsuarios");
     }
 
@@ -18,6 +19,7 @@ class Cotizaciones extends CI_Controller {
             if($perfil == "Administrador"){
                 $data['contenido'] = "cotizaciones/admin/index";
                 $data['ing'] = $this->ModUsuarios->listausuarios();
+                $data['cotpend'] = $this->ModCotizaciones->conCotizacionPend();
             }else{
                 $data['contenido'] = "cotizaciones/tecnico/index";
             }
@@ -50,6 +52,7 @@ class Cotizaciones extends CI_Controller {
 
                     $partidas = array(
                         'IdCotizacion' => $Id,
+                        'IdOrden' => $datos['Orden'],
                         'Cantidad' => $datos['Cantidad'],
                         'Descripcion' =>$datos['Descripcion']
                     );
@@ -88,6 +91,7 @@ class Cotizaciones extends CI_Controller {
             if(isset($datos)){
                 $partidas = array(
                     'IdCotizacion' => $datos['Cotizacion'],
+                    'IdOrden' => $datos['Orden'],
                     'Cantidad' => $datos['Cantidad'],
                     'Descripcion' => $datos['Descripcion']
                 );
@@ -126,7 +130,7 @@ class Cotizaciones extends CI_Controller {
                 $data['contenido'] = 'cotizaciones/tecnico/consultar';
                 $data['perfil'] = $this->session->userdata('Perfil');
                 $data['cotizacionPend'] = $this->ModCotizaciones->conCotizacionPendTec($this->session->userdata('Iniciales'));
-                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionRealTec($this->session->userdata('Iniciales', $fecha));
+                $data['cotizacionReal'] = $this->ModCotizaciones->conCotizacionRealTec($this->session->userdata('Iniciales'),$fecha);
 
                 $this->load->view('plantilla',$data);
             }
@@ -146,11 +150,23 @@ class Cotizaciones extends CI_Controller {
 
                 $this->load->view('plantilla', $data);
             }else{
-                $data['contenido'] = "cotizaciones/admin/registro";
-                $data['perfil'] = $perfil;
-                $data['partidas'] = $this->ModCotizaciones->conPartidas($Id);
+                $partidas = $this->ModCotizaciones->conPartidas($Id);
+                        
+                        foreach($partidas as $part){
+                            $IdOrd = $part->IdOrden;
+                        }
 
-                $this->load->view('plantilla', $data);
+                        $orden = $this->ModOrdenes->buscarOrdenCliente($IdOrd);
+                        if($orden == null){
+                            $orden = $this->ModOrdenes->buscarOrdenEmpresa($IdOrd);
+                        }
+
+                        $data['contenido'] = "cotizaciones/admin/registro";
+                        $data['perfil'] = $perfil;
+                        $data['orden'] = $orden;
+                        $data['partidas'] = $partidas;
+
+                        $this->load->view('plantilla', $data);
             }
         }
     }
@@ -160,49 +176,66 @@ class Cotizaciones extends CI_Controller {
         if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login', 'refresh');
         }else{
-                $datos = $this->input->post();
+            $datos = $this->input->post();
 
-                if(isset($datos)){
-                    $Id = $datos['Cotizacion'];
+            if(isset($datos)){
+                $Id = $datos['Cotizacion'];
 
-                    $perfil = $this->session->userdata('Perfil');
-                    if($perfil == "Técnico"){
-                        $data['contenido'] = "cotizaciones/tecnico/registro";
-                        $data['perfil'] = $perfil;
-                        $data['partidas'] = $this->ModCotizaciones->conPartidas($Id);
+                $perfil = $this->session->userdata('Perfil');
+                if($perfil == "Técnico"){
+                        
+                    $data['contenido'] = "cotizaciones/tecnico/registro";
+                    $data['perfil'] = $perfil;
+                    $data['partidas'] = $this->ModCotizaciones->conPartidas($Id);
 
-                        $this->load->view('plantilla', $data);
-                    }else{
-                        $data['contenido'] = "cotizaciones/admin/registro";
-                        $data['perfil'] = $perfil;
-                        $data['partidas'] = $this->ModCotizaciones->conPartidas($Id);
-
-                        $this->load->view('plantilla', $data);
-                    }
-                }
+                    $this->load->view('plantilla', $data);
+                }else{
+                    $partidas = $this->ModCotizaciones->conPartidas($Id);
                             
+                    foreach($partidas as $part){
+                        $IdOrd = $part->IdOrden;
+                    }
+
+                    $orden = $this->ModOrdenes->buscarOrdenCliente($IdOrd);
+                    if($orden == null){
+                        $orden = $this->ModOrdenes->buscarOrdenEmpresa($IdOrd);
+                    }
+
+                    $data['contenido'] = "cotizaciones/admin/registro";
+                    $data['perfil'] = $perfil;
+                    $data['orden'] = $orden;
+                    $data['partidas'] = $partidas;
+
+                    $this->load->view('plantilla', $data);
+                }
+            }                 
         }
     }
 
-    //Realiza los calculos necesarios para realizar la cotización
-    public function Calcular(){
+    //Ingresa los costos de cada partida
+    public function agrCostos(){
         if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login', 'refresh');
         }else{
             $tam = $_POST['tamanio'] - 1;
             $IdCot = $_POST['IdCotizacion'];
 
+            
+            $Comentario = $_POST['Comentario'];
             $CostoUS = $_POST['PrecioUS'];
             $TipoCambio = $_POST['TipoCambio'];
             $CostoMX = $_POST['CostoMN'];
             $Margen = $_POST['Margen'];
             $Flete = $_POST['Flete'];
-            $Comentario = $_POST['Comentario'];
-            $Cantidad = $_POST['Cantidad'];
+            $Utilidad = $_POST['Utilidad'];
+            $PrecioUnitario = $_POST['PrecioUnitario'];
             $Proveedor = $_POST['Proveedor'];
+            $PrecioSinIva = $_POST['SubTotalPart'];
+            $PrecioIva = $_POST['TotalPart'];
+
             $Id = $_POST['IdPartida'];
-            $SubTotal = 0;
-            $Total=0;
+            $SubTotal = $_POST['SubTotal'];
+            $Total= $_POST['Total'];
 
             date_default_timezone_set('America/Mexico_City');
 			$fechag = date("Y-m-d");
@@ -210,66 +243,24 @@ class Cotizaciones extends CI_Controller {
 
 
             for($x = 0; $x < $tam; $x++){
-                               
-                if($CostoUS[$x] != "" && $TipoCambio[$x] != "" && $CostoMX[$x] == ""){
-                    $CostoMX[$x] = $CostoUS[$x] * $TipoCambio[$x];
-                    if($Margen[$x] < 10){
-                        $cientoganan = '0.0'.$Margen[$x];
-                    }else{
-                        $cientoganan = '0.'.$Margen[$x];
-                    }
-                    
-                    $PrecioUnitario = ($CostoMX[$x]/(1 - $cientoganan)) + $Flete[$x];
-                    $Utilidad = ($PrecioUnitario - $CostoMX[$x])-$Flete[$x];
-                    
-                    $TotalConIva = ($PrecioUnitario * 1.16) * $Cantidad[$x];
-                    $TotalSinIva = $PrecioUnitario * $Cantidad[$x];
-
-                    $SubTotal = round($SubTotal + $TotalSinIva, 2) ;
-                    $Total = round($Total + $TotalConIva, 2); 
-
-                    $precios = array(
-                        'Comentario' => $Comentario[$x],
-                        'CostoUS' => $CostoUS[$x],
-                        'TipoCambio' => $TipoCambio[$x],
-                        'CostoMN' => $CostoMX[$x],
-                        'Margen' => $Margen[$x],
-                        'Flete' => $Flete[$x],
-                        'Utilidad' => round($Utilidad, 2),
-                        'PrecioUnitario' => round($PrecioUnitario, 2),
-                        'PrecioSinIva' => round($TotalSinIva, 2),
-                        'PrecioIva' => round($TotalConIva, 2),
-                        'Proveedor' => $Proveedor[$x]
-                    ); 
-                    
-                }else if($CostoUS[$x] == "" && $TipoCambio[$x] == "" && $CostoMX[$x] != ""){
-                    $cientoganan = '0.'.$Margen[$x];
-                    $PrecioUnitario = ($CostoMX[$x]/(1 - $cientoganan)) + $Flete[$x];
-                    $Utilidad = ($PrecioUnitario - $CostoMX[$x])-$Flete[$x];
-
-                    $TotalConIva = ($PrecioUnitario * 1.16)*$Cantidad[$x];
-                    $TotalSinIva = $PrecioUnitario * $Cantidad[$x];
-
-
-                    $SubTotal = round($SubTotal + $TotalSinIva, 2) ;
-                    $Total = round($Total + $TotalConIva, 2);  
-
-                    $precios = array(
-                        'Comentario' => $Comentario[$x],
-                        'CostoMN' => $CostoMX[$x],
-                        'Margen' => $Margen[$x],
-                        'Flete' => $Flete[$x],
-                        'Utilidad' => round($Utilidad, 2),
-                        'PrecioUnitario' => round($PrecioUnitario, 2),
-                        'PrecioSinIva' => round($TotalSinIva, 2),
-                        'PrecioIva' => round($TotalConIva, 2),
-                        'Proveedor' => $Proveedor[$x]
-                    );
-
-                }
-
+                
+                $precios = array(
+                    'Comentario' => $Comentario[$x],
+                    'CostoUS' => $CostoUS[$x],
+                    'TipoCambio' => $TipoCambio[$x],
+                    'CostoMN' => $CostoMX[$x],
+                    'Margen' => $Margen[$x],
+                    'Flete' => $Flete[$x],
+                    'Utilidad' => $Utilidad[$x],
+                    'PrecioUnitario' => $PrecioUnitario[$x],
+                    'PrecioSinIva' => $PrecioSinIva[$x],
+                    'PrecioIva' => $PrecioIva[$x],
+                    'Proveedor' => $Proveedor[$x],
+                );
+                
                 $ingresar = $this->ModCotizaciones->agrPrecios($Id[$x], $precios);              
             }
+            
 
             $cotizacion = array(
                 'IdEmpleado' => $this->session->userdata('Id'),
@@ -279,17 +270,98 @@ class Cotizaciones extends CI_Controller {
                 'Hora' => $hora,
                 'Estatus' => 'Realizada'
             );
-
             $ingresacot = $this->ModCotizaciones->actCotizacion($IdCot ,$cotizacion);
 
             
-            if($ingresar){
-                echo'<script> alert("Cotización realizada"); </scrpt>';
-                redirect('Cotizaciones/index');
+            if($ingresacot){
+                $this->VerCotizacion($IdCot);
             }
         }
     }
 
+    //Muestra la cotización en PDF
+    public function VerCotizacion($Id){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login', 'refresh');
+        }else{
+                //$this->load->view('cotizaciones/pdf');
+
+                $cotizacion = $this->ModCotizaciones->conCotizacion($Id);
+                $partidas = $this->ModCotizaciones->conPartidas($Id);
+                
+                foreach($cotizacion as $cot){
+                    $IdOrden = $cot->IdOrden;
+                    $Fecha = $cot->Fecha;
+                }
+
+                $formatofecha = strtotime($Fecha);
+                $Anio = date("Y", $formatofecha);
+				$Mes = date("m", $formatofecha);
+				$Dia = date("d", $formatofecha);
+				$FechaFormateada = $Dia.'/'.$Mes.'/'.$Anio;
+
+                $orden = $this->ModOrdenes->buscarordenCliente($IdOrden);
+                if($orden == null){
+                    $orden = $this->ModOrdenes->buscarordenEmpresa($IdOrden);
+                    if($orden != null){
+                        $data['orden'] = $orden;
+                        $data['partidas'] = $partidas;
+                        $data['cotizacion'] = $cotizacion;
+                        $data['Id'] = $Id;
+                        $data['fecha'] = $FechaFormateada;
+
+                        require_once('././public/vendor/autoload.php');
+                        $css = file_get_contents('././public/dist/css/pdfcot.css');
+                
+                        $mpdf = new \Mpdf\Mpdf([
+                            'mode' => 'utf-8',
+                            'format' => 'A4',
+                            'setAutoTopMargin' => 'stretch',
+                            'autoMarginPadding' => 67
+                        ]);
+                    
+                        $html = $this->load->view('cotizaciones/cotizacion',$data,true);
+                
+                        //echo $html;
+                        //exit;
+                        $mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+                        $mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+
+                        $mpdf->Output();
+                    }else{
+                        echo '<scritp> alert("No se encontraron resultados"); </script>';
+					    redirect('Ordenes/consultar','refresh');
+                    }
+                }else{
+                    $data['orden'] = $orden;
+                    $data['partidas'] = $partidas;
+                    $data['cotizacion'] = $cotizacion;
+                    $data['Id'] = $Id;
+                    $data['fecha'] = $FechaFormateada;
+
+                    require_once('././public/vendor/autoload.php');
+                    $css = file_get_contents('././public/dist/css/pdfcot.css');
+                    $mpdf = new \Mpdf\Mpdf([
+                        'mode' => 'utf-8',
+                        'format' => 'A4',
+                        'setAutoTopMargin' => 'stretch',
+                        'autoMarginPadding' => 67
+                    ]);
+                    $html = $this->load->view('cotizaciones/cotizacion',$data,true);
+                    //echo $html;
+                    //exit;
+                    $mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+                    $mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+                    $mpdf->Output();
+                }
+
+                
+                
+
+                
+        }
+    }
+    
     //Muestra la cotización en PDF
     public function CotPDF(){
         if($this->session->userdata('is_logued_in') == FALSE){
@@ -336,6 +408,79 @@ class Cotizaciones extends CI_Controller {
             $data['partidas'] = $this->ModCotizaciones->conPartidas($IdCot);
 
             $this->load->view('plantilla', $data);
+        }
+    }
+
+    //Consultar cotizaciones realizadas dentro de un rango de fechas
+    public function reporte(){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login', 'refresh');
+        }else{
+            $datos = $this->input->post();
+            if(isset($datos)){
+
+                if(isset($datos['cmbIng'])){
+                    $Asignado = $datos['cmbIng'];
+                }else{
+                    $Asignado = $this->session->userdata('Iniciales');
+                }
+
+                //print_r($datos); exit;
+                $Estatus = $datos['cmbEstatus'];
+                if($Asignado == 0){
+                    if($Estatus == "Realizada"){
+                        $FechaInicio = $datos['dtInicio'];
+                        $FechaFin = $datos['dtFin'];
+
+                        $realizadas = $this->ModCotizaciones->realizadas($FechaInicio, $FechaFin);
+
+                        $data['contenido'] = 'cotizaciones/admin/index';
+                        $data['ing'] = $this->ModUsuarios->listausuarios();
+                        $data['cotreal'] = $realizadas;
+                        $data['perfil'] = $this->session->userdata('Perfil');
+
+                        $this->load->view('plantilla', $data);
+
+                        //print_r($realizadas);
+                        //exit;
+
+                    }else{
+                        $solicitud = $this->ModCotizaciones->consolicitud();
+                        
+                        $data['contenido'] = 'cotizaciones/admin/index';
+                        $data['ing'] = $this->ModUsuarios->listausuarios();
+                        $data['cotpend'] = $solicitud;
+                        $data['perfil'] = $this->session->userdata('Perfil');
+
+                        $this->load->view('plantilla', $data);
+                        
+                        //print_r($solicitud);
+                        //exit;
+                    }
+                }else{
+                    if($Estatus == "Realizada"){
+                        $FechaInicio = $datos['dtInicio'];
+                        $FechaFin = $datos['dtFin'];
+
+                        $realizadas = $this->ModCotizaciones->realizadasIng($Asignado, $FechaInicio, $FechaFin);
+                        print_r($realizadas);
+                        exit;
+
+                    }else{
+                        $solicitud = $this->ModCotizaciones->consolicitudIng($Asignado);
+                        
+                        $data['contenido'] = 'cotizaciones/admin/index';
+                        $data['cotpend'] = $solicitud;
+                        $data['ing'] = $this->ModUsuarios->listausuarios();
+                        $data['perfil'] = $this->session->userdata('Perfil');
+
+                        $this->load->view('plantilla', $data);
+                        
+                        //print_r($solicitud);
+                        //exit;
+                    }
+                }
+            }
         }
     }
 }

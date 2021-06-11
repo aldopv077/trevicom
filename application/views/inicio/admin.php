@@ -65,7 +65,7 @@
                             <td><center><?php echo $Detenido?></center></td>
                         </tr> 
                         <tr>
-                            <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$usuarios[$z]->Iniciales.'/EsperaPizas';?>">En espera de piezas</a></strong></center></td>
+                            <td><center><strong><a href="<?php echo base_url('Reportes/ereporte/').$usuarios[$z]->Iniciales.'/EsperaPzas';?>">En espera de piezas</a></strong></center></td>
                             <td><center><?php echo $EsperaPzas?></center></td>
                         </tr> 
                         <tr>

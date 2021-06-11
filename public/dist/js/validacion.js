@@ -125,15 +125,21 @@ function coninventario(){
 function calcular(tam){
 
     for(x=1; x < tam; x++){
-        var precious = 'PrecioUS-'+x;
+        /*var precious = 'PrecioUS-'+x;
         var PrecioUS = document.getElementById(precious).value;
         var preciomx = 'CostoMN-'+x;
         var PrecioMX = document.getElementById(preciomx).value;
         var cambio = 'TipoCambio-'+x;
-        var TipoCambio = document.getElementById(cambio).value;
+        var TipoCambio = document.getElementById(cambio).value;*/
+        var Subtotalpartida = 'SubTotal-'+x;
+        var Totalpartida = 'Total-'+ x;
 
+        document.getElementById(Subtotalpartida).disabled = false;
+        document.getElementById(Totalpartida).disabled = false;
 
-        if(PrecioUS == "" && TipoCambio == ""){
+        //return false;
+
+        /*if(PrecioUS == "" && TipoCambio == ""){
             if(PrecioMX == ""){
                 alert('Debe de llenar los campos PrecioUS y TipoCambio o el campo CostoMN');
                 document.getElementById(precious).focus();
@@ -151,7 +157,7 @@ function calcular(tam){
                     return false;
                 }
             }
-        }
+        }*/
     }
 }
 

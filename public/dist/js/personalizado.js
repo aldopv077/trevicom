@@ -183,12 +183,18 @@ function utilidad(){
         var id = document.activeElement.id; 
         var Id =  id.split('-');
 
-        var proovedor = 'Proveedor-'+Id[1];
-        var flete = 'Flete-'+Id[1];
+        var cantidad = 'Cantidad-'+Id[1];
+        var proveedor = 'Proveedor-'+Id[1];
         var costomx = 'CostoMN-'+Id[1];
+        var flete = 'Flete-'+Id[1];
         var utilidad = 'Utilidad-'+Id[1];
         var margen = 'Margen-'+Id[1];
+        var subtotal = 'SubTotal-'+Id[1];
+        var total = 'Total-'+Id[1];
+        var preciounitario = 'PrecioUnitario-'+Id[1];
         
+        var Cantidad = parseInt(document.getElementById(cantidad).value);
+        var CostoMX = parseFloat(document.getElementById(costomx).value);
         var porcentaje = parseInt(document.getElementById(margen).value);
 
         if(porcentaje < 10){
@@ -199,19 +205,21 @@ function utilidad(){
 
         var Flete = parseFloat(document.getElementById(flete).value);
         var CientoGanancia = parseFloat(Margen);
-        var CostoMX = parseFloat(document.getElementById(costomx).value);
-
-        /*alert("El elemento seleccionado es: "+ id);
-        alert('Flete: '+ Flete);
-        alert('Margen: '+ Margen);
-        alert('CostoMX: '+ CostoMX);
-        alert('Porciento de Ganancia: '+ CientoGanancia);*/
 
         if(!isNaN(Flete) && CientoGanancia != 0){
             var PrecioUnitario = (CostoMX/(1-CientoGanancia))+Flete;
             var Utilidad = parseFloat((PrecioUnitario - CostoMX) - Flete).toFixed(2);
-    
+            var SubTotal = parseFloat(PrecioUnitario * Cantidad).toFixed(2);
+            var Total = parseFloat(SubTotal * 1.16).toFixed(2);
+
+            document.getElementById(subtotal).value = SubTotal;
+            document.getElementById(total).value = Total;
+
+            document.getElementById(subtotal).disabled=true;
+            document.getElementById(total).disabled=true;
+
             document.getElementById(utilidad).value = Utilidad;
+            document.getElementById(preciounitario).value = parseFloat(PrecioUnitario).toFixed(2);
             document.getElementById(proveedor).focus();
         }else if(isNaN(Flete) && CientoGanancia == 0){
             alert('Es necesario llenar los campos de Margen y Flete para realizar el cálculo');
@@ -224,6 +232,40 @@ function utilidad(){
             document.getElementById(flete).focus();
         }
 
-        //document.getElementById(proovedor).focus();
+        //document.getElementById(proveedor).focus();
+        
     }
+}
+
+//Calcula el total de la cotización
+function totales(tam){
+    
+    var SubTotal = 0;
+    var Total = 0;
+
+    for(x=1; x <= tam; x++){
+        var Subtotalpartida = 'SubTotal-'+x;
+        var Totalpartida = 'Total-'+ x;
+
+        var SubPart = parseFloat(document.getElementById(Subtotalpartida).value);
+        var TotPart = parseFloat(document.getElementById(Totalpartida).value);
+
+        if(isNaN(SubPart)){
+            SubPart = 0;
+        }
+        if(isNaN(TotPart)){
+            TotPart = 0;
+        }
+
+        //alert("SubTotal Partida"+x+" = " + SubPart);
+        //alert("Total Partida"+x+" = " + TotPart);
+
+        Total = Total + TotPart;
+        SubTotal = SubTotal + SubPart;
+
+        document.getElementById('SubTotal').value = SubTotal;
+        document.getElementById('Total').value = Total;
+    }
+    //alert('Tamaño del arreglo: '+ tam);
+    document.getElementById('agrCot').focus();
 }

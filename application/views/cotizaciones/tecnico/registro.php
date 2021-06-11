@@ -8,10 +8,11 @@
 
 <div class="container box" id="advanced-search-form">
     <form Id="FrmRegistrarPartidas" name="FrmRegistrarPartidas" action="<?php echo base_url('Cotizaciones/agrPartidas')?>" method="post">
-        <?php foreach($partidas as $part){ $Idcot = $part->IdCotizacion;}?>
+        <?php foreach($partidas as $part){ $Idcot = $part->IdCotizacion; $Orden = $part->IdOrden;}?>
                 <div class="table-responsive">          
                 <div class="form-row">
                     <input type="hidden" class="form-control" id="Cotizacion" name="Cotizacion" value="<?php echo $Idcot;?>">
+                    <input type="hidden" class="form-control" id="Orden" name="Orden" value="<?php echo $Orden;?>">
                     <div class="form-group col-md-4">
                     <label for="Cantidad">Cantidad</label>
                     <input type="text" class="form-control" id="Cantidad" name="Cantidad" placeholder="Cantidad">

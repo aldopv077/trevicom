@@ -1,46 +1,31 @@
+<div class="container box" id="advanced-search-form-1">
+  <div class="btn-group" role="group" aria-label="Third group">
+      <a href="<?php echo base_url('Cotizaciones/index')?>" class="btn btn-outline-primary float-light">Consultar</a>
+  </div>
+</div>
+
 <div class="container box" id="advanced-search-form">
-    <h1 align="center">Reportes</h1>
-        <form name="FrmReporte" Id="FrmReporte" action="<?php echo base_url('Reportes/reporte')?>" method="post">
-        <?php foreach($partidas as $part){ $Idcot = $part->IdCotizacion;}?>
-            <div class="form-row">
-                <input type="hidden" class="form-control" id="Cotizacion" name="Cotizacion" value="<?php echo $Idcot;?>">
-                <div class="container"></div>           
-                    <?php if($perfil == "Administrador"){?>
-                        <div class="form-group col-md-6">
-                            <label for="cmbIng">Nombre de tecnico:</label>
-                            <select class="form-control" id="cmbIng" name="cmbIng">
-                                <option value="0">Selecciones a un ingeniero</option>
-                                <?php foreach($ing as $Ing){?>
-                                    <option value="<?php echo $Ing->Iniciales?>"><?php echo $Ing->Nombre.' '.$Ing->Iniciales?></option>
-                                <?php }?>
-                            </select>
-                        </div>
-                    <?php }?>
-                    <div class="form-group col-md-6">
-                        <label for="cmbEstatus">Tipo de reporte:</label>
-                        <select class="form-control" id="cmbEstatus" name="cmbEstatus">
-                            <option value="0">Selecciones un estatus</option>
-                            <option value="Sin revisar">Sin revisar</option>
-                            <option value="En reparación">En Reparación</option>
-                            <option value="Revisado">Revisado</option>
-                            <option value="Terminado">Terminado</option>
-                            <option value="En espera de piezas">En espera de piezas</option>
-                            <option value="Terminado sin reparar">Terminado sin reparar</option>
-                            <option value="Urgente">Urgente</option>
-                            <option value="Garantía">Garantía</option>
-                            <option value="Reincidencia">Reincidencia</option>
-                        </select>
-                    </div>
-                    <button name="Ingresar" Id="Ingresar" type="submit" onclick="return Reportes();" class="btn btn-danger col-md-6">Generar Reporte</button>
-                </div>
-            </div>
-        </form>
+    <?php foreach($orden as $relevantes){
+        if(isset($relevantes->IdCliente)){
+            echo '<h2 align="center"> Cotización de la orden: '. $relevantes->Orden.'</h2>';
+            echo $relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
+            echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Marca: </strong>'.$relevantes->Marca.'<strong> Modelo: </strong>'.$relevantes->Modelo.' <strong>Falla: </strong>'.$relevantes->Falla.'<br>';
+            echo '<strong>Asignado: </strong>'.$relevantes->Asignado;
+        }else{
+            echo '<h2 align="center"> Cotización de la orden: '. $relevantes->Orden.'</h2>';
+            echo $relevantes->Empresa.' '.$relevantes->Nombre.' '.$relevantes->Paterno.' '.$relevantes->Materno.' <strong>Macro: </strong>'.$relevantes->Macro.'<br>';
+            echo '<strong>Equipo: </strong>'.$relevantes->Equipo.' <strong>Marca: </strong>'.$relevantes->Marca.'<strong> Modelo: </strong>'.$relevantes->Modelo.' <strong>Falla: </strong>'.$relevantes->Falla.'<br>';
+            echo '<strong>Asignado: </strong>'.$relevantes->Asignado;
+        }
+    }?>
+        
+    
 </div>
 
 <br>
 <div style="width: 97%; margin-left:100px;">
     <div class="table-responsive">
-        <form Id="FrmCalcularCotizacion" name="FrmCalcularCotizacion" action="<?php echo base_url('Cotizaciones/Calcular')?>" method="post">
+        <form Id="FrmCalcularCotizacion" name="FrmCalcularCotizacion" action="<?php echo base_url('Cotizaciones/agrCostos')?>" method="post">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr>
@@ -54,7 +39,7 @@
                         <th><center>Flete</center></th>
                         <th><center>Utilidad</center></th>
                         <th><center>Proveedor</center></th>
-                        <th><center>Acciones</center></th>
+                        <th colspan="3"><center>Acciones</center></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +59,6 @@
                             <td><center><input type="text" id="Flete-<?php echo $No;?>" name="Flete[]" class="form-control" placeholder="Flete"></center></td>
                             <td><center><input type="text" onfocus="utilidad();" id="Utilidad-<?php echo $No;?>" name="Utilidad[]" class="form-control" placeholder="Utilidad"></center></td>
                             <td><center><input type="text" id="Proveedor-<?php echo $No;?>" name="Proveedor[]" class="form-control" placeholder="Proveedor"></center></td>
-                        
                             <td>
                                 <center>
                                     <div class="btn-group" role="group" aria-label="Third group">
@@ -83,23 +67,53 @@
                                 </center>
                             </td>
                             <td>
-                                <input type="hidden" name="Cantidad[]" value="<?php echo $par->Cantidad?>">
+                                <input type="hidden" name="Cantidad[]" id="Cantidad-<?php echo $No?>" value="<?php echo $par->Cantidad?>">
                                 <input type="hidden" name="IdPartida[]" value="<?php echo $par->IdPartida?>">
+                                <input type="hidden" name="PrecioUnitario[]" Id="PrecioUnitario-<?php echo $No?>">
                             </td>
                             
                         </tr>
-                        <tr> 
-                            <td colspan="10"><textarea class="form-control" name="Comentario[]" id="Comentario-<?php echo $No;?>" cols="30" rows="3"></textarea></td>
+                        <tr style="background: #d3d3d3d3;">
+                            <td colspan="7"><center><strong>Comentario</strong></center></td>
+                            <td colspan="2"><center><strong>Importe sin IVA</strong> </center></td>
+                            <td><center><strong>Total con IVA</strong></center></td>
                         </tr>
-                            
+                        <tr> 
+                            <td colspan="7">
+                                <textarea class="form-control" name="Comentario[]" id="Comentario-<?php echo $No;?>" cols="30" rows="3"></textarea>
+                            </td>
+                            <td colspan="2">
+                                <input type="text" class="form-control" name="SubTotalPart[]" Id="SubTotal-<?php echo $No;?>"placeholder="Importe sin IVA">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="TotalPart[]" Id="Total-<?php echo $No;?>"placeholder="Total con IVA">
+                            </td>
+                        </tr>
                     <?php $No++; }?>
+                    <tr style="background: #d3d3d3;">
+                        <td colspan="7"></td>
+                        <td colspan="2"><strong>Importe Total sin IVA</strong></td>
+                        <td><strong>Importe Total con IVA</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7"></td>
+                        <td colspan="2"><input type="text" class="form-control" name="SubTotal" id="SubTotal" placeholder="Importe sin IVA"></td>
+                        <td><input type="text" class="form-control" name="Total" id="Total" placeholder="Total con IVA"></td>
+                        <td>
+                                <center>
+                                    <div class="btn-group" role="group" aria-label="Third group">
+                                        <buttom onclick="totales(<?php echo sizeof($partidas)?>);" href="" class="btn btn-success" Id="btnCalcular">Cálcular</buttom>
+                                    </div>
+                                </center>
+                            </td>
+                    </tr>
                 </tbody>
             </table>
             
             <div class="container box">
                 <input type="hidden" name="tamanio" value="<?php echo $No?>">
                 <input type="hidden" name="IdCotizacion" value="<?php echo $par->IdCotizacion?>">
-                <button type="submit" name="agrCot" Id="agrCot" onclick="return calcular(<?php echo $No?>);" class="btn btn-success col-md-3 float-right">Guardar</button>
+                <button type="submit" name="agrCot" Id="agrCot" onclick="return calcular(<?php echo $No?>);" class="btn btn-success col-md-3 float-right" target="_blank">Guardar</button>
             </div>
         </div>
     </form>

@@ -106,4 +106,57 @@ class ModCotizaciones extends CI_Model{
 
         return true;
     }
+
+    //Consulta las cotizaciones realizadas dentro de un rango de fechas
+    public function realizadas($FechaInicio, $FechaFin){
+        $where = 'Estatus = "Realizada" AND Fecha BETWEEN "'.$FechaInicio.'" AND "'. $FechaFin.'"';
+        $this->db->select('*');
+        $this->db->from('TblCotizacion');
+        $this->db->where($where);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Consutla las cotizaciones que estén en solicitud
+    public function consolicitud(){
+        $this->db->select('*');
+        $this->db->from('TblCotizacion');
+        $this->db->where('Estatus', 'Solicitud');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+     //Consulta las cotizaciones realizadas dentro de un rango de fechas
+     public function realizadasIng($Ing, $FechaInicio, $FechaFin){
+        $where = 'Asignado = "'.$Ing.'" Estatus = "Realizada" AND Fecha BETWEEN "'.$FechaInicio.'" AND "'. $FechaFin.'"';
+        $this->db->select('*');
+        $this->db->from('TblCotizacion');
+        $this->db->where($where);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Consutla las cotizaciones que estén en solicitud
+    public function consolicitudIng($Ing){
+        $this->db->select('*');
+        $this->db->from('TblCotizacion');
+        $this->db->where('Asignado', $Ing);
+        $this->db->where('Estatus', 'Solicitud');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Consulta la cotización seleccionada
+    public function conCotizacion($Id){
+        $this->db->select('*');
+        $this->db->from('TblCotizacion');
+        $this->db->where('IdCotizacion', $Id);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
 }

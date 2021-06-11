@@ -129,3 +129,19 @@ footer .firma{
     text-align: center;
     margin-top: 50px;
 }
+
+.Totales table{
+    margin-left: 470px;
+    margin-bottom: 10px;
+}
+
+.Totales .tcuerpo td{
+    border: 1px solid black;
+    font-size: 11pt;
+    font-family: Tahoma;
+    text-align: center;
+}
+.Totales table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
