@@ -87,7 +87,7 @@ class ModInventario extends CI_Model{
 
     //Consulta las ordenes no existentes
     public function Desaparecidas($Id){
-        $this->db->select('noex.IdOrden AS Orden, te.TipoEquipo AS TipoEquipo, ord.Marca AS Marca, ord.Modelo AS Modelo, ord.NumeroSerie As Serie, ord.LugarRevision As Lugar');
+        $this->db->select('noex.IdOrden AS Orden, noex.Encontrada AS Encontrada, noex.Comentario AS Comentario, noex.FechaComentario As FechaComentario ,te.TipoEquipo AS TipoEquipo, ord.Marca AS Marca, ord.Modelo AS Modelo, ord.NumeroSerie As Serie, ord.LugarRevision As Lugar');
         $this->db->from('TblOrdenesNoEncontradas AS noex');
         $this->db->join('TblOrdenes AS ord','noex.IdOrden = ord.IdOrden');
         $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo = te.IdTipoEquipo');
@@ -95,5 +95,37 @@ class ModInventario extends CI_Model{
 
         $consulta = $this->db->get();
         return $consulta->result();
+    }
+
+    //Consulta las ordenes no existentes que no esten acutalizadas
+    public function eDesaparecidas($Id){
+        $this->db->select('noex.IdOrden AS Orden, te.TipoEquipo AS TipoEquipo, ord.Marca AS Marca, ord.Modelo AS Modelo, ord.NumeroSerie As Serie, ord.LugarRevision As Lugar');
+        $this->db->from('TblOrdenesNoEncontradas AS noex');
+        $this->db->join('TblOrdenes AS ord','noex.IdOrden = ord.IdOrden');
+        $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo = te.IdTipoEquipo');
+        $this->db->where('noex.IdInventario', $Id);
+        $this->db>where('noex.Encontrada', null);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Consulta las ordenes no existentes
+    public function Encontradas($Id){
+        $this->db->select('ex.IdOrden AS Orden, te.TipoEquipo AS TipoEquipo, ord.Marca AS Marca, ord.Modelo AS Modelo, ord.NumeroSerie As Serie, ord.LugarRevision As Lugar');
+        $this->db->from('TblOrdenesInventariadas AS ex');
+        $this->db->join('TblOrdenes AS ord','ex.IdOrden = ord.IdOrden');
+        $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo = te.IdTipoEquipo');
+        $this->db->where('ex.IdInventario', $Id);
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    public function actDesaparecidas($Id, $comentarios){
+        $this->db->where('IdInventario', $Id);
+        $this->db->update('TblOrdenesNoEncontradas', $comentarios);
+
+        return true;
     }
 }

@@ -127,24 +127,62 @@ class Inventario extends CI_Controller {
 
                 if($Fecha != null){
                     $inventario = $this->ModInventario->ConInventario($Fecha);
+                        if($inventario != null){
+                            foreach($inventario as $inv){
+                                $Id = $inv->IdInventario;
+                            }
 
-                    foreach($inventario as $inv){
-                        $Id = $inv->IdInventario;
-                    }
+                            $existentes = $this->ModInventario->ContExistentes($Id);
 
-                    $existentes = $this->ModInventario->ContExistentes($Id);
+                            foreach($existentes as $exist){
+                                $existe = $exist->conteo;
+                            }
 
-                    foreach($existentes as $exist){
-                        $existe = $exist->conteo;
-                    }
-
-                    $data['contenido'] = 'inventario/consulta';
-                    $data['perfil'] = $this->session->userdata('Perfil');
-                    $data['inventario'] = $inventario;
-                    $data['contexistentes'] = $existe;
-                    $data['desaparecidas'] = $this->ModInventario->Desaparecidas($Id);
+                            $data['contenido'] = 'inventario/consultar';
+                            $data['perfil'] = $this->session->userdata('Perfil');
+                            $data['inventario'] = $inventario;
+                            $data['contexistentes'] = $existe;
+                            $data['desaparecidas'] = $this->ModInventario->Desaparecidas($Id);
+                            $data['encontradas'] = $this->ModInventario->Encontradas($Id);
+                        }else{
+                            echo'<script> alert("No se encontraron resultados en su busqueda");</script>';
+                            redirect('Inventario/index','refresh');
+                        }
 
                 }else if($IdInventario != null){
+
+                    $existentes = $this->ModInventario->ContExistentes($IdInventario);
+                    $inventario = $this->ModInventario->ConInventario($IdInventario);
+                    
+                    if($inventario != null){
+                        foreach($existentes as $exist){
+                            $existe = $exist->conteo;
+                        }
+                        $data['contenido'] = 'inventario/consultar';
+                        $data['perfil'] = $this->session->userdata('Perfil');
+                        $data['inventario'] = $inventario;
+                        $data['contexistentes'] = $existe;
+                        $data['desaparecidas'] = $this->ModInventario->Desaparecidas($IdInventario);
+                        $data['encontradas'] = $this->ModInventario->Encontradas($IdInventario);
+                    }else{
+                        echo'<script> alert("No se encontraron resultados en su busqueda");</script>';
+                        redirect('Inventario/index','refresh');
+                    }
+                }
+
+                $this->load->view('plantilla', $data);
+            }
+        }
+    }
+
+
+    //Consulta las ordenes no encotradas para su actualizacion de datos
+    public function ebuscainv($IdInventario){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+
+                if($IdInventario != null){
 
                     $existentes = $this->ModInventario->ContExistentes($IdInventario);
 
@@ -156,9 +194,42 @@ class Inventario extends CI_Controller {
                     $data['inventario'] = $this->ModInventario->ConInventario($IdInventario);
                     $data['contexistentes'] = $existe;
                     $data['desaparecidas'] = $this->ModInventario->Desaparecidas($IdInventario);
+                    $data['encontradas'] = $this->ModInventario->Encontradas($IdInventario);
                 }
                 $this->load->view('plantilla', $data);
-            }
+        }
+    }
+
+    //Marcar como encontrado y agregar el comentario
+    public function encontradas(){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+           $encontrados = $_POST['Encontrado'];
+
+           if(isset($encontrados)){
+                $tam = sizeof($encontrados);
+                $comentario = $_POST['Comentario'];
+                $fecha = date('Y-m-d');
+                $Id = $_POST['IdInventario'];
+
+                
+                for($x = 0; $x < $tam; $x++){
+                    $comentarios = array(
+                        'Encontrada' => $encontrados[$x],
+                        'Comentario' => $comentario[$x],
+                        'FechaComentario' => $fecha
+                    );
+
+                    $ingresar = $this->ModInventario->actDesaparecidas($Id, $comentarios);
+                    if($ingresar){
+                        echo '<script> alert("Inventario actualizado"); </script>';
+                        redirect('Inventario/index');
+                    }
+                }
+           }else{
+               redirect('Inventario/index', 'refresh');
+           }
         }
     }
 }

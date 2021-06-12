@@ -269,3 +269,22 @@ function totales(tam){
     //alert('Tamaño del arreglo: '+ tam);
     document.getElementById('agrCot').focus();
 }
+
+//Habilita el comentario de la orden no encontrada en el inventario
+function habilitaComentario(){
+    if(document.activeElement.id){
+        var id = document.activeElement.id; 
+        var Id =  id.split('-');
+        var comentario = 'Comentario-'+Id[1];
+        var encontrado = 'Encontrado-'+Id[1];
+        var Encontrado = document.getElementById(encontrado);
+        
+        if(Encontrado.checked){
+            document.getElementById(comentario).disabled=false;
+            document.getElementById(comentario).focus();
+        }else{
+            document.getElementById(comentario).disabled=true;           
+        }
+
+    }
+}

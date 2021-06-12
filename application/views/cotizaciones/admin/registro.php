@@ -113,7 +113,7 @@
             <div class="container box">
                 <input type="hidden" name="tamanio" value="<?php echo $No?>">
                 <input type="hidden" name="IdCotizacion" value="<?php echo $par->IdCotizacion?>">
-                <button type="submit" name="agrCot" Id="agrCot" onclick="return calcular(<?php echo $No?>);" class="btn btn-success col-md-3 float-right" target="_blank">Guardar</button>
+                <button type="submit" name="agrCot" Id="agrCot" onclick="return habilitaTotales(<?php echo $No?>);" class="btn btn-success col-md-3 float-right" target="_blank">Guardar</button>
             </div>
         </div>
     </form>

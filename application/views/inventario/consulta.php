@@ -1,3 +1,13 @@
+<script>
+    var  tam = <?php echo sizeof($desaparecidas);?>;
+    window.addEventListener('load', function(){
+      for(x = 1; x <= tam; x++){
+          var comentario = 'Comentario-'+x;
+          document.getElementById(comentario).disabled = true;
+      }
+    });
+</script>
+
 
   <div class="container box" id="advanced-search-form-1">
     <div class="btn-group" role="group" aria-label="Third group">
@@ -49,11 +59,13 @@
             <?php }?>
          </div>
     </div>
-    <br>
-        
-    <br>
-    <h1 align="center">Equipos faltantes del inventario</h1>
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+</div>
+<div style="width: 80%; margin-left: 100px;">
+  <div class="table-responsive">
+    <form name="FrmAgrComentarioInv" id="FrmAgrComentarioInv"action="<?php echo base_url('Inventario/encontradas')?>" method="post">
+          <br>
+          <h2 align="center">Equipos faltantes del inventario</h2>
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
               <tr>
                 <th><center>No. de orden</center></th>
@@ -62,10 +74,12 @@
                 <th><center>Modelo</center></th>
                 <th><center>No. de serie</center></th>
                 <th><center>Lugar de servicio</center></th>
+                <th><center>Encontrado</center></th>
+                <th><center>Comentario</center></th>
               </tr>
             </thead>
             <tbody>
-                <?php foreach($desaparecidas as $noex){?>
+                <?php $No = 1; foreach($desaparecidas as $noex){?>
                     <tr>
                         <td><center><?php echo $noex->Orden?></center></td>
                         <td><center><?php echo $noex->TipoEquipo?></center></td>
@@ -73,10 +87,17 @@
                         <td><center><?php echo $noex->Modelo?></center></td>
                         <td><center><?php echo $noex->Serie?></center></td>
                         <td><center><?php echo $noex->Lugar?></center></td>
+                        <td><center><input type="checkbox" name="Encontrado[]" id="Encontrado-<?php echo $No;?>" onchange="habilitaComentario();" value="1"></center></td>
+                        <td><center><input type="text" class="form-control" name="Comentario[]" id="Comentario-<?php echo $No?>" placeholder="Justificación de marcarlo encontrado" required></center></td>
                     </tr>
-                <?php }?>
+                <?php $No++; }?>
             </tbody>
           </table>
+          <input type="hidden" name="IdInventario" value="<?php echo $inv->IdInventario?>">
+          <button type="submit" name="agrComentario" Id="agrComentario" class="btn btn-success col-md-3 float-right">Guardar</button>
+    </form>
+  </div>
 </div>
 
 <script src="<?php echo base_url('public/dist/js/validacion.js')?>"></script>
+<script src="<?php echo base_url('public/dist/js/personalizado.js')?>"></script>
