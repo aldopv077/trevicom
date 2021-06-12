@@ -130,7 +130,7 @@ class ModCotizaciones extends CI_Model{
 
      //Consulta las cotizaciones realizadas dentro de un rango de fechas
      public function realizadasIng($Ing, $FechaInicio, $FechaFin){
-        $where = 'Asignado = "'.$Ing.'" Estatus = "Realizada" AND Fecha BETWEEN "'.$FechaInicio.'" AND "'. $FechaFin.'"';
+        $where = 'Asignado = "'.$Ing.'" AND Estatus = "Realizada" AND Fecha BETWEEN "'.$FechaInicio.'" AND "'. $FechaFin.'"';
         $this->db->select('*');
         $this->db->from('TblCotizacion');
         $this->db->where($where);

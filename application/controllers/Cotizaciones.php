@@ -417,67 +417,87 @@ class Cotizaciones extends CI_Controller {
             redirect('login', 'refresh');
         }else{
             $datos = $this->input->post();
-            if(isset($datos)){
 
+            if(isset($datos)){
                 if(isset($datos['cmbIng'])){
                     $Asignado = $datos['cmbIng'];
-                }else{
-                    $Asignado = $this->session->userdata('Iniciales');
                 }
 
-                //print_r($datos); exit;
                 $Estatus = $datos['cmbEstatus'];
-                if($Asignado == 0){
-                    if($Estatus == "Realizada"){
-                        $FechaInicio = $datos['dtInicio'];
-                        $FechaFin = $datos['dtFin'];
 
-                        $realizadas = $this->ModCotizaciones->realizadas($FechaInicio, $FechaFin);
+                if(isset($Asignado)){
+                    if($Asignado == "0"){
+                        if($Estatus == 'Realizada'){
+                            $FechaInicio = $datos['dtInicio'];
+                            $FechaFin = $datos['dtFin'];
 
-                        $data['contenido'] = 'cotizaciones/admin/index';
-                        $data['ing'] = $this->ModUsuarios->listausuarios();
-                        $data['cotreal'] = $realizadas;
-                        $data['perfil'] = $this->session->userdata('Perfil');
+                            $realizadas = $this->ModCotizaciones->realizadas($FechaInicio, $FechaFin);
 
-                        $this->load->view('plantilla', $data);
+                            $data['contenido'] = 'cotizaciones/admin/index';
+                            $data['ing'] = $this->ModUsuarios->listausuarios();
+                            $data['cotreal'] = $realizadas;
+                            $data['perfil'] = $this->session->userdata('Perfil');
 
-                        //print_r($realizadas);
-                        //exit;
+                            $this->load->view('plantilla', $data);
 
+                        }else{
+                            $solicitud = $this->ModCotizaciones->consolicitud();
+                            
+                            $data['contenido'] = 'cotizaciones/admin/index';
+                            $data['ing'] = $this->ModUsuarios->listausuarios();
+                            $data['cotpend'] = $solicitud;
+                            $data['perfil'] = $this->session->userdata('Perfil');
+
+                            $this->load->view('plantilla', $data);
+                        }
                     }else{
-                        $solicitud = $this->ModCotizaciones->consolicitud();
-                        
-                        $data['contenido'] = 'cotizaciones/admin/index';
-                        $data['ing'] = $this->ModUsuarios->listausuarios();
-                        $data['cotpend'] = $solicitud;
-                        $data['perfil'] = $this->session->userdata('Perfil');
+                        if($Estatus == "Realizada"){
+                            $FechaInicio = $datos['dtInicio'];
+                            $FechaFin = $datos['dtFin'];
+    
+                            $realizadas = $this->ModCotizaciones->realizadasIng($Asignado, $FechaInicio, $FechaFin);
+                            
+                            $data['contenido'] = 'cotizaciones/admin/index';
+                            $data['ing'] = $this->ModUsuarios->listausuarios();
+                            $data['cotreal'] = $realizadas;
+                            $data['perfil'] = $this->session->userdata('Perfil');
 
-                        $this->load->view('plantilla', $data);
-                        
-                        //print_r($solicitud);
-                        //exit;
+                            $this->load->view('plantilla', $data);
+    
+                        }else{
+                            $solicitud = $this->ModCotizaciones->consolicitudIng($Asignado);
+                            
+                            $data['contenido'] = 'cotizaciones/admin/index';
+                            $data['cotpend'] = $solicitud;
+                            $data['ing'] = $this->ModUsuarios->listausuarios();
+                            $data['perfil'] = $this->session->userdata('Perfil');
+    
+                            $this->load->view('plantilla', $data); 
+                        }
                     }
                 }else{
+                    $Asignado = $this->session->userdata('Iniciales');
                     if($Estatus == "Realizada"){
                         $FechaInicio = $datos['dtInicio'];
                         $FechaFin = $datos['dtFin'];
 
                         $realizadas = $this->ModCotizaciones->realizadasIng($Asignado, $FechaInicio, $FechaFin);
-                        print_r($realizadas);
-                        exit;
-
-                    }else{
-                        $solicitud = $this->ModCotizaciones->consolicitudIng($Asignado);
-                        
-                        $data['contenido'] = 'cotizaciones/admin/index';
-                        $data['cotpend'] = $solicitud;
+                        $data['contenido'] = 'cotizaciones/tecnico/consultar';
+                        $data['cotizacionReal'] = $realizadas;
                         $data['ing'] = $this->ModUsuarios->listausuarios();
                         $data['perfil'] = $this->session->userdata('Perfil');
 
                         $this->load->view('plantilla', $data);
+
+                    }else{
+                        $solicitud = $this->ModCotizaciones->consolicitudIng($Asignado);
                         
-                        //print_r($solicitud);
-                        //exit;
+                        $data['contenido'] = 'cotizaciones/tecnico/consultar';
+                        $data['cotizacionPend'] = $solicitud;
+                        $data['ing'] = $this->ModUsuarios->listausuarios();
+                        $data['perfil'] = $this->session->userdata('Perfil');
+
+                        $this->load->view('plantilla', $data); 
                     }
                 }
             }
