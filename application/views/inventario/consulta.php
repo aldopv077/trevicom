@@ -81,7 +81,7 @@
             <tbody>
                 <?php $No = 1; foreach($desaparecidas as $noex){?>
                     <tr>
-                        <td><center><?php echo $noex->Orden?></center></td>
+                        <td><center><?php echo $noex->Orden?><input type="hidden" name="IdOrden[]" value="<?php echo $noex->Orden?>"></center></td>
                         <td><center><?php echo $noex->TipoEquipo?></center></td>
                         <td><center><?php echo $noex->Marca?></center></td>
                         <td><center><?php echo $noex->Modelo?></center></td>

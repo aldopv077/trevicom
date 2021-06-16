@@ -28,9 +28,12 @@
               <input type="date" class="form-control" id="Inicio" name="Inicio" placeholder="Fecha inicio" required>
             </div>
           </div>
-          <div class="form-group col-md-8">
-            <button name="Enviar" Id="Enviar" type="submit" class="btn btn-success">Generar Inventario</button>
-          </div>
+            <div class="form-group col-md-8">
+              <div class="form-row">
+                <a href="<?php echo base_url('Inventario/pdf/').$Inventario;?>" name="Imprimir" Id="Imprimir" class="btn btn-primary col-md-4" target="_blank">Imprimir</a>
+                <button name="Enviar" Id="Enviar" type="submit" class="btn btn-success col-md-4">Generar Inventario</button>
+              </div>
+            </div>
         </form> 
         <form name="FrmInventariado" Id="FrmInventariado" action="<?php echo base_url('Inventario/inventario')?>" method="post">
                      

@@ -22,31 +22,35 @@
       <div class="container box col-md-12" id="advanced-search-form">
         <h1 align="center">Datos del inventario</h1>
           <div class="form-row">
-              <input type="hidden" class="form-control" id="Usuario" name="Usuario" value="">
-              <div class="form-group col-md-4">
-                  <label>Nombre del supervior: </label>
-                  <label>-----</label>
-              </div>
-              <div class="form-group col-md-4">
-                <label>Responsable del departamento</label>
-                <label>-----</label>
-              </div>
-              <div class="form-group col-md-4">
-                <label>Fecha de realización </label>
-                <label>-----</label>
-              </div>
-              <div class="form-group col-md-4">
-                <label>Total de ordenes: </label>
-                <label>-----</label>
-              </div>
-              <div class="form-group col-md-4">
-                <label>Equipos existentes: </label>
-                <label>-----</label>
-              </div>
-              <div class="form-group col-md-4">
-                <label>Equipos faltantes: </label>
-                <label>-----</label>
-              </div>
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                  <tr>
+                    <th><center>No. de Inventario</center></th>
+                    <th><center>Supervisor</center></th>
+                    <th><center>Jefe de departamento</center></th>
+                    <th><center>Número de ordenes</center></th>
+                    <th><center>Fecha</center></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <?php foreach($lista as $list){
+                      $formatofecha = strtotime($list->FechaInicio);
+                      $Anio = date("Y", $formatofecha);
+                      $Mes = date("m", $formatofecha);
+                      $Dia = date("d", $formatofecha);
+                      $Fecha = $Dia.'/'.$Mes.'/'.$Anio;
+                  ?>
+                      <tr>
+                        <td><center><a href="<?php echo base_url('Inventario/econsultainv/').$list->IdInventario?>"><?php echo $list->IdInventario?></a></center></td>
+                        <td><center><?php echo $list->NombreSupervisor?></center></td>
+                        <td><center><?php echo $list->NombreEncargado?></center></td>
+                        <td><center><?php echo $list->TotalOrdenes?></center></td>
+                        <td><center><?php echo $Fecha?></center></td>
+                      </tr>
+                  <?php }?>
+                </tbody>
+              </table>
           </div>
       </div>
     <?php }else{?>
@@ -142,6 +146,7 @@
               <tr>
                   <td colspan="9" style="background: #bb0505; color:#fff"><center><strong>ORDENES NO ENCONTRADAS</strong></center></td>
                   <?php foreach($desaparecidas as $noex){
+                      $FechaComentario = '';
                       if($noex->FechaComentario != null){
                           $formatofecha = strtotime($noex->FechaComentario);
                           $Anio = date("Y", $formatofecha);
@@ -169,9 +174,6 @@
       <div class="container box" id="advanced-search-form-1">
         <div class="btn-group" role="group" aria-label="Third group">
             <a href="<?php echo base_url('Inventario/ebuscainv/').$inv->IdInventario?>" class="btn btn-outline-success float-right">Actualizar no encontradas</a>
-        </div>
-        <div class="btn-group" role="group" aria-label="Third group">
-            <a href="<?php echo base_url('Inventario/ebuscainv/').$inv->IdInventario?>" class="btn btn-outline-primary float-light">Imprimir inventario</a>
         </div>
       </div>
     <?php }else{?>

@@ -108,6 +108,7 @@ class Inventario extends CI_Controller {
         }else{
             $data['contenido'] = 'inventario/consultar';
             $data['perfil'] = $this->session->userdata('Perfil');
+            $data['lista'] = $this->ModInventario->lista();
             
             $this->load->view('plantilla', $data);
         }
@@ -175,6 +176,32 @@ class Inventario extends CI_Controller {
         }
     }
 
+    //Consulta inventario seleccionado
+    public function econsultainv($Id){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login','refresh');
+        }else{
+                    $existentes = $this->ModInventario->ContExistentes($Id);
+                    $inventario = $this->ModInventario->ConInventario($Id);
+                    
+                    if($inventario != null){
+                        foreach($existentes as $exist){
+                            $existe = $exist->conteo;
+                        }
+                        $data['contenido'] = 'inventario/consultar';
+                        $data['perfil'] = $this->session->userdata('Perfil');
+                        $data['inventario'] = $inventario;
+                        $data['contexistentes'] = $existe;
+                        $data['desaparecidas'] = $this->ModInventario->Desaparecidas($Id);
+                        $data['encontradas'] = $this->ModInventario->Encontradas($Id);
+                    }else{
+                        echo'<script> alert("No se encontraron resultados en su busqueda");</script>';
+                        redirect('Inventario/index','refresh');
+                    }
+
+                $this->load->view('plantilla', $data);
+        }
+    }
 
     //Consulta las ordenes no encotradas para su actualizacion de datos
     public function ebuscainv($IdInventario){
@@ -205,23 +232,24 @@ class Inventario extends CI_Controller {
         if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login','refresh');
         }else{
-           $encontrados = $_POST['Encontrado'];
+           $encontrados = $_POST['Comentario'];
 
            if(isset($encontrados)){
                 $tam = sizeof($encontrados);
                 $comentario = $_POST['Comentario'];
                 $fecha = date('Y-m-d');
                 $Id = $_POST['IdInventario'];
+                $IdOrden = $_POST['IdOrden'];
 
                 
                 for($x = 0; $x < $tam; $x++){
                     $comentarios = array(
-                        'Encontrada' => $encontrados[$x],
+                        'Encontrada' => 1,
                         'Comentario' => $comentario[$x],
                         'FechaComentario' => $fecha
                     );
 
-                    $ingresar = $this->ModInventario->actDesaparecidas($Id, $comentarios);
+                    $ingresar = $this->ModInventario->actDesaparecidas($Id, $IdOrden[$x], $comentarios);
                     if($ingresar){
                         echo '<script> alert("Inventario actualizado"); </script>';
                         redirect('Inventario/index');
@@ -232,4 +260,35 @@ class Inventario extends CI_Controller {
            }
         }
     }
+
+    //Muestra pdf del inventario para impresión
+    public function pdf($Id){
+		/*$data['inventario'] = $this->ModInventario->ConInventario($Id);
+        $data['ordenes'] = $this->ModInventario->Ordenes();
+        $this->load->view('inventario/inventarioPDF', $data);*/
+
+		
+
+		require_once('././public/vendor/autoload.php');
+        $css = file_get_contents('././public/dist/css/inventariopdf.css');
+
+        $data['inventario'] = $this->ModInventario->ConInventario($Id);
+        $data['ordenes'] = $this->ModInventario->Ordenes();
+
+		$mpdf = new \Mpdf\Mpdf([
+	
+		]);
+
+
+        $mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+        
+		$html = $this->load->view('inventario/inventarioPDF',$data,true);
+
+		//echo $html;
+		//exit;
+
+		$mpdf->writeHtml($html, \Mpdf\HTMLParserMode::HTML_BODY);
+	
+		$mpdf->Output();
+	}
 }

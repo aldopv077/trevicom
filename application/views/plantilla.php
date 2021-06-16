@@ -53,12 +53,10 @@
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
-
                     <li>
                         <div>
                             <a class="dropdown-item" href="<?php echo base_url('Login/cerrar_sesion')?>">
-
-                                    <i class="nav-icon fas fa-power-off"></i>
+                                <i class="nav-icon fas fa-power-off"></i>
                          </a>
                         </div>
                     </li>

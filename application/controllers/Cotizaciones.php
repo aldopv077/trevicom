@@ -290,7 +290,7 @@ class Cotizaciones extends CI_Controller {
                 $partidas = $this->ModCotizaciones->conPartidas($Id);
                 
                 foreach($cotizacion as $cot){
-                    $IdOrden = $cot->IdOrden;
+                    $IdOrden = $cot->Orden;
                     $Fecha = $cot->Fecha;
                 }
 

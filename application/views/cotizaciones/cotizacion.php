@@ -6,7 +6,7 @@
                     <?php if(isset($ord->IdEmpresa)){?>
                         <div class="datos">
                             <p><strong>Cliente: </strong> <?php echo $ord->Empresa?> </p>
-                            <p><strong>At´n</strong> <?php echo $ord->Nombre.' '.$ord->Paterno.' '.$ord->Materno?> </p>
+                            <!--<p><strong>At´n</strong> <?php //echo $ord->Nombre.' '.$ord->Paterno.' '.$ord->Materno?> </p>-->
                             <p><strong>presente</strong></p>
                             
                             <p><strong>E-mail</strong> <?php echo $ord->Correo?> </p>
@@ -19,7 +19,7 @@
                             <img Id="Aplify" src="<?php echo base_url('public/dist/img/Aplify.png')?>" alt="">
                         </div>
                         <div class="Datoscot">
-                            <p><strong>O.S:</strong>#####</p>
+                            <p><strong>O.S:</strong><?php echo $ord->Orden?></p>
                             <p><strong>Fecha: </strong> <?php echo $fecha?> </p>
                             <p><strong>Cotización: </strong> I-<?php echo $Id?></p>
                         </div>
@@ -32,7 +32,7 @@
                     <?php }else{?>
                         <div class="datos">
                             <p><strong>Cliente: </strong> <?php echo $ord->Nombre.' '.$ord->Paterno.' '.$ord->Materno?> </p>
-                            <p><strong>At´n</strong> ------- </p>
+                            <!--<p><strong>At´n</strong> ------- </p>-->
                             <p><strong>presente</strong></p>
                             
                             <p><strong>E-mail</strong> <?php echo $ord->Correo?> </p>
@@ -44,7 +44,7 @@
                             <img Id="Aplify" src="<?php echo base_url('public/dist/img/Aplify.png')?>" alt="">
                         </div>
                         <div class="Datoscot">
-                            <p><strong>O.S:</strong>#####</p>
+                            <p><strong>O.S:</strong><?php echo $ord->Orden?></p>
                             <p><strong>Fecha: </strong> <?php echo $fecha?></p>
                             <p><strong>Cotización: </strong> I-<?php echo $Id?></p>
                         </div>
@@ -133,7 +133,7 @@
     
                 <div class="firma">
                     <p><strong>A T E N T A M E N T E</strong></p>
-                    <p><strong>Ing. Agustín Martínez Domínguez</strong></p>
+                    <p><strong>Ing. <?php echo $cot->Nombre.' '.$cot->Paterno.' '.$cot->Materno?></strong></p>
                     <p>228 817 93 92 Ext 113</p>
                 </div>
             </footer>

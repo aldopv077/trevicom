@@ -28,6 +28,7 @@ class ModInventario extends CI_Model{
         $this->db->from('TblOrdenes AS ord');
         $this->db->join('TblTipoEquipo As te','ord.IdTipoEquipo = te.IdTipoEquipo');
         $this->db->where('ord.Estatus <>','Entregado');
+        $this->db->order_by('te.TipoEquipo','ASC');
 
         $consulta = $this->db->get();
         return $consulta->result();
@@ -78,6 +79,15 @@ class ModInventario extends CI_Model{
         return $consulta->result();
     }
 
+    //Lista todos los inventarios registrados
+    public function lista(){
+        $this->db->select('*');
+        $this->db->from('TblInventario');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
     //Consulta cuantos registros hay en TblOrdenesInventariadas
     public function ContExistentes($Id){
         $consulta = $this->db->query('SELECT count(IdOrden) AS conteo FROM TblOrdenesInventariadas');
@@ -122,8 +132,9 @@ class ModInventario extends CI_Model{
         return $consulta->result();
     }
 
-    public function actDesaparecidas($Id, $comentarios){
+    public function actDesaparecidas($Id, $IdOrden, $comentarios){
         $this->db->where('IdInventario', $Id);
+        $this->db->where('IdOrden', $IdOrden);
         $this->db->update('TblOrdenesNoEncontradas', $comentarios);
 
         return true;

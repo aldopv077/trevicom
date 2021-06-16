@@ -152,8 +152,9 @@ class ModCotizaciones extends CI_Model{
 
     //Consulta la cotización seleccionada
     public function conCotizacion($Id){
-        $this->db->select('*');
-        $this->db->from('TblCotizacion');
+        $this->db->select('cot.IdCotizacion As IdCotizacion, em.Nombre As Nombre, em.Paterno AS Paterno, em.Materno AS Materno, cot.IdOrden As Orden, cot.SubTotal, cot.Total As Total, cot.Fecha AS Fecha');
+        $this->db->from('TblCotizacion As cot');
+        $this->db->join('TblEmpleados as em','cot.IdEmpleado = em.IdEmpleado');
         $this->db->where('IdCotizacion', $Id);
 
         $consulta = $this->db->get();
