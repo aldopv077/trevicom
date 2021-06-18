@@ -7,6 +7,8 @@ class Cotizaciones extends CI_Controller {
         $this->load->model("ModCotizaciones");
         $this->load->model("ModOrdenes");
         $this->load->model("ModUsuarios");
+        $this->load->model("ModEmpresas");
+        $this->load->model("ModClientes");
     }
 
     public function index()
@@ -20,6 +22,8 @@ class Cotizaciones extends CI_Controller {
                 $data['contenido'] = "cotizaciones/admin/index";
                 $data['ing'] = $this->ModUsuarios->listausuarios();
                 $data['cotpend'] = $this->ModCotizaciones->conCotizacionPend();
+                $data['clientes'] = $this->ModClientes->listaclientes();
+                $data['empresas'] = $this->ModEmpresas->empresaactiva();
             }else{
                 $data['contenido'] = "cotizaciones/tecnico/index";
             }
@@ -172,7 +176,7 @@ class Cotizaciones extends CI_Controller {
     }
 
     //Consulta la cotización espesificada
-    public function conCotizacion(){
+    /*public function conCotizacion(){
         if($this->session->userdata('is_logued_in') == FALSE){
             redirect('login', 'refresh');
         }else{
@@ -210,6 +214,55 @@ class Cotizaciones extends CI_Controller {
                 }
             }                 
         }
+    }*/
+
+
+    public function conCotizacionClie(){
+        if($this->session->userdata('is_logued_in') == FALSE){
+            redirect('login', 'refresh');
+        }else{
+            $datos = $this->input->post();
+
+            if(isset($datos)){
+                $TipoCliente = $datos['TipoBusqueda'];
+				$Cliente = $datos['NomCliente'];
+				$Empresa = $datos['NomEmpresa'];
+
+                if($TipoCliente == "Cliente"){
+                    $list = explode(' ', $Cliente);
+					foreach($list as $value=>$datosclie){
+						$Id=$list[0];
+					}
+
+                    $cotizacion = $this->ModCotizaciones->conCotizacionClie($Id);
+                    
+                    $data['contenido'] = 'cotizaciones/admin/index';
+                    $data['perfil'] = $this->session->userdata('Perfil');
+                    $data['ing'] = $this->ModUsuarios->listausuarios();
+                    $data['cotreal'] = $cotizacion;
+                    $data['clientes'] = $this->ModClientes->listaclientes();
+                    $data['empresas'] = $this->ModEmpresas->empresaactiva();
+
+                    $this->load->view('plantilla', $data);
+                }else{
+                    $list = explode(' ', $Empresa);
+						foreach($list as $value=>$datosclie){
+							$Id=$list[0];
+						}
+                        $cotizacion = $this->ModCotizaciones->conCotizacionEmp($Id);
+
+                        $data['contenido'] = 'cotizaciones/admin/index';
+                        $data['perfil'] = $this->session->userdata('Perfil');
+                        $data['ing'] = $this->ModUsuarios->listausuarios();
+                        $data['cotreal'] = $cotizacion;
+                        $data['clientes'] = $this->ModClientes->listaclientes();
+                        $data['empresas'] = $this->ModEmpresas->empresaactiva();
+
+                        $this->load->view('plantilla', $data);
+                }
+            }
+                            
+        }
     }
 
     //Ingresa los costos de cada partida
@@ -232,6 +285,7 @@ class Cotizaciones extends CI_Controller {
             $Proveedor = $_POST['Proveedor'];
             $PrecioSinIva = $_POST['SubTotalPart'];
             $PrecioIva = $_POST['TotalPart'];
+            $Descripcion = $_POST['Descripcion'];
 
             $Id = $_POST['IdPartida'];
             $SubTotal = $_POST['SubTotal'];
@@ -243,7 +297,9 @@ class Cotizaciones extends CI_Controller {
 
 
             for($x = 0; $x < $tam; $x++){
+                $actDescripcion = $this->ModCotizaciones->actDescripcion($Id[$x], $Descripcion[$x]);
                 
+
                 $precios = array(
                     'Comentario' => $Comentario[$x],
                     'CostoUS' => $CostoUS[$x],
@@ -437,6 +493,8 @@ class Cotizaciones extends CI_Controller {
                             $data['ing'] = $this->ModUsuarios->listausuarios();
                             $data['cotreal'] = $realizadas;
                             $data['perfil'] = $this->session->userdata('Perfil');
+                            $data['clientes'] = $this->ModClientes->listaclientes();
+                            $data['empresas'] = $this->ModEmpresas->empresaactiva();
 
                             $this->load->view('plantilla', $data);
 
@@ -447,6 +505,8 @@ class Cotizaciones extends CI_Controller {
                             $data['ing'] = $this->ModUsuarios->listausuarios();
                             $data['cotpend'] = $solicitud;
                             $data['perfil'] = $this->session->userdata('Perfil');
+                            $data['clientes'] = $this->ModClientes->listaclientes();
+                            $data['empresas'] = $this->ModEmpresas->empresaactiva();
 
                             $this->load->view('plantilla', $data);
                         }
@@ -461,6 +521,8 @@ class Cotizaciones extends CI_Controller {
                             $data['ing'] = $this->ModUsuarios->listausuarios();
                             $data['cotreal'] = $realizadas;
                             $data['perfil'] = $this->session->userdata('Perfil');
+                            $data['clientes'] = $this->ModClientes->listaclientes();
+                            $data['empresas'] = $this->ModEmpresas->empresaactiva();
 
                             $this->load->view('plantilla', $data);
     
@@ -471,6 +533,8 @@ class Cotizaciones extends CI_Controller {
                             $data['cotpend'] = $solicitud;
                             $data['ing'] = $this->ModUsuarios->listausuarios();
                             $data['perfil'] = $this->session->userdata('Perfil');
+                            $data['clientes'] = $this->ModClientes->listaclientes();
+                            $data['empresas'] = $this->ModEmpresas->empresaactiva();
     
                             $this->load->view('plantilla', $data); 
                         }
@@ -486,6 +550,8 @@ class Cotizaciones extends CI_Controller {
                         $data['cotizacionReal'] = $realizadas;
                         $data['ing'] = $this->ModUsuarios->listausuarios();
                         $data['perfil'] = $this->session->userdata('Perfil');
+                        $data['clientes'] = $this->ModClientes->listaclientes();
+                        $data['empresas'] = $this->ModEmpresas->empresaactiva();
 
                         $this->load->view('plantilla', $data);
 
@@ -496,11 +562,49 @@ class Cotizaciones extends CI_Controller {
                         $data['cotizacionPend'] = $solicitud;
                         $data['ing'] = $this->ModUsuarios->listausuarios();
                         $data['perfil'] = $this->session->userdata('Perfil');
+                        $data['clientes'] = $this->ModClientes->listaclientes();
+                        $data['empresas'] = $this->ModEmpresas->empresaactiva();
 
                         $this->load->view('plantilla', $data); 
                     }
                 }
             }
         }
+    }
+
+    public function notificacion(){
+        $conteo = $this->ModCotizaciones->consolicitud();
+
+        if($conteo != null){
+            echo'<!-- Notifications Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">'.sizeof($conteo).'</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">Cotizaciones sin realizar</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="'. base_url('Cotizaciones/index').'" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i> Hay '.sizeof($conteo).' cotizaciones sin realizar
+                        </a>
+                    </div>
+                    </li>';
+        }else{
+            echo'<!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">Cotizaciones sin realizar</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i> No hay cotizaciones por realizar
+                    </a>
+                </div>
+                </li>';
+        }
+
     }
 }

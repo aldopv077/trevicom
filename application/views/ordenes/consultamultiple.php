@@ -76,7 +76,6 @@
                 <select class="form-control" id="TipoBusqueda" name="TipoBusqueda" onchange="busquedaorden();">
                     <option value="Orden">No.Orden</option>
                     <option value="Cliente">Cliente</option>
-                    <option value="Telefono">Telefono</option>
                     <option value="Serie">No.Serie</option>
                     <option value="Empresa">Empresa</option>
                 </select>

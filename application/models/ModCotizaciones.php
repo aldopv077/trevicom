@@ -160,4 +160,33 @@ class ModCotizaciones extends CI_Model{
         $consulta = $this->db->get();
         return $consulta->result();
     }
+
+    //Modifica la descripción de la partida 
+    public function actDescripcion($Id, $Descrip){
+        $this->db->query("UPDATE TblPartidasCotizacion SET Descripcion = '".$Descrip."' WHERE IdPartida = ". $Id);
+    }
+
+    //Consulta las cotizaciones del cliente que estén realizadas
+    public function conCotizacionClie($Id){
+        $this->db->select('cot.IdCotizacion, ord.IdOrden, cot.Estatus, cot.Fecha');
+        $this->db->from('TblCotizacion AS cot');
+        $this->db->join('TblOrdenes AS ord','cot.IdOrden = ord.IdOrden');
+        $this->db->where('ord.IdCliente', $Id);
+        $this->db->where('ord.Estatus<>','Entregado');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+
+    //Consulta las cotizaciones de la empresa que estén realizadas
+    public function conCotizacionEmp($Id){
+        $this->db->select('cot.IdCotizacion, ord.IdOrden, cot.Estatus, cot.Fecha');
+        $this->db->from('TblCotizacion AS cot');
+        $this->db->join('TblOrdenes AS ord','cot.IdOrden = ord.IdOrden');
+        $this->db->where('ord.IdEmpresa', $Id);
+        $this->db->where('ord.Estatus<>','Entregado');
+
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
 }

@@ -1,6 +1,11 @@
 <script>
       window.addEventListener('load', function () {
         document.getElementById('fechas').style.display="none";
+
+        document.getElementById('NoOrden').style.display="block";
+        document.getElementById('NomCliente').style.display="none";
+        document.getElementById('NomEmpresa').style.display="none";
+        document.getElementById('NoSerie').style.display="none";
       });
   </script>  
 
@@ -57,8 +62,44 @@
             <form Id="FrmConOrden" name="FrmConOrden" action="<?php echo base_url('Cotizaciones/conCotizacion')?>" method="post">
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label for="cmbIng">Numero de cotización:</label>
-                  <input class="form-control col-md-6" type="text" name="Cotizacion" id="Cotizacion">
+                  <!--<label for="cmbIng">Numero de cotización:</label>
+                  <input class="form-control col-md-6" type="text" name="Cotizacion" id="Cotizacion">-->
+
+                  <div class="form-group col-md-4">
+                <label for="TipoBusqueda">Buscar por:</label>
+                <select class="form-control" id="TipoBusqueda" name="TipoBusqueda" onchange="busquedaorden();">
+                    <option value="Orden">No.Orden</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Serie">No.Serie</option>
+                    <option value="Empresa">Empresa</option>
+                </select>
+            </div>
+            <table>
+                <nav class="navbar navbar-light bg-light">
+                    <input class="form-control col-md-8" type="search" id="NomCliente" name="NomCliente" list="clientes" placeholder="Nombre del cliente" aria-label="Usuario">
+                        <datalist id="clientes">
+                            <?php
+                                foreach ($clientes as $key) {
+                                    print '<option value="'.$key->IdCliente .' '. $key->Nombre .' '. $key->Paterno .' '. $key->Materno.' '. $key->Telefono .'"></option>';
+                                }
+                            ?>
+                        </datalist>
+                        <span class="input-group-btn"></span>
+                    <input class="form-control col-md-8" type="search" id="NoSerie" name="NoSerie" placeholder="Número de serie del equipo" aria-label="Usuario">
+                    <input class="form-control col-md-8" type="search" id="NomEmpresa" name="NomEmpresa" list="empresas" placeholder="Nombre de la empresa" aria-label="Usuario">
+                        <datalist id="empresas">
+                        <?php
+                            foreach ($empresas as $key) {
+                                print '<option value="'.$key->IdEmpresa .' '. $key->Nombre .' '. $key->Telefono .'"></option>';
+                            }
+                        ?>
+                        </datalist>
+                        <span class="input-group-btn"></span>
+                    <input class="form-control col-md-8" type="text" id="NoOrden" name="NoOrden"  placeholder="Número de orden" aria-label="Usuario">
+
+                    <button class="btn btn-outline-success col-md-4" type="submit">Buscar</button>
+                </nav>
+            </table>
                 </div>
                 
                 <div class="form-group col-md-6">

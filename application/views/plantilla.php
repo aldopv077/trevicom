@@ -28,6 +28,21 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('public/dist/css/registro.css')?>">
 
+  <script type="text/javascript">
+
+        function tiempoReal()
+        {
+            var tabla = $.ajax({
+                url:'<?php echo base_url('Cotizaciones/notificacion')?>',
+                dataType:'text',
+                async:false
+            }).responseText;
+
+            document.getElementById("miTabla").innerHTML = tabla;
+        }
+        setInterval(tiempoReal, 5000);
+    </script>
+
     <script>
         function confirma() {
             if (confirm("¿Realmente desea eliminarlo?")) {
@@ -53,6 +68,9 @@
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
+                    <li>
+                        <div Id="miTabla"></div>
+                    </li>
                     <li>
                         <div>
                             <a class="dropdown-item" href="<?php echo base_url('Login/cerrar_sesion')?>">
@@ -204,5 +222,10 @@
 <script src="<?php echo base_url('public/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('public/dist/js/adminlte.min.js')?>"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+</script>
 </body>
 </html>

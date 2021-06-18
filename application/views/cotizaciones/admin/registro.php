@@ -50,7 +50,7 @@
                         <tr>
                             <td><center><?php echo $No?></center></td>
                             <td><center><?php echo $par->Cantidad?></center></td>
-                            <td><center><?php echo $par->Descripcion?></center></td>
+                            <td><center><input type="text" id="Descripcion" name="Descripcion[]" class="form-control" value="<?php echo $par->Descripcion?>"></center></td>
                             <td><center><input type="text" id="PrecioUS-<?php echo $No;?>" name="PrecioUS[]" class="form-control" placeholder="Precio Us"></center></td>
                             <td><center><input type="text" id="TipoCambio-<?php echo $No;?>" name="TipoCambio[]" class="form-control" placeholder="Tipo de Cambio"></center></td>
                             <td><center><input type="text" onfocus="costomx();" id="CostoMN-<?php echo $No;?>" name="CostoMN[]" class="form-control" placeholder="Costo MN"></center></td>

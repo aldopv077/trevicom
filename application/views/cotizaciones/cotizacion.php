@@ -169,7 +169,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2"></td>
-                                <td colspan="4"><?php echo $part->Comentario.'<br>'?> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe in, praesentium, iure accusantium nulla sint autem molestias sit odit distinctio laboriosam, voluptas inventore totam voluptatibus! Aperiam optio exercitationem voluptate alias.</td>
+                                <td colspan="4"><?php echo $part->Comentario.'<br>'?></td>
                             </tr>
                         <?php 
                             $No++; 
